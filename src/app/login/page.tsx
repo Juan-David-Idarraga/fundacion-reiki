@@ -1,4 +1,6 @@
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
+import { Mail, Lock, ArrowLeft, Sparkles, ShieldCheck } from 'lucide-react';
 import { loginAction } from "./actions";
 
 export default async function LoginPage({
@@ -9,164 +11,124 @@ export default async function LoginPage({
   const params = await Promise.resolve(searchParams);
 
   return (
-    <div className="min-h-screen bg-white font-sans text-stone-900 selection:bg-amber-200 selection:text-stone-900 flex overflow-hidden">
+    // Estructura maestra: flex-col en móviles, flex-row en PC
+    <div className="min-h-screen flex flex-col lg:flex-row bg-stone-950 font-sans text-stone-300">
       
-      {/* ========== LADO IZQUIERDO: VISUAL PREMIUM ========== */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-stone-950 via-stone-900 to-stone-800">
+      {/* --- LADO IZQUIERDO: Imagen (Oculto en móviles, 50% en PC) --- */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden group">
+        <img 
+          src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1000" 
+          className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-[4000ms]"
+          alt="Meditación Reiki"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-950/20 via-stone-950/60 to-stone-950"></div>
         
-        {/* Elementos decorativos animados */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
+        {/* Textos de la imagen (Con paddings reducidos y max-w para que no se rompan) */}
+        <div className="relative z-10 flex flex-col justify-between h-full p-10 xl:p-16 w-full max-w-2xl mx-auto">
+          <Link href="/" className="flex items-center gap-2 text-stone-400 hover:text-amber-500 transition-colors w-fit group/back">
+            <ArrowLeft size={16} className="group-hover/back:-translate-x-1 transition-transform" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Volver a la web</span>
+          </Link>
 
-        {/* Contenido visual */}
-        <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-12 text-center space-y-8">
-          
-          {/* Logo grande */}
-          <div className="space-y-6">
-            <div className="mx-auto h-24 w-24 rounded-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-600 flex items-center justify-center text-white font-serif font-bold text-4xl shadow-2xl shadow-amber-500/50 border border-amber-200/30">
-              CR
+          <div className="space-y-5">
+            <div className="inline-flex items-center gap-2 bg-stone-900/50 backdrop-blur-md border border-stone-800 px-4 py-2 rounded-full">
+              <Sparkles size={14} className="text-amber-500" />
+              <span className="text-amber-500 text-[9px] font-black uppercase tracking-widest">Plataforma Privada</span>
             </div>
             
-            <div className="space-y-3">
-              <h2 className="font-serif text-4xl font-bold text-white leading-tight">
-                Centro de <span className="text-amber-400">Reiki</span>
-              </h2>
-              <p className="text-amber-100/70 text-base font-light leading-relaxed max-w-sm mx-auto">
-                Accede a tu espacio de aprendizaje y desarrollo espiritual
-              </p>
-            </div>
+            <h1 className="font-serif text-4xl xl:text-5xl font-bold text-white italic leading-tight max-w-sm">
+              Bienvenido a tu Espacio de Sanación.
+            </h1>
+            <p className="text-stone-400 text-sm leading-relaxed max-w-md">
+              Ingresa a la Intranet para acceder a tus clases, manuales PDF y todo el material de tu formación en Reiki.
+            </p>
           </div>
-
-          {/* Características */}
-          <div className="pt-8 space-y-6 max-w-sm">
-            {[
-              { icon: "✨", text: "Contenido exclusivo" },
-              { icon: "🧘", text: "Guías personalizadas" },
-              { icon: "📚", text: "Recursos de formación" }
-            ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-4 text-left group">
-                <div className="text-2xl transition-transform duration-300 group-hover:scale-125">{item.icon}</div>
-                <span className="text-amber-50/80 font-light text-sm">{item.text}</span>
-              </div>
-            ))}
+          
+          <div className="flex items-center gap-3 border-t border-stone-800/50 pt-6 mt-8 shrink-0">
+             <ShieldCheck size={24} className="text-stone-600" />
+             <div>
+               <p className="text-white text-xs font-bold mb-0.5">Acceso 100% Seguro</p>
+               <p className="text-stone-500 text-[9px] uppercase tracking-widest">Cifrado de extremo a extremo</p>
+             </div>
           </div>
-
         </div>
-
-        {/* Línea decorativa inferior */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
       </div>
 
-      {/* ========== LADO DERECHO: FORMULARIO ========== */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-8 lg:p-12 bg-white">
+      {/* --- LADO DERECHO: Formulario (100% en móviles, 50% en PC) --- */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 xl:p-16 relative min-h-screen lg:min-h-0">
         
-        <div className="w-full max-w-sm space-y-12">
+        {/* Elemento decorativo sutil */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-amber-900/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-          {/* Header */}
-          <div className="space-y-6 text-center">
-            
-            {/* Logo mobile */}
-            <div className="lg:hidden flex justify-center">
-              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-600 flex items-center justify-center text-white font-serif font-bold text-2xl shadow-lg shadow-amber-400/30 border border-amber-200/50">
-                CR
-              </div>
+        {/* Contenedor del form más compacto */}
+        <div className="w-full max-w-[400px] relative z-10 flex flex-col">
+          
+          {/* Logo móvil */}
+          <div className="lg:hidden flex items-center justify-center gap-3 mb-10">
+            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-stone-950 font-serif font-bold text-xs shadow-lg shadow-amber-900/20">
+              CR
             </div>
-
-            {/* Título */}
-            <div className="space-y-3">
-              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 leading-tight">
-                Bienvenido
-              </h1>
-              <p className="text-stone-500 text-sm sm:text-base font-light leading-relaxed">
-                Ingresa con las credenciales que tu maestro te proporcionó
-              </p>
-            </div>
+            <span className="font-serif text-2xl font-bold text-white tracking-wide">
+              Fundación <span className="text-amber-500 italic">Reiki</span>
+            </span>
           </div>
 
-          {/* Error Message */}
-          {params.error && (
-            <div className="rounded-lg bg-red-50/80 border border-red-200/50 p-4 sm:p-5 space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
-              <p className="text-red-700 text-sm sm:text-base font-medium leading-relaxed">
-                {params.error}
-              </p>
-              <p className="text-red-600/70 text-xs sm:text-sm font-light">
-                Verifica tus datos e intenta nuevamente
-              </p>
-            </div>
-          )}
+          <div className="text-center lg:text-left mb-8 shrink-0">
+            <h2 className="text-2xl font-bold text-white mb-1">Iniciar Sesión</h2>
+            <p className="text-stone-400 text-[10px] uppercase tracking-widest font-black">Portal de Alumnos</p>
+          </div>
 
-          {/* Formulario */}
-          <form action={loginAction} className="space-y-8">
+          <form action={loginAction} className="flex flex-col gap-5">
             
-            {/* Email Field */}
-            <div className="space-y-3">
-              <label htmlFor="email" className="block text-sm font-semibold text-stone-700 tracking-wide">
-                Correo Electrónico
-              </label>
-              <div className="relative group">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="tu@correo.com"
-                  required
-                  className="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-base text-stone-900 placeholder:text-stone-400 transition-all duration-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none hover:border-stone-300"
-                />
+            {params.error && (
+              <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold p-3 rounded-xl text-center flex items-center justify-center gap-2">
+                <Lock size={14} /> {params.error}
+              </div>
+            )}
+
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-500 ml-1">Correo Electrónico</label>
+                <div className="relative flex items-center">
+                  <Mail size={16} className="absolute left-4 text-stone-500 pointer-events-none" />
+                  <input 
+                    name="email"
+                    type="email" 
+                    required
+                    placeholder="tu@correo.com"
+                    className="w-full bg-stone-900 border border-stone-800 text-white placeholder-stone-600 rounded-xl pl-12 pr-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-500 ml-1">Contraseña secreta</label>
+                <div className="relative flex items-center">
+                  <Lock size={16} className="absolute left-4 text-stone-500 pointer-events-none" />
+                  <input 
+                    name="password"
+                    type="password" 
+                    required
+                    placeholder="••••••••"
+                    className="w-full bg-stone-900 border border-stone-800 text-white placeholder-stone-600 rounded-xl pl-12 pr-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Password Field */}
-            <div className="space-y-3">
-              <label htmlFor="password" className="block text-sm font-semibold text-stone-700 tracking-wide">
-                Contraseña
-              </label>
-              <div className="relative group">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="••••••••"
-                  required
-                  className="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-base text-stone-900 placeholder:text-stone-400 transition-all duration-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none hover:border-stone-300"
-                />
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <button
+            <button 
               type="submit"
-              className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 hover:from-amber-500 hover:to-amber-400 hover:shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5 active:translate-y-0 active:shadow-none focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 text-base tracking-wide"
+              className="w-full bg-amber-500 text-stone-950 font-black text-[10px] uppercase tracking-[0.2em] py-4 rounded-xl hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/20 active:scale-[0.98] mt-2 shrink-0"
             >
-              Iniciar Sesión
+              Ingresar a la Intranet
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="flex items-center gap-4">
-            <div className="flex-1 h-px bg-stone-200"></div>
-            <span className="text-xs text-stone-400 font-light">o</span>
-            <div className="flex-1 h-px bg-stone-200"></div>
-          </div>
-
-          {/* Footer Link */}
-          <div className="text-center">
-            <Link 
-              href="/" 
-              className="inline-flex items-center gap-2 text-sm font-medium text-stone-600 transition-all duration-300 hover:text-amber-600 group"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-              </svg>
-              <span>Volver a la página principal</span>
-            </Link>
-          </div>
-
+          <p className="text-center text-[9px] text-stone-500 font-medium mt-8 uppercase tracking-widest leading-relaxed shrink-0">
+            ¿Problemas para acceder? <br className="sm:hidden" />Contacta a soporte técnico.
+          </p>
         </div>
-
       </div>
-
     </div>
   );
 }
