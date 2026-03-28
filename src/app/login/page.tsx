@@ -6,56 +6,103 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ error?: string }>
 }) {
-  // Truco para leer si hay algún error en la URL (ej: /login?error=...)
   const params = await Promise.resolve(searchParams);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FDFBF7] via-stone-50 to-amber-50/30 font-sans text-stone-800 selection:bg-amber-200 selection:text-stone-900 flex items-center justify-center p-4 overflow-hidden">
+    <div className="min-h-screen bg-white font-sans text-stone-900 selection:bg-amber-200 selection:text-stone-900 flex overflow-hidden">
       
-      {/* Elementos decorativos de fondo */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-amber-200/20 rounded-full blur-[100px] mix-blend-multiply"></div>
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-orange-200/10 rounded-full blur-[80px] mix-blend-multiply"></div>
-        <div className="absolute top-1/2 right-0 w-[300px] h-[300px] bg-amber-100/15 rounded-full blur-[90px] mix-blend-multiply"></div>
-      </div>
-
-      {/* Contenedor principal */}
-      <div className="w-full max-w-md relative z-10">
+      {/* ========== LADO IZQUIERDO: VISUAL PREMIUM ========== */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-stone-950 via-stone-900 to-stone-800">
         
-        {/* Tarjeta de login */}
-        <div className="rounded-2xl bg-white/80 backdrop-blur-xl p-8 md:p-10 shadow-[0_20px_40px_rgba(217,119,6,0.1)] border border-stone-200/50 transition-all duration-300 hover:shadow-[0_25px_50px_rgba(217,119,6,0.15)]">
+        {/* Elementos decorativos animados */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+
+        {/* Contenido visual */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-12 text-center space-y-8">
           
-          {/* Header con logo y título */}
-          <div className="mb-8 text-center space-y-4">
-            <div className="flex justify-center">
-              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-amber-200 via-amber-300 to-amber-500 flex items-center justify-center text-amber-950 font-serif font-bold text-lg shadow-lg shadow-amber-300/50 border border-amber-100 transition-transform duration-300 hover:scale-110 hover:rotate-6">
-                CR
-              </div>
+          {/* Logo grande */}
+          <div className="space-y-6">
+            <div className="mx-auto h-24 w-24 rounded-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-600 flex items-center justify-center text-white font-serif font-bold text-4xl shadow-2xl shadow-amber-500/50 border border-amber-200/30">
+              CR
             </div>
-            <div className="space-y-2">
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-stone-900">
-                Acceso <span className="text-amber-600">Alumnos</span>
-              </h1>
-              <p className="text-sm md:text-base text-stone-600 font-light">
-                Ingresa con las credenciales entregadas por tu maestro
+            
+            <div className="space-y-3">
+              <h2 className="font-serif text-4xl font-bold text-white leading-tight">
+                Centro de <span className="text-amber-400">Reiki</span>
+              </h2>
+              <p className="text-amber-100/70 text-base font-light leading-relaxed max-w-sm mx-auto">
+                Accede a tu espacio de aprendizaje y desarrollo espiritual
               </p>
             </div>
           </div>
 
-          {/* Mensaje de error */}
+          {/* Características */}
+          <div className="pt-8 space-y-6 max-w-sm">
+            {[
+              { icon: "✨", text: "Contenido exclusivo" },
+              { icon: "🧘", text: "Guías personalizadas" },
+              { icon: "📚", text: "Recursos de formación" }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-center gap-4 text-left group">
+                <div className="text-2xl transition-transform duration-300 group-hover:scale-125">{item.icon}</div>
+                <span className="text-amber-50/80 font-light text-sm">{item.text}</span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        {/* Línea decorativa inferior */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+      </div>
+
+      {/* ========== LADO DERECHO: FORMULARIO ========== */}
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-8 lg:p-12 bg-white">
+        
+        <div className="w-full max-w-sm space-y-12">
+
+          {/* Header */}
+          <div className="space-y-6 text-center">
+            
+            {/* Logo mobile */}
+            <div className="lg:hidden flex justify-center">
+              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-600 flex items-center justify-center text-white font-serif font-bold text-2xl shadow-lg shadow-amber-400/30 border border-amber-200/50">
+                CR
+              </div>
+            </div>
+
+            {/* Título */}
+            <div className="space-y-3">
+              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 leading-tight">
+                Bienvenido
+              </h1>
+              <p className="text-stone-500 text-sm sm:text-base font-light leading-relaxed">
+                Ingresa con las credenciales que tu maestro te proporcionó
+              </p>
+            </div>
+          </div>
+
+          {/* Error Message */}
           {params.error && (
-            <div className="mb-6 rounded-xl border border-red-200/50 bg-red-50/80 backdrop-blur-sm p-4 text-center space-y-1 animate-pulse">
-              <p className="text-sm font-semibold text-red-700">{params.error}</p>
-              <p className="text-xs text-red-600 font-light">Por favor, verifica tus datos e intenta nuevamente</p>
+            <div className="rounded-lg bg-red-50/80 border border-red-200/50 p-4 sm:p-5 space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+              <p className="text-red-700 text-sm sm:text-base font-medium leading-relaxed">
+                {params.error}
+              </p>
+              <p className="text-red-600/70 text-xs sm:text-sm font-light">
+                Verifica tus datos e intenta nuevamente
+              </p>
             </div>
           )}
 
           {/* Formulario */}
-          <form action={loginAction} className="space-y-5">
+          <form action={loginAction} className="space-y-8">
             
-            {/* Campo de email */}
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-stone-700" htmlFor="email">
+            {/* Email Field */}
+            <div className="space-y-3">
+              <label htmlFor="email" className="block text-sm font-semibold text-stone-700 tracking-wide">
                 Correo Electrónico
               </label>
               <div className="relative group">
@@ -65,19 +112,14 @@ export default async function LoginPage({
                   type="email"
                   placeholder="tu@correo.com"
                   required
-                  className="w-full rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 transition-all duration-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 group-hover:border-stone-300 group-hover:bg-stone-50"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-base text-stone-900 placeholder:text-stone-400 transition-all duration-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none hover:border-stone-300"
                 />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-amber-600 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5H4.5A2.25 2.25 0 002.25 6.75m19.5 0v-1.5a2.25 2.25 0 00-2.25-2.25H4.5a2.25 2.25 0 00-2.25 2.25v1.5m19.5 0h-15m0 0H3.75m15 0H9" />
-                  </svg>
-                </div>
               </div>
             </div>
 
-            {/* Campo de contraseña */}
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-stone-700" htmlFor="password">
+            {/* Password Field */}
+            <div className="space-y-3">
+              <label htmlFor="password" className="block text-sm font-semibold text-stone-700 tracking-wide">
                 Contraseña
               </label>
               <div className="relative group">
@@ -87,50 +129,40 @@ export default async function LoginPage({
                   type="password"
                   placeholder="••••••••"
                   required
-                  className="w-full rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 transition-all duration-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 group-hover:border-stone-300 group-hover:bg-stone-50"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-base text-stone-900 placeholder:text-stone-400 transition-all duration-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none hover:border-stone-300"
                 />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-amber-600 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                  </svg>
-                </div>
               </div>
             </div>
 
-            {/* Botón de envío */}
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full mt-6 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-amber-600/30 transition-all duration-300 hover:from-amber-500 hover:to-amber-400 hover:shadow-amber-600/50 hover:-translate-y-0.5 active:translate-y-0 active:shadow-amber-600/20 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-white"
+              className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 hover:from-amber-500 hover:to-amber-400 hover:shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5 active:translate-y-0 active:shadow-none focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 text-base tracking-wide"
             >
               Iniciar Sesión
             </button>
           </form>
 
           {/* Divider */}
-          <div className="my-6 flex items-center gap-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent"></div>
+          <div className="flex items-center gap-4">
+            <div className="flex-1 h-px bg-stone-200"></div>
             <span className="text-xs text-stone-400 font-light">o</span>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent"></div>
+            <div className="flex-1 h-px bg-stone-200"></div>
           </div>
 
-          {/* Enlace a página principal */}
+          {/* Footer Link */}
           <div className="text-center">
             <Link 
               href="/" 
-              className="inline-flex items-center gap-2 text-sm font-medium text-stone-600 transition-all duration-300 hover:text-amber-600 hover:gap-3 group"
+              className="inline-flex items-center gap-2 text-sm font-medium text-stone-600 transition-all duration-300 hover:text-amber-600 group"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 transition-transform group-hover:-translate-x-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
-              Volver a la página principal
+              <span>Volver a la página principal</span>
             </Link>
           </div>
 
-        </div>
-
-        {/* Footer informativo */}
-        <div className="mt-6 text-center text-xs text-stone-500 font-light">
-          <p>¿Problemas para acceder? Contacta con tu maestro</p>
         </div>
 
       </div>
