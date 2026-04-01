@@ -15,9 +15,27 @@ export default async function AdminLayout({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  // 1. Si no hay usuario logueado, patada al login
+  if (!user) {
+    redirect("/login");
+  }
 
-  // Datos del administrador
+  // 2. EL GUARDIA DE SEGURIDAD EXTREMA 🛡️
+  // Vamos a la base de datos y exigimos ver la credencial de este usuario
+  const { data: perfil } = await supabase
+    .from('perfiles')
+    .select('rol')
+    .eq('id', user.id)
+    .single();
+
+  // Si su rol NO es 'admin', lo devolvemos inmediatamente a la zona de alumnos
+  if (!perfil || perfil.rol !== 'admin') {
+    redirect("/intranet");
+  }
+
+  // --- SI PASA DE AQUÍ, ES PORQUE ES EL ADMINISTRADOR OFICIAL ---
+
+  // Datos del administrador (Puedes hacerlos dinámicos después si quieres)
   const avatarInitials = "DR";
   const nombreAdmin = "Daniel Riquelme";
 
@@ -54,9 +72,9 @@ export default async function AdminLayout({
           </Link>
 
           <p className="px-4 text-[10px] font-black text-stone-600 uppercase tracking-[0.2em] mb-4 mt-8">Sistema</p>
-         <Link href="/admin/configuracion" className="flex items-center gap-3 px-4 py-2.5 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
-  <Settings size={18} className="group-hover:text-amber-500" /> Configuración
-</Link>
+          <Link href="/admin/configuracion" className="flex items-center gap-3 px-4 py-2.5 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+            <Settings size={18} className="group-hover:text-amber-500" /> Configuración
+          </Link>
         </nav>
 
         <div className="p-4 border-t border-stone-800 shrink-0 bg-stone-900/50">

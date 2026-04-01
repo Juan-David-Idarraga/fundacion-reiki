@@ -1,28 +1,35 @@
-'use server'
+'use server';
 
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { createClient } from '@/supabase/server'
+import { createClient } from "@/supabase/server";
+import { redirect } from "next/navigation";
 
 export async function loginAction(formData: FormData) {
-  const supabase = await createClient()
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const supabase = await createClient();
 
-  // Extraemos el correo y contraseña que el usuario escribió
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
-
-  // Intentamos iniciar sesión en Supabase
-  const { error } = await supabase.auth.signInWithPassword({
+  // 1. Intentamos iniciar sesión
+  const { data: authData, error } = await supabase.auth.signInWithPassword({
     email,
     password,
-  })
+  });
 
-  // Si hay error (mala contraseña o no existe), lo devolvemos al login con un mensaje
+  // Si falla, lo devolvemos al login con el mensaje de error
   if (error) {
-    return redirect('/login?error=Correo o contraseña incorrectos')
+    return redirect("/login?error=Correo o contraseña incorrectos");
   }
 
-  // Si todo sale bien, lo dejamos pasar a la intranet
-  revalidatePath('/', 'layout')
-  redirect('/intranet')
+  // 2. Si entra bien, le preguntamos a la base de datos QUÉ ROL TIENE
+  const { data: perfil } = await supabase
+    .from('perfiles')
+    .select('rol')
+    .eq('id', authData.user.id)
+    .single();
+
+  // 3. El cruce de caminos: Lo mandamos a su lugar correspondiente
+  if (perfil?.rol === 'admin') {
+    redirect('/admin');
+  } else {
+    redirect('/intranet');
+  }
 }

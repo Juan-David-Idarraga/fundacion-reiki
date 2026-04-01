@@ -298,7 +298,7 @@ export default function Home() {
       </section>
 
       {/* ================= SECCIÓN 5: SOBRE EL MAESTRO ================= */}
-      <section id="maestro" className="py-12 md:py-16 px-6 lg:px-10 bg-stone-900 text-stone-300 relative overflow-hidden">
+      <section id="el-maestro" className="py-12 md:py-16 px-6 lg:px-10 bg-stone-900 text-stone-300 relative overflow-hidden">
         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 relative z-10">
           
           <div className="w-full lg:w-1/3 flex flex-col items-center text-center space-y-5 shrink-0">
