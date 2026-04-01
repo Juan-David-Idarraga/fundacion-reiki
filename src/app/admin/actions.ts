@@ -99,10 +99,21 @@ export async function extenderAccesoAction(formData: FormData) {
   const supabase = await createClient();
   const id = formData.get('id') as string;
   const dias = parseInt(formData.get('dias') as string);
+  
+  if (isNaN(dias)) return;
+
   const { data: alu } = await supabase.from('perfiles').select('vencimiento').eq('id', id).single();
+  
+  // Si no tiene fecha de vencimiento, empezamos desde hoy
   let nf = alu?.vencimiento ? new Date(alu.vencimiento) : new Date();
+  
+  // Sumamos o restamos los días
   nf.setDate(nf.getDate() + dias);
-  await supabase.from('perfiles').update({ vencimiento: nf.toISOString() }).eq('id', id);
+  
+  await supabase.from('perfiles').update({ 
+    vencimiento: nf.toISOString() 
+  }).eq('id', id);
+  
   revalidatePath('/admin/alumnos');
 }
 

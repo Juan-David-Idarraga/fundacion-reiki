@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { 
-  UserMinus, UserCheck, CalendarPlus, Trash2, 
-  Mail, ShieldAlert, Clock, Search, Lock 
+  UserMinus, UserCheck, CalendarPlus, CalendarMinus, Trash2, 
+  Mail, ShieldAlert, Clock, Search, Lock, Plus, Minus 
 } from 'lucide-react';
 import { formatDateLatam, getExpirationStatus } from '@/utils/date-format';
 // Importamos la acción de registro junto a las demás
@@ -59,18 +59,44 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
               </div>
 
               {/* BOTONES DE ADMINISTRACIÓN */}
-              <div className="flex items-center gap-2 shrink-0">
-                {/* Busca este bloque en tu AlumnosClient.tsx y reemplázalo */}
-                <form 
-  action={extenderAccesoAction} 
-  onSubmit={(e) => { if(!confirm('¿Estás seguro de extender 30 días de acceso a este alumno?')) e.preventDefault(); }}
->
-  <input type="hidden" name="id" value={alumno.id} />
-  <input type="hidden" name="dias" value="30" />
-  <button title="Extender acceso 30 días" className="flex items-center gap-2 px-3 py-2 bg-amber-50 text-amber-700 rounded-xl border border-amber-100 text-xs font-bold hover:bg-amber-100 transition-all">
-    <CalendarPlus size={16}/> +30 Días
-  </button>
-</form>
+              <div className="flex items-center gap-3 shrink-0">
+                
+                {/* GESTIÓN DE DÍAS (SUMAR/RESTAR) */}
+                <div className="flex items-center bg-stone-50 border border-stone-200 rounded-2xl p-1 gap-1">
+                  <form 
+                    action={extenderAccesoAction} 
+                    onSubmit={(e) => { if(!confirm('¿Estás seguro de RESTAR 30 días de acceso a este alumno?')) e.preventDefault(); }}
+                  >
+                    <input type="hidden" name="id" value={alumno.id} />
+                    <input type="hidden" name="dias" value="-30" />
+                    <button 
+                      type="submit"
+                      title="Restar 30 días" 
+                      className="p-2 text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                    >
+                      <CalendarMinus size={18}/>
+                    </button>
+                  </form>
+
+                  <div className="h-4 w-px bg-stone-200 mx-1"></div>
+
+                  <form 
+                    action={extenderAccesoAction} 
+                    onSubmit={(e) => { if(!confirm('¿Estás seguro de SUMAR 30 días de acceso a este alumno?')) e.preventDefault(); }}
+                  >
+                    <input type="hidden" name="id" value={alumno.id} />
+                    <input type="hidden" name="dias" value="30" />
+                    <button 
+                      type="submit"
+                      title="Sumar 30 días" 
+                      className="p-2 text-green-600 hover:bg-green-50 rounded-xl transition-all"
+                    >
+                      <CalendarPlus size={18}/>
+                    </button>
+                  </form>
+                </div>
+
+                <div className="h-8 w-px bg-stone-200 mx-1 hidden md:block"></div>
 
                 <form action={actualizarEstadoAlumnoAction}>
                   <input type="hidden" name="id" value={alumno.id} />
