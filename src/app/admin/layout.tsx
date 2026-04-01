@@ -87,7 +87,7 @@ export default async function AdminLayout({
       </aside>
 
       {/* ÁREA DE CONTENIDO */}
-      <main className="flex-1 flex flex-col h-screen min-w-0 bg-stone-50 relative">
+      <main className="flex-1 flex flex-col min-h-screen min-w-0 bg-stone-50 relative overflow-hidden">
         <header className="h-16 bg-white border-b border-stone-200 flex items-center justify-between px-8 shrink-0 z-10 shadow-sm">
           <h1 className="font-serif text-xl font-bold text-stone-900 italic tracking-tight">Fundación Reiki Usui</h1>
           <div className="flex items-center gap-3 bg-stone-50 p-1.5 px-3 rounded-xl border border-stone-100">
@@ -102,7 +102,7 @@ export default async function AdminLayout({
         </header>
 
         {/* Aquí se inyectan las páginas limpias */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
           {children}
         </div>
       </main>

@@ -13,8 +13,20 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: 'Next.js and Supabase Starter Kit',
-  description: 'The fastest way to build apps with Next.js and Supabase',
+  title: 'Centro de Reiki | Sanación Energética y Formación en Reiki Usui',
+  description: 'Sanación energética integral con Reiki Usui. Terapias presenciales y online, formaciones completas, y acompañamiento personalizado con Daniel Riquelme, maestro certificado.',
+  keywords: ['Reiki', 'Sanación', 'Terapia energética', 'Reiki Usui', 'Formación Reiki', 'Rancagua'],
+  openGraph: {
+    title: 'Centro de Reiki | Sanación Energética',
+    description: 'Descubre el poder transformador del Reiki Usui. Terapias y formaciones personalizadas.',
+    type: 'website',
+    locale: 'es_CL',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Centro de Reiki | Sanación Energética',
+    description: 'Terapias y formaciones de Reiki Usui con Daniel Riquelme',
+  },
 }
 
 const geistSans = Geist({
@@ -29,9 +41,9 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body className={`${geistSans.className} antialiased`}>
-        <NextTopLoader showSpinner={false} height={2} color="#2acf80" />
+        <NextTopLoader showSpinner={false} height={2} color="#b45309" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

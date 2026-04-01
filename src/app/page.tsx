@@ -97,17 +97,11 @@ export default function Home() {
         )}
       </nav>
 
-      {/* ================= SECCIÓN 1: HERO (BUG CORREGIDO) ================= */}
-      {/* CORRECCIÓN AQUÍ: 
-        Cambiamos `h-screen` por `min-h-[100svh]` y añadimos `pt-32 lg:pt-40`.
-        Esto garantiza que SIEMPRE haya espacio arriba y que la portada cubra toda la pantalla,
-        sin importar si la laptop es muy pequeña o si el navegador tiene muchas barras abiertas.
-      */}
+      {/* ================= SECCIÓN 1: HERO ================= */}
       <main className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pt-32 lg:pt-40 pb-16 text-center">
         
         <div className="absolute inset-0 z-0 overflow-hidden">
-           {/* Asegúrate de que tu imagen se llame exactamente como la pusiste en la carpeta public */}
-           <div className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105" style={{ backgroundImage: "url('/banner-reiki.png')" }}></div>
+           <div className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105" style={{ backgroundImage: "url('/banner-reiki.png')" }} role="img" aria-label="Fondo de meditación y sanación Reiki"></div>
            <div className="absolute inset-0 bg-stone-950/70"></div>
         </div>
 

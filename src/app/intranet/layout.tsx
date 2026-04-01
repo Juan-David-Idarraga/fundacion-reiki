@@ -72,8 +72,8 @@ export default async function IntranetLayout({
       </aside>
 
       {/* --- CONTENIDO --- */}
-<main className="flex-1 flex flex-col h-screen min-w-0 overflow-hidden bg-stone-50">
-            <header className="h-16 bg-white border-b border-stone-200 flex items-center justify-between px-8 shrink-0 shadow-sm z-10">
+      <main className="flex-1 flex flex-col min-h-screen min-w-0 overflow-hidden bg-stone-50">
+        <header className="h-16 bg-white border-b border-stone-200 flex items-center justify-between px-8 shrink-0 shadow-sm z-10">
           <h1 className="font-serif text-lg font-bold text-stone-900 italic">Fundación Reiki</h1>
           <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block">
@@ -86,7 +86,8 @@ export default async function IntranetLayout({
           </div>
         </header>
 
-<div className="flex-1 overflow-y-auto custom-scrollbar">          {children}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          {children}
         </div>
       </main>
     </div>

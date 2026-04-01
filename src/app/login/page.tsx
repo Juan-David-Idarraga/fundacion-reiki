@@ -19,7 +19,8 @@ export default async function LoginPage({
         <img 
           src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1000" 
           className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-[4000ms]"
-          alt="Meditación Reiki"
+          alt="Persona en posición de meditación para sesión de Reiki"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-stone-950/20 via-stone-950/60 to-stone-950"></div>
         
