@@ -53,6 +53,7 @@ export async function eliminarMaterialAction(formData: FormData) {
   await supabase.from('materiales').delete().eq('id', id);
   revalidatePath('/admin/materiales');
   revalidatePath('/intranet/materiales');
+  redirect('/admin/materiales');
 }
 
 // ==========================================
@@ -146,6 +147,8 @@ export async function eliminarClaseAction(formData: FormData) {
   const id = formData.get('id') as string;
   await supabase.from('clases_grabadas').delete().eq('id', id);
   revalidatePath('/admin/clases');
+  revalidatePath('/intranet/clases');
+  redirect('/admin/clases');
 }
 
 export async function crearModuloAction(formData: FormData) {
@@ -163,6 +166,9 @@ export async function eliminarModuloAction(formData: FormData) {
   await supabase.from('modulos').delete().eq('id', id);
   revalidatePath('/admin/clases');
   revalidatePath('/admin/materiales');
+  revalidatePath('/intranet/clases');
+  revalidatePath('/intranet/materiales');
+  redirect('/admin/clases');
 }
 
 export async function logoutAction() {
