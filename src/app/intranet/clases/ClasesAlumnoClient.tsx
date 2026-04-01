@@ -165,10 +165,10 @@ export default function ClasesAlumnoClient({ modulos, clases, fechaVencimiento }
           <div className="relative w-full max-w-6xl bg-white rounded-[40px] overflow-hidden shadow-2xl flex flex-col lg:flex-row h-full max-h-[85vh] animate-in zoom-in-95 duration-500">
             
             {/* Lado Izquierdo: Video */}
-            <div className="flex-[2] bg-black relative flex flex-col">
-              <div className="aspect-video w-full relative">
+            <div className="flex-[2] bg-black relative flex flex-col overflow-hidden">
+              <div className="w-full h-full relative min-h-0">
                 <iframe 
-                  className="absolute inset-0 w-full h-full" 
+                  className="w-full h-full" 
                   src={`${selectedClase.url_youtube}?autoplay=1`} 
                   title={selectedClase.titulo}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -177,9 +177,9 @@ export default function ClasesAlumnoClient({ modulos, clases, fechaVencimiento }
               </div>
               
               {/* Info móvil */}
-              <div className="p-6 lg:hidden overflow-y-auto">
+              <div className="p-6 lg:hidden overflow-y-auto bg-white">
                 <h3 className="text-2xl font-bold text-stone-900 mb-4">{selectedClase.titulo}</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">{selectedClase.descripcion}</p>
+                <p className="text-stone-600 text-sm leading-relaxed font-medium">{selectedClase.descripcion || 'No hay descripción disponible para esta clase.'}</p>
               </div>
             </div>
 
@@ -212,7 +212,7 @@ export default function ClasesAlumnoClient({ modulos, clases, fechaVencimiento }
                 <div>
                   <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-[0.2em] mb-4">Descripción de la Clase</h4>
                   <p className="text-stone-600 text-sm leading-relaxed font-medium">
-                    {selectedClase.descripcion || "En esta sesión profundizamos en los conceptos de sanación y equilibrio energético para tu crecimiento personal."}
+                    {selectedClase.descripcion && selectedClase.descripcion.trim() ? selectedClase.descripcion : 'No hay descripción disponible para esta clase.'}
                   </p>
                 </div>
 
