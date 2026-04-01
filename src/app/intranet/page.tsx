@@ -23,11 +23,15 @@ export default async function IntranetHomePage() {
   const nombreAlumno = perfil?.nombre?.split(' ')[0] || 'Estudiante';
 
   // Traer Avisos Activos
-  const hoy = new Date().toISOString();
+  // Obtener la fecha de hoy a las 00:00:00 para comparar solo fechas, no horas
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  const hoyISOString = hoy.toISOString();
+  
   const { data: avisos } = await supabase
     .from('avisos')
     .select('*')
-    .gte('fecha_expiracion', hoy) 
+    .gte('fecha_expiracion', hoyISOString) 
     .order('created_at', { ascending: false });
 
   return (

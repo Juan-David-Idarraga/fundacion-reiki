@@ -20,7 +20,7 @@ export default async function AdminLayout({
     redirect("/login");
   }
 
-  // 2. EL GUARDIA DE SEGURIDAD EXTREMA 🛡️
+  // 2. EL GUARDIA DE SEGURIDAD EXTREMA
   // Vamos a la base de datos y exigimos ver la credencial de este usuario
   const { data: perfil } = await supabase
     .from('perfiles')
@@ -28,8 +28,9 @@ export default async function AdminLayout({
     .eq('id', user.id)
     .single();
 
-  // Si su rol NO es 'admin', lo devolvemos inmediatamente a la zona de alumnos
-  if (!perfil || perfil.rol !== 'admin') {
+  // Si su rol NO es 'admin' Y no es el administrador maestro, lo devolvemos a la zona de alumnos
+  const esAdminMaestro = user.email === 'danielriquelme@gmail.com';
+  if (!esAdminMaestro && (!perfil || perfil.rol !== 'admin')) {
     redirect("/intranet");
   }
 
