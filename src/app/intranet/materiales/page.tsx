@@ -20,17 +20,15 @@ async function MaterialesData() {
   );
 }
 
-export default function MaterialesClient() {
+export default function MaterialesPage() {
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <header className="mb-10">
-        <h2 className="font-serif text-3xl font-bold text-stone-900 italic">Biblioteca de Estudio</h2>
-        <p className="text-stone-500 text-sm mt-2 font-medium">Accede a tus manuales y guías de formación oficial.</p>
-      </header>
-
+    <div className="h-full flex flex-col overflow-hidden">
       <Suspense fallback={
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-pulse">
-          {[1,2,3,4].map(i => <div key={i} className="h-24 bg-stone-100 rounded-[32px]"></div>)}
+        <div className="p-10 animate-pulse">
+          <div className="h-10 w-64 bg-stone-200 rounded-full mb-8"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1,2,3,4,5,6].map(i => <div key={i} className="h-32 bg-stone-100 rounded-[32px]"></div>)}
+          </div>
         </div>
       }>
         <MaterialesData />
