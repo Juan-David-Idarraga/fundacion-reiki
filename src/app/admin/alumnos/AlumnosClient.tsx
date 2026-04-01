@@ -5,6 +5,7 @@ import {
   UserMinus, UserCheck, CalendarPlus, Trash2, 
   Mail, ShieldAlert, Clock, Search, Lock 
 } from 'lucide-react';
+import { formatDateLatam, getExpirationStatus } from '@/utils/date-format';
 // Importamos la acción de registro junto a las demás
 import { 
   actualizarEstadoAlumnoAction, 
@@ -45,9 +46,14 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
                   </h3>
                   <div className="flex items-center gap-4 mt-1">
                     <p className="text-xs text-stone-400 flex items-center gap-1"><Mail size={12}/> {alumno.email}</p>
-                    <p className={`text-xs font-bold flex items-center gap-1 ${new Date(alumno.vencimiento) < new Date() ? 'text-red-500' : 'text-stone-500'}`}>
-                      <Clock size={12}/> Expira: {new Date(alumno.vencimiento).toLocaleDateString()}
-                    </p>
+                    {(() => {
+                      const status = getExpirationStatus(alumno.vencimiento);
+                      return (
+                        <p className={`text-xs font-bold flex items-center gap-1 ${status.color}`}>
+                          <Clock size={12}/> {status.message}
+                        </p>
+                      );
+                    })()}
                   </div>
                 </div>
               </div>
@@ -55,13 +61,13 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
               {/* BOTONES DE ADMINISTRACIÓN */}
               <div className="flex items-center gap-2 shrink-0">
                 {/* Busca este bloque en tu AlumnosClient.tsx y reemplázalo */}
-<form 
+                <form 
   action={extenderAccesoAction} 
-  onSubmit={(e) => { if(!confirm('¿Estás seguro de regalar 30 días extra a este alumno?')) e.preventDefault(); }}
+  onSubmit={(e) => { if(!confirm('¿Estás seguro de extender 30 días de acceso a este alumno?')) e.preventDefault(); }}
 >
   <input type="hidden" name="id" value={alumno.id} />
   <input type="hidden" name="dias" value="30" />
-  <button title="Añadir 30 días" className="flex items-center gap-2 px-3 py-2 bg-amber-50 text-amber-700 rounded-xl border border-amber-100 text-xs font-bold hover:bg-amber-100 transition-all">
+  <button title="Extender acceso 30 días" className="flex items-center gap-2 px-3 py-2 bg-amber-50 text-amber-700 rounded-xl border border-amber-100 text-xs font-bold hover:bg-amber-100 transition-all">
     <CalendarPlus size={16}/> +30 Días
   </button>
 </form>
