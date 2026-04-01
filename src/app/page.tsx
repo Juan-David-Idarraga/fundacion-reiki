@@ -55,7 +55,7 @@ export default function Home() {
         .animate-shimmer { animation: shimmer 3s linear infinite; }
         .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
         .bg-shimmer { background-size: 200% 100%; }
-      `}
+      `}</style>
       {/* ================= BARRA DE NAVEGACIÓN ================= */}
       <nav 
         className={`fixed top-0 z-50 flex w-full flex-col px-6 py-3 lg:px-10 transition-all duration-500 ${
