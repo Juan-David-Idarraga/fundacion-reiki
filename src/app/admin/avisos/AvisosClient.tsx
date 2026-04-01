@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import { 
-  Bell, Calendar, Trash2, Pin, PlusCircle, 
-  Search, Filter, LayoutGrid, List, Info, 
-  AlertCircle, CheckCircle, MessageSquare
+  Bell, Calendar, PlusCircle, Search, 
+  Info, CheckCircle, MessageSquare
 } from 'lucide-react';
 import { AvisoCard } from '@/components/admin/aviso-card';
 import { isDateExpired } from '@/utils/date-format';
@@ -22,41 +21,43 @@ export default function AvisosClient({ avisos, crearAvisoAction, borrarAvisoActi
   const filteredAvisos = avisos.filter(aviso => {
     const matchesSearch = aviso.titulo.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          aviso.mensaje.toLowerCase().includes(searchTerm.toLowerCase());
-    
     const isExpirado = isDateExpired(aviso.fecha_expiracion);
-    
     if (filter === 'activos') return matchesSearch && !isExpirado;
     if (filter === 'expirados') return matchesSearch && isExpirado;
     return matchesSearch;
   });
 
   return (
-    <div className="p-6 lg:p-10 max-w-7xl mx-auto font-sans text-stone-800 pb-20 bg-stone-50/30 min-h-screen">
+    <div className="p-6 max-w-7xl mx-auto font-sans text-stone-800 pb-16 min-h-screen">
       
-      <header className="mb-12 border-b border-stone-200 pb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div>
-          <h2 className="font-serif text-3xl lg:text-4xl font-bold text-stone-900 italic flex items-center gap-3 mb-2">
-            <Bell className="text-amber-500" size={32} /> Tablón de Comunicados
-          </h2>
-          <p className="text-stone-500 text-xs font-black uppercase tracking-[0.2em]">Crea y administra los avisos para tus alumnos.</p>
+      {/* Header compacto */}
+      <header className="mb-8 border-b border-stone-200 pb-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex items-center gap-3">
+          <div className="h-9 w-9 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600">
+            <Bell size={18} />
+          </div>
+          <div>
+            <h2 className="font-serif text-2xl font-bold text-stone-900 italic">Tablón de Comunicados</h2>
+            <p className="text-stone-400 text-[9px] font-black uppercase tracking-[0.2em]">Crea y administra los avisos para tus alumnos.</p>
+          </div>
         </div>
         
-        <div className="flex items-center gap-3 bg-white p-1.5 rounded-2xl border border-stone-200 shadow-sm">
+        <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-stone-200 shadow-sm">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={14} />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-stone-400" size={12} />
             <input 
               type="text" 
               placeholder="Buscar aviso..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 pr-4 py-2 bg-stone-50 border border-stone-100 rounded-xl text-xs outline-none focus:border-amber-500 w-48 md:w-64 transition-all"
+              className="pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-100 rounded-lg text-xs outline-none focus:border-amber-500 w-44 md:w-56 transition-all"
             />
           </div>
-          <div className="h-6 w-px bg-stone-200 mx-1"></div>
+          <div className="h-5 w-px bg-stone-200"></div>
           <select 
             value={filter}
             onChange={(e) => setFilter(e.target.value as any)}
-            className="bg-stone-50 border border-stone-100 rounded-xl text-[10px] font-black uppercase tracking-widest px-3 py-2 outline-none focus:border-amber-500 cursor-pointer"
+            className="bg-stone-50 border border-stone-100 rounded-lg text-[9px] font-black uppercase tracking-widest px-2 py-1.5 outline-none focus:border-amber-500 cursor-pointer"
           >
             <option value="todos">Todos</option>
             <option value="activos">Activos</option>
@@ -65,88 +66,88 @@ export default function AvisosClient({ avisos, crearAvisoAction, borrarAvisoActi
         </div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* COLUMNA IZQUIERDA: FORMULARIO (5 de 12) */}
-        <div className="lg:col-span-5 bg-white p-8 rounded-[40px] border border-stone-200 shadow-xl shadow-stone-100/50 sticky top-10">
-          <div className="flex items-center gap-3 mb-8 pb-4 border-b border-stone-50">
-            <div className="p-2.5 bg-amber-50 rounded-2xl text-amber-600 shadow-sm">
-              <PlusCircle size={24} />
+        {/* COLUMNA IZQUIERDA: FORMULARIO (4 de 12) */}
+        <div className="lg:col-span-4 bg-white p-5 rounded-2xl border border-stone-200 shadow-md sticky top-6">
+          <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-stone-100">
+            <div className="p-2 bg-amber-50 rounded-xl text-amber-600">
+              <PlusCircle size={18} />
             </div>
             <div>
-              <h3 className="font-serif text-xl font-bold text-stone-900 italic">Publicar Nuevo Aviso</h3>
-              <p className="text-stone-400 text-[10px] font-bold uppercase tracking-widest mt-0.5">Llega a todos tus alumnos al instante</p>
+              <h3 className="font-serif text-lg font-bold text-stone-900 italic">Publicar Nuevo Aviso</h3>
+              <p className="text-stone-400 text-[9px] font-bold uppercase tracking-widest">Llega a todos tus alumnos</p>
             </div>
           </div>
 
-          <form action={crearAvisoAction} className="space-y-6">
-            <div className="space-y-2">
-              <label className="block text-[10px] font-black uppercase tracking-widest text-stone-500 ml-1">Título del Aviso</label>
+          <form action={crearAvisoAction} className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="block text-[9px] font-black uppercase tracking-widest text-stone-500 ml-1">Título del Aviso</label>
               <input 
                 type="text" 
                 name="titulo"
                 required
-                placeholder="Ej: Suspensión de clase, Nuevo Material..."
-                className="w-full bg-stone-50 border border-stone-200 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium shadow-sm"
+                placeholder="Ej: Suspensión de clase..."
+                className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium"
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-[10px] font-black uppercase tracking-widest text-stone-500 ml-1">Mensaje del Comunicado</label>
+            <div className="space-y-1.5">
+              <label className="block text-[9px] font-black uppercase tracking-widest text-stone-500 ml-1">Mensaje del Comunicado</label>
               <textarea 
                 name="mensaje"
                 required
-                rows={5}
+                rows={4}
                 placeholder="Escribe el detalle del comunicado aquí..."
-                className="w-full bg-stone-50 border border-stone-200 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-none font-medium custom-scrollbar shadow-sm"
+                className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-none font-medium custom-scrollbar"
               ></textarea>
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-[10px] font-black uppercase tracking-widest text-stone-500 ml-1">Visible Hasta (Vencimiento)</label>
+            <div className="space-y-1.5">
+              <label className="block text-[9px] font-black uppercase tracking-widest text-stone-500 ml-1">Visible Hasta (Vencimiento)</label>
               <div className="relative group">
                 <input 
                   type="date" 
                   name="fecha_expiracion"
                   required
-                  className="w-full bg-stone-50 border border-stone-200 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium appearance-none shadow-sm cursor-pointer"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium appearance-none cursor-pointer"
                 />
-                <Calendar size={18} className="absolute right-5 top-4 text-stone-400 pointer-events-none group-hover:text-amber-500 transition-colors" />
+                <Calendar size={14} className="absolute right-4 top-3.5 text-stone-400 pointer-events-none group-hover:text-amber-500 transition-colors" />
               </div>
             </div>
 
-            <div className="bg-amber-50 p-4 rounded-2xl border border-amber-100 flex gap-3 items-start">
-              <Info size={18} className="text-amber-600 shrink-0 mt-0.5" />
-              <p className="text-[10px] text-amber-800 font-bold uppercase leading-relaxed">
+            <div className="bg-amber-50 p-3 rounded-xl border border-amber-100 flex gap-2 items-start">
+              <Info size={14} className="text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-[9px] text-amber-800 font-bold uppercase leading-relaxed">
                 El aviso aparecerá en el Dashboard de los alumnos hasta la fecha seleccionada.
               </p>
             </div>
 
             <button 
               type="submit"
-              className="w-full bg-stone-900 text-amber-500 font-black text-[11px] uppercase tracking-[0.2em] py-5 rounded-2xl hover:bg-stone-800 transition-all shadow-xl shadow-stone-900/20 active:scale-[0.98] flex items-center justify-center gap-2"
+              className="w-full bg-stone-900 text-amber-500 font-black text-[10px] uppercase tracking-[0.2em] py-3.5 rounded-xl hover:bg-stone-800 transition-all shadow-lg shadow-stone-900/10 active:scale-[0.98] flex items-center justify-center gap-2"
             >
-              <CheckCircle size={18} />
+              <CheckCircle size={14} />
               Publicar Aviso Ahora
             </button>
           </form>
         </div>
 
-        {/* COLUMNA DERECHA: HISTORIAL DE AVISOS (7 de 12) */}
-        <div className="lg:col-span-7">
-          <div className="flex items-center justify-between mb-8 px-2">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-xl bg-stone-900 flex items-center justify-center text-amber-500 shadow-md">
-                <MessageSquare size={16} />
+        {/* COLUMNA DERECHA: HISTORIAL DE AVISOS (8 de 12) */}
+        <div className="lg:col-span-8">
+          <div className="flex items-center justify-between mb-5 px-1">
+            <div className="flex items-center gap-2">
+              <div className="h-7 w-7 rounded-lg bg-stone-900 flex items-center justify-center text-amber-500">
+                <MessageSquare size={14} />
               </div>
-              <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-stone-400">Historial de Comunicados</h3>
+              <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400">Historial de Comunicados</h3>
             </div>
-            <span className="bg-stone-200 text-stone-600 text-[9px] px-3 py-1 rounded-full font-black uppercase tracking-widest">
+            <span className="bg-stone-200 text-stone-600 text-[8px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest">
               {filteredAvisos.length} {filteredAvisos.length === 1 ? 'Aviso' : 'Avisos'}
             </span>
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-3">
             {filteredAvisos.length > 0 ? (
               filteredAvisos.map((aviso) => (
                 <AvisoCard 
@@ -160,13 +161,13 @@ export default function AvisosClient({ avisos, crearAvisoAction, borrarAvisoActi
                 />
               ))
             ) : (
-              <div className="bg-white rounded-[40px] border border-stone-200 border-dashed p-20 flex flex-col items-center justify-center text-center text-stone-400 animate-fade-in">
-                <div className="p-6 bg-stone-50 rounded-full mb-6 opacity-20">
-                  <Bell size={60} />
+              <div className="bg-white rounded-2xl border border-stone-200 border-dashed p-12 flex flex-col items-center justify-center text-center text-stone-400">
+                <div className="p-4 bg-stone-50 rounded-full mb-4 opacity-20">
+                  <Bell size={36} />
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-stone-900 italic mb-2">No hay avisos que mostrar</h3>
-                <p className="text-[10px] font-bold uppercase tracking-widest max-w-[250px] leading-relaxed">
-                  {searchTerm ? 'No encontramos avisos que coincidan con tu búsqueda.' : 'Tu tablón está vacío. Comienza publicando un comunicado importante.'}
+                <h3 className="font-serif text-lg font-bold text-stone-900 italic mb-1">No hay avisos que mostrar</h3>
+                <p className="text-[9px] font-bold uppercase tracking-widest max-w-[250px] leading-relaxed">
+                  {searchTerm ? 'No encontramos avisos que coincidan con tu búsqueda.' : 'Tu tablón está vacío. Comienza publicando un comunicado.'}
                 </p>
               </div>
             )}
