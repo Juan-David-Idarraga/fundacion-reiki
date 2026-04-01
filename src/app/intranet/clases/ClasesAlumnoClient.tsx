@@ -58,17 +58,17 @@ export default function ClasesAlumnoClient({ modulos, clases, fechaVencimiento }
       </nav>
 
       {/* HEADER DE LA SECCIÓN */}
-      <header className="max-w-7xl mx-auto px-6 mt-12 mb-16">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+      <header className="max-w-7xl mx-auto px-6 mt-8 mb-10">
+        <div className="flex flex-col md:flex-row justify-between items-end gap-6">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles size={16} className="text-amber-500" />
-              <p className="text-amber-600 text-[10px] font-black uppercase tracking-[0.3em]">Tu Camino de Aprendizaje</p>
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles size={14} className="text-amber-500" />
+              <p className="text-amber-600 text-[9px] font-black uppercase tracking-[0.3em]">Tu Camino de Aprendizaje</p>
             </div>
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-stone-900 italic tracking-tight leading-none mb-4">
+            <h2 className="font-serif text-3xl lg:text-4xl font-bold text-stone-900 italic tracking-tight leading-none mb-3">
               Clases Grabadas
             </h2>
-            <p className="text-stone-500 text-sm font-medium leading-relaxed">
+            <p className="text-stone-500 text-xs font-medium leading-relaxed">
               Explora las lecciones de cada unidad a tu propio ritmo. Cada video está diseñado para profundizar en tu conexión con la energía universal.
             </p>
           </div>
@@ -101,33 +101,33 @@ export default function ClasesAlumnoClient({ modulos, clases, fechaVencimiento }
               {/* Header de la Unidad */}
               <div 
                 onClick={() => toggleModulo(modulo.id)}
-                className="flex items-center justify-between bg-white p-6 rounded-[32px] border border-stone-200 shadow-sm group hover:border-amber-300 transition-all cursor-pointer mb-8"
+                className="flex items-center justify-between bg-white p-4 rounded-2xl border border-stone-200 shadow-sm group hover:border-amber-300 transition-all cursor-pointer mb-6"
               >
-                <div className="flex items-center gap-5">
-                  <div className={`h-14 w-14 rounded-3xl flex items-center justify-center transition-all duration-500 ${isExpanded ? 'bg-stone-900 text-amber-500 shadow-xl shadow-stone-200' : 'bg-stone-100 text-stone-400'}`}>
-                    <FolderOpen size={24}/>
+                <div className="flex items-center gap-4">
+                  <div className={`h-10 w-10 rounded-xl flex items-center justify-center transition-all duration-300 ${isExpanded ? 'bg-stone-900 text-amber-500 shadow-lg shadow-stone-200' : 'bg-stone-100 text-stone-400'}`}>
+                    <FolderOpen size={20}/>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-serif font-bold text-stone-900 tracking-tight flex items-center gap-3">
+                    <h2 className="text-lg font-serif font-bold text-stone-900 italic tracking-tight flex items-center gap-2">
                       {modulo.nombre}
-                      <span className="bg-stone-100 text-stone-500 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest">
+                      <span className="bg-stone-100 text-stone-500 text-[8px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest">
                         {moduloClases.length} {moduloClases.length === 1 ? 'Lección' : 'Lecciones'}
                       </span>
                     </h2>
-                    <div className="flex items-center gap-2 mt-1">
-                       <div className={`h-1 rounded-full transition-all duration-500 ${isExpanded ? 'w-8 bg-amber-500' : 'w-4 bg-stone-200'}`}></div>
-                       <p className="text-[10px] font-black text-stone-400 tracking-[0.2em] uppercase italic">Unidad de formación #{modulo.orden || '0'}</p>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                       <div className={`h-0.5 rounded-full transition-all duration-300 ${isExpanded ? 'w-6 bg-amber-500' : 'w-3 bg-stone-200'}`}></div>
+                       <p className="text-[9px] font-black text-stone-400 tracking-[0.2em] uppercase italic">Unidad #{modulo.orden || '0'}</p>
                     </div>
                   </div>
                 </div>
-                <div className={`h-10 w-10 rounded-full flex items-center justify-center transition-all duration-500 ${isExpanded ? 'bg-amber-50 text-amber-600 rotate-180' : 'bg-stone-50 text-stone-300'}`}>
-                  <ChevronDown size={20} />
+                <div className={`h-8 w-8 rounded-full flex items-center justify-center transition-all duration-300 ${isExpanded ? 'bg-amber-50 text-amber-600 rotate-180' : 'bg-stone-50 text-stone-300'}`}>
+                  <ChevronDown size={16} />
                 </div>
               </div>
 
               {/* Listado de clases de este módulo */}
               {isExpanded && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
                   {moduloClases.length > 0 ? (
                     moduloClases.map((clase) => (
                       <ClaseAlumnoCard 
