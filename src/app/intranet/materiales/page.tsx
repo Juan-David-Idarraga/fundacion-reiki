@@ -22,7 +22,7 @@ async function MaterialesData() {
 
 export default function MaterialesPage() {
   return (
-    <div className="h-full flex flex-col overflow-hidden">
+    <div className="min-h-screen flex flex-col overflow-y-auto custom-scrollbar">
       <Suspense fallback={
         <div className="p-10 animate-pulse">
           <div className="h-10 w-64 bg-stone-200 rounded-full mb-8"></div>
