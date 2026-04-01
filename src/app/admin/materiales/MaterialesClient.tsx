@@ -171,7 +171,8 @@ export default function MaterialesClient({ modulos, materiales }: { modulos: any
                     </div>
                   )}
                 </section>
-              ))}
+              );
+            })}
 
             {modulos.length === 0 && (
               <div className="py-20 flex flex-col items-center justify-center bg-white rounded-[40px] border border-dashed border-stone-200 text-stone-400">
