@@ -43,7 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${geistSans.className} antialiased`}>
-        <NextTopLoader showSpinner={false} height={2} color="#b45309" />
+        <NextTopLoader showSpinner={false} height={2} color="#2D5A27" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

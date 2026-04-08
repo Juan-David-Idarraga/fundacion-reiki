@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
   Sparkles, ArrowRight, CheckCircle2, Calendar, 
   Clock, MessageCircle, Play, User, ShieldCheck,
@@ -9,9 +9,39 @@ import {
   MapPin, Phone
 } from 'lucide-react';
 
+// ─── Hook personalizado: activa la clase reveal-active cuando
+//     el elemento entra en el viewport (Intersection Observer).
+function useScrollReveal() {
+  useEffect(() => {
+    const elements = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-active');
+            // Dejamos de observar para no repetir la animación
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -60px 0px',
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+}
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useScrollReveal();
 
   const waNumber = "56951735495";
   const msgGeneral = encodeURI("Hola Daniel, me gustaría obtener más información sobre tus terapias y formaciones.");
@@ -64,10 +94,9 @@ export default function Home() {
               <Link 
                 key={index}
                 href={item.href}
-                className="relative py-1 transition-all hover:text-reiki-green group"
+                className="relative py-1 transition-all hover:text-reiki-green group link-underline"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-reiki-green origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
               </Link>
             ))}
           </div>
@@ -76,7 +105,7 @@ export default function Home() {
             <Link href="/login" className="text-[10px] font-black uppercase tracking-widest text-stone-500 hover:text-reiki-green transition-colors">
               Acceso Alumnos
             </Link>
-            <Link href={`https://wa.me/${waNumber}?text=${msgGeneral}`} target="_blank" className="rounded-xl bg-reiki-green px-6 py-3 text-[10px] font-black uppercase tracking-widest text-reiki-white shadow-lg shadow-reiki-green/20 transition-all hover:shadow-xl hover:scale-105 active:scale-95">
+            <Link href={`https://wa.me/${waNumber}?text=${msgGeneral}`} target="_blank" className="btn-ripple rounded-xl bg-reiki-green px-6 py-3 text-[10px] font-black uppercase tracking-widest text-reiki-white shadow-lg shadow-reiki-green/20 transition-all hover:shadow-xl hover:scale-105 active:scale-95">
               Agendar Cita
             </Link>
           </div>
@@ -125,22 +154,22 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 max-w-5xl space-y-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Sparkles size={16} className="text-reiki-gold" />
+          <div className="flex items-center justify-center gap-2 mb-4 reveal">
+            <Sparkles size={16} className="text-reiki-gold icon-bounce" />
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-reiki-green">Sanación Energética Integral</span>
           </div>
           
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] text-stone-900 italic tracking-tight">
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] text-stone-900 italic tracking-tight reveal reveal-delay-1">
             Renueva tu Energía<br/>
             <span className="text-reiki-green">con Reiki Consciente</span>
           </h1>
           
-          <p className="mx-auto max-w-2xl text-base md:text-xl leading-relaxed text-stone-500 font-medium">
+          <p className="mx-auto max-w-2xl text-base md:text-xl leading-relaxed text-stone-500 font-medium reveal reveal-delay-2">
             Un puente sagrado para entregar amor, armonía y sanación. Reconéctate con tu esencia y abre la puerta hacia una vida plena y transformadora.
           </p>
           
-          <div className="flex flex-col items-center justify-center gap-4 pt-8 sm:flex-row">
-            <Link href={`https://wa.me/${waNumber}?text=${msgGeneral}`} target="_blank" className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-reiki-green px-10 py-5 text-xs font-black uppercase tracking-widest text-reiki-white shadow-2xl shadow-reiki-green/30 transition-all hover:-translate-y-1 hover:shadow-reiki-green/40 sm:w-auto">
+          <div className="flex flex-col items-center justify-center gap-4 pt-8 sm:flex-row reveal reveal-delay-3">
+            <Link href={`https://wa.me/${waNumber}?text=${msgGeneral}`} target="_blank" className="btn-ripple group flex w-full items-center justify-center gap-3 rounded-2xl bg-reiki-green px-10 py-5 text-xs font-black uppercase tracking-widest text-reiki-white shadow-2xl shadow-reiki-green/30 transition-all hover:-translate-y-1 hover:shadow-reiki-green/40 sm:w-auto">
               Escríbeme sin compromiso
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </Link>
@@ -154,9 +183,9 @@ export default function Home() {
       {/* ================= SECCIÓN 2: ¿QUÉ ES EL REIKI? ================= */}
       <section id="introduccion" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone gradient-reiki-light texture-dots relative">
         <div className="max-w-6xl mx-auto space-y-16">
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-4 reveal">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Sparkles size={14} className="text-reiki-violet" />
+              <Sparkles size={14} className="text-reiki-violet icon-bounce" />
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-violet">Conocimiento Ancestral</h3>
             </div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">¿Qué es el Reiki?</h2>
@@ -168,23 +197,26 @@ export default function Home() {
               {
                 icon: Heart,
                 title: 'Sanación Física',
-                desc: 'Alivia dolores crónicos, reduce la inflamación y acelera la recuperación de lesiones a través de la energía vital.'
+                desc: 'Alivia dolores crónicos, reduce la inflamación y acelera la recuperación de lesiones a través de la energía vital.',
+                delay: 'reveal-delay-1'
               },
               {
                 icon: Brain,
                 title: 'Equilibrio Mental',
-                desc: 'Calma la mente, reduce el estrés y la ansiedad, mejorando la claridad mental y la concentración.'
+                desc: 'Calma la mente, reduce el estrés y la ansiedad, mejorando la claridad mental y la concentración.',
+                delay: 'reveal-delay-2'
               },
               {
                 icon: Sparkles,
                 title: 'Elevación Espiritual',
-                desc: 'Conecta con tu esencia, abre los chakras y facilita el crecimiento personal y la transformación.'
+                desc: 'Conecta con tu esencia, abre los chakras y facilita el crecimiento personal y la transformación.',
+                delay: 'reveal-delay-3'
               }
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="bg-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-lg group card-elevated glass-effect">
-                  <div className="h-16 w-16 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-6 group-hover:bg-reiki-green/20 transition-colors">
+                <div key={i} className={`reveal reveal-scale ${item.delay} bg-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-lg group card-elevated glass-effect`}>
+                  <div className="h-16 w-16 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-6 group-hover:bg-reiki-green/20 transition-colors icon-bounce">
                     <Icon size={32} />
                   </div>
                   <h3 className="font-serif text-2xl font-bold text-stone-900 italic mb-3">{item.title}</h3>
@@ -194,7 +226,7 @@ export default function Home() {
             })}
           </div>
 
-          <div className="bg-gradient-to-r from-reiki-green/5 to-reiki-violet/5 p-12 rounded-3xl border border-gold-accent border-gold-accent">
+          <div className="reveal bg-gradient-to-r from-reiki-green/5 to-reiki-violet/5 p-12 rounded-3xl border border-gold-accent">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <h3 className="font-serif text-3xl font-bold text-stone-900 italic">Principios Fundamentales</h3>
@@ -225,9 +257,9 @@ export default function Home() {
       {/* ================= SECCIÓN 3: TERAPIAS ================= */}
       <section id="terapias" className="py-24 px-6 lg:px-10 bg-white relative border-y border-reiki-stone gradient-reiki-warm texture-linen">
         <div className="max-w-6xl mx-auto space-y-16 relative z-10">
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-4 reveal">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Heart size={14} className="text-reiki-violet" />
+              <Heart size={14} className="text-reiki-violet icon-bounce" />
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-violet">Nuestros Servicios</h3>
             </div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">Terapias de Sanación</h2>
@@ -237,35 +269,35 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             {/* TARJETA REIKI */}
-            <div className="group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden card-elevated glass-effect aura-green">
+            <div className="reveal reveal-left group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden card-elevated glass-effect aura-green">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Zap size={120} className="text-reiki-green" />
               </div>
-              <div className="h-14 w-14 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-8">
+              <div className="h-14 w-14 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-8 icon-bounce">
                 <Sun size={28} />
               </div>
               <h3 className="font-serif text-3xl font-bold text-stone-900 italic mb-4">Sesión de Reiki Usui</h3>
               <p className="text-stone-500 text-sm leading-relaxed mb-8 font-medium">
                 Terapia de canalización de energía vital universal para armonizar tus chakras, reducir el estrés y promover la autosanación física y emocional.
               </p>
-              <Link href={`https://wa.me/${waNumber}?text=${msgReiki}`} target="_blank" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-reiki-green group-hover:gap-4 transition-all">
+              <Link href={`https://wa.me/${waNumber}?text=${msgReiki}`} target="_blank" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-reiki-green group-hover:gap-4 transition-all link-underline">
                 Agendar Sesión <ArrowRight size={14} />
               </Link>
             </div>
 
             {/* TARJETA MASAJE */}
-            <div className="group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-violet/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden card-elevated glass-effect aura-violet">
+            <div className="reveal reveal-right group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-violet/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden card-elevated glass-effect aura-violet">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Heart size={120} className="text-reiki-violet" />
               </div>
-              <div className="h-14 w-14 rounded-2xl bg-reiki-violet/10 flex items-center justify-center text-reiki-violet mb-8">
+              <div className="h-14 w-14 rounded-2xl bg-reiki-violet/10 flex items-center justify-center text-reiki-violet mb-8 icon-bounce">
                 <Zap size={28} />
               </div>
               <h3 className="font-serif text-3xl font-bold text-stone-900 italic mb-4">Masaje Terapéutico</h3>
               <p className="text-stone-500 text-sm leading-relaxed mb-8 font-medium">
                 Técnicas manuales profundas combinadas con intención energética para liberar tensiones musculares, mejorar la circulación y relajar el sistema nervioso.
               </p>
-              <Link href={`https://wa.me/${waNumber}?text=${msgMasaje}`} target="_blank" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-reiki-violet group-hover:gap-4 transition-all">
+              <Link href={`https://wa.me/${waNumber}?text=${msgMasaje}`} target="_blank" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-reiki-violet group-hover:gap-4 transition-all link-underline">
                 Agendar Masaje <ArrowRight size={14} />
               </Link>
             </div>
@@ -277,24 +309,24 @@ export default function Home() {
       {/* ================= SECCIÓN 4: FORMACIÓN ================= */}
       <section id="formaciones" className="py-24 px-6 lg:px-10 bg-reiki-white gradient-reiki-light texture-dots border-t border-reiki-stone">
         <div className="max-w-6xl mx-auto space-y-16">
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-4 reveal">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <BookOpen size={14} className="text-reiki-green" />
+              <BookOpen size={14} className="text-reiki-green icon-bounce" />
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-green">Academia de Formación</h3>
             </div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">Formación en Reiki Usui</h2>
             <p className="text-stone-400 max-w-2xl mx-auto text-sm md:text-base font-medium">Aprende los principios del Reiki Usui con iniciación energética incluida.</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white rounded-[40px] p-8 lg:p-12 border border-gold-accent card-elevated glass-effect">
+          <div className="reveal grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white rounded-[40px] p-8 lg:p-12 border border-gold-accent card-elevated glass-effect">
             
             <div className="lg:col-span-4 space-y-6">
               <div className="w-full h-64 bg-reiki-stone rounded-3xl flex items-center justify-center overflow-hidden relative border border-reiki-stone">
                 <img src="/foto-clase.png" alt="Clase de Reiki" className="w-full h-full object-contain p-6" />
               </div>
               <div className="grid grid-cols-1 gap-4">
-                <div className="bg-reiki-white p-5 rounded-2xl border border-reiki-stone flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-xl bg-reiki-green/10 flex items-center justify-center text-reiki-green">
+                <div className="bg-reiki-white p-5 rounded-2xl border border-reiki-stone flex items-center gap-4 card-elevated">
+                  <div className="h-10 w-10 rounded-xl bg-reiki-green/10 flex items-center justify-center text-reiki-green icon-bounce">
                     <Calendar size={20} />
                   </div>
                   <div>
@@ -302,8 +334,8 @@ export default function Home() {
                     <p className="text-xs font-bold text-stone-800">2 Meses de Formación</p>
                   </div>
                 </div>
-                <div className="bg-reiki-white p-5 rounded-2xl border border-reiki-stone flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-xl bg-reiki-violet/10 flex items-center justify-center text-reiki-violet">
+                <div className="bg-reiki-white p-5 rounded-2xl border border-reiki-stone flex items-center gap-4 card-elevated">
+                  <div className="h-10 w-10 rounded-xl bg-reiki-violet/10 flex items-center justify-center text-reiki-violet icon-bounce">
                     <Clock size={20} />
                   </div>
                   <div>
@@ -338,7 +370,7 @@ export default function Home() {
                 ))}
               </div>
               
-              <Link href={`https://wa.me/${waNumber}?text=${msgCurso}`} target="_blank" className="w-full lg:w-fit rounded-2xl bg-stone-900 px-12 py-5 text-xs font-black uppercase tracking-widest text-reiki-white shadow-xl transition-all hover:bg-reiki-green hover:-translate-y-1 text-center">
+              <Link href={`https://wa.me/${waNumber}?text=${msgCurso}`} target="_blank" className="btn-ripple w-full lg:w-fit rounded-2xl bg-stone-900 px-12 py-5 text-xs font-black uppercase tracking-widest text-reiki-white shadow-xl transition-all hover:bg-reiki-green hover:-translate-y-1 text-center">
                 Asegura tu cupo ahora
               </Link>
             </div>
@@ -350,9 +382,9 @@ export default function Home() {
       {/* ================= SECCIÓN 5: PREGUNTAS FRECUENTES ================= */}
       <section className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone gradient-reiki-warm texture-linen">
         <div className="max-w-4xl mx-auto space-y-12">
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-4 reveal">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <HelpCircle size={14} className="text-reiki-gold" />
+              <HelpCircle size={14} className="text-reiki-gold icon-bounce" />
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-gold">Dudas Comunes</h3>
             </div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">Preguntas Frecuentes</h2>
@@ -377,9 +409,9 @@ export default function Home() {
                 a: 'Llega con ropa cómoda, mente abierta y disposición para relajarte. No es necesario hacer nada especial.'
               }
             ].map((item, i) => (
-              <div key={i} className="bg-reiki-white p-6 rounded-2xl border border-reiki-stone hover:border-reiki-green/30 transition-all group card-elevated glass-effect">
+              <div key={i} className={`reveal reveal-delay-${i + 1} bg-reiki-white p-6 rounded-2xl border border-reiki-stone hover:border-reiki-green/30 transition-all group card-elevated glass-effect`}>
                 <h3 className="font-bold text-stone-900 text-sm md:text-base mb-3 flex items-center gap-3">
-                  <span className="h-6 w-6 rounded-full bg-reiki-green/10 flex items-center justify-center text-reiki-green text-xs font-black">{i + 1}</span>
+                  <span className="h-6 w-6 rounded-full bg-reiki-green/10 flex items-center justify-center text-reiki-green text-xs font-black shrink-0">{i + 1}</span>
                   {item.q}
                 </h3>
                 <p className="text-stone-500 text-sm font-medium ml-9">{item.a}</p>
@@ -392,17 +424,17 @@ export default function Home() {
       {/* ================= SECCIÓN 6: SOBRE EL MAESTRO ================= */}
       <section id="el-maestro" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone gradient-reiki-light texture-dots">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="relative group">
+          <div className="relative group reveal reveal-left">
             <div className="aspect-square w-full bg-reiki-stone rounded-[40px] flex items-center justify-center overflow-hidden border border-reiki-stone relative shadow-2xl">
               <img src="/foto-daniel.jpeg" alt="Daniel Riquelme Maestro Reiki" className="absolute inset-0 w-full h-full object-contain p-6 transition-transform duration-700 group-hover:scale-105" />
             </div>
             <div className="absolute -bottom-6 -right-6 h-32 w-32 bg-reiki-gold/10 rounded-full blur-3xl animate-pulse"></div>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-8 reveal reveal-right">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <Star size={14} className="text-reiki-gold" />
+                <Star size={14} className="text-reiki-gold icon-bounce" />
                 <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-gold">El Maestro</h3>
               </div>
               <h2 className="font-serif text-5xl font-bold text-stone-900 italic">Daniel Riquelme</h2>
@@ -426,7 +458,7 @@ export default function Home() {
               ))}
             </div>
 
-            <Link href={`https://wa.me/${waNumber}?text=${msgGeneral}`} target="_blank" className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-stone-900 border-b-2 border-reiki-gold pb-1 hover:text-reiki-green hover:border-reiki-green transition-all">
+            <Link href={`https://wa.me/${waNumber}?text=${msgGeneral}`} target="_blank" className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-stone-900 border-b-2 border-reiki-gold pb-1 hover:text-reiki-green hover:border-reiki-green transition-all link-underline">
               Conectar con el Maestro <MessageCircle size={16} />
             </Link>
           </div>
@@ -436,9 +468,9 @@ export default function Home() {
       {/* ================= SECCIÓN 7: CONTACTO ================= */}
       <section id="contacto" className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone gradient-reiki-warm texture-linen">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 reveal">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <MessageCircle size={14} className="text-reiki-green" />
+              <MessageCircle size={14} className="text-reiki-green icon-bounce" />
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-green">Ponte en Contacto</h3>
             </div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">Conecta con Nosotros</h2>
@@ -452,27 +484,30 @@ export default function Home() {
                 title: 'WhatsApp',
                 desc: 'Respuesta rápida',
                 value: '+56 9 5173 5495',
-                link: `https://wa.me/56951735495`
+                link: `https://wa.me/56951735495`,
+                delay: 'reveal-delay-1'
               },
               {
                 icon: Calendar,
                 title: 'Sesiones',
                 desc: 'Jueves 19:30 hrs',
                 value: 'Rancagua, Chile',
-                link: '#formaciones'
+                link: '#formaciones',
+                delay: 'reveal-delay-2'
               },
               {
                 icon: Heart,
                 title: 'Energía',
                 desc: 'Disponible 24/7',
                 value: 'Sanación sin límites',
-                link: '#'
+                link: '#',
+                delay: 'reveal-delay-3'
               }
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <a key={i} href={item.link} target={item.link.startsWith('http') ? '_blank' : '_self'} className="bg-reiki-white p-8 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all group text-center card-elevated glass-effect">
-                  <div className="h-14 w-14 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-4 mx-auto group-hover:bg-reiki-green/20 transition-colors">
+                <a key={i} href={item.link} target={item.link.startsWith('http') ? '_blank' : '_self'} className={`reveal reveal-scale ${item.delay} bg-reiki-white p-8 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all group text-center card-elevated glass-effect`}>
+                  <div className="h-14 w-14 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-4 mx-auto group-hover:bg-reiki-green/20 transition-colors icon-bounce">
                     <Icon size={28} />
                   </div>
                   <h3 className="font-bold text-stone-900 mb-1">{item.title}</h3>
@@ -502,10 +537,10 @@ export default function Home() {
           </p>
 
           <div className="flex gap-6">
-            <Link href="/login" className="text-[10px] font-black uppercase tracking-widest text-stone-500 hover:text-reiki-green transition-colors">
+            <Link href="/login" className="text-[10px] font-black uppercase tracking-widest text-stone-500 hover:text-reiki-green transition-colors link-underline">
               Intranet
             </Link>
-            <a href={`https://wa.me/${waNumber}`} target="_blank" className="text-[10px] font-black uppercase tracking-widest text-stone-500 hover:text-reiki-green transition-colors">
+            <a href={`https://wa.me/${waNumber}`} target="_blank" className="text-[10px] font-black uppercase tracking-widest text-stone-500 hover:text-reiki-green transition-colors link-underline">
               WhatsApp
             </a>
           </div>
