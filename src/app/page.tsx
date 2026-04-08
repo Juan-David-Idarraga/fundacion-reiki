@@ -152,7 +152,7 @@ export default function Home() {
       </main>
 
       {/* ================= SECCIÓN 2: ¿QUÉ ES EL REIKI? ================= */}
-      <section id="introduccion" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone">
+      <section id="introduccion" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone gradient-reiki-light texture-dots relative">
         <div className="max-w-6xl mx-auto space-y-16">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -183,7 +183,7 @@ export default function Home() {
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="bg-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-lg group">
+                <div key={i} className="bg-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-lg group card-elevated glass-effect">
                   <div className="h-16 w-16 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-6 group-hover:bg-reiki-green/20 transition-colors">
                     <Icon size={32} />
                   </div>
@@ -194,7 +194,7 @@ export default function Home() {
             })}
           </div>
 
-          <div className="bg-gradient-to-r from-reiki-green/5 to-reiki-violet/5 p-12 rounded-3xl border border-reiki-stone">
+          <div className="bg-gradient-to-r from-reiki-green/5 to-reiki-violet/5 p-12 rounded-3xl border border-gold-accent border-gold-accent">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <h3 className="font-serif text-3xl font-bold text-stone-900 italic">Principios Fundamentales</h3>
@@ -223,7 +223,7 @@ export default function Home() {
       </section>
 
       {/* ================= SECCIÓN 3: TERAPIAS ================= */}
-      <section id="terapias" className="py-24 px-6 lg:px-10 bg-white relative border-y border-reiki-stone">
+      <section id="terapias" className="py-24 px-6 lg:px-10 bg-white relative border-y border-reiki-stone gradient-reiki-warm texture-linen">
         <div className="max-w-6xl mx-auto space-y-16 relative z-10">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -237,7 +237,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             {/* TARJETA REIKI */}
-            <div className="group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden">
+            <div className="group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden card-elevated glass-effect aura-green">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Zap size={120} className="text-reiki-green" />
               </div>
@@ -254,7 +254,7 @@ export default function Home() {
             </div>
 
             {/* TARJETA MASAJE */}
-            <div className="group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-violet/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden">
+            <div className="group bg-reiki-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-violet/30 transition-all duration-500 hover:shadow-xl relative overflow-hidden card-elevated glass-effect aura-violet">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Heart size={120} className="text-reiki-violet" />
               </div>
@@ -275,7 +275,7 @@ export default function Home() {
       </section>
 
       {/* ================= SECCIÓN 4: FORMACIÓN ================= */}
-      <section id="formaciones" className="py-24 px-6 lg:px-10 bg-reiki-white">
+      <section id="formaciones" className="py-24 px-6 lg:px-10 bg-reiki-white gradient-reiki-light texture-dots border-t border-reiki-stone">
         <div className="max-w-6xl mx-auto space-y-16">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -286,7 +286,7 @@ export default function Home() {
             <p className="text-stone-400 max-w-2xl mx-auto text-sm md:text-base font-medium">Aprende los principios del Reiki Usui con iniciación energética incluida.</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white rounded-[40px] p-8 lg:p-12 border border-reiki-stone shadow-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white rounded-[40px] p-8 lg:p-12 border border-gold-accent card-elevated glass-effect">
             
             <div className="lg:col-span-4 space-y-6">
               <div className="w-full h-64 bg-reiki-stone rounded-3xl flex items-center justify-center overflow-hidden relative border border-reiki-stone">
@@ -348,7 +348,7 @@ export default function Home() {
       </section>
 
       {/* ================= SECCIÓN 5: PREGUNTAS FRECUENTES ================= */}
-      <section className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone">
+      <section className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone gradient-reiki-warm texture-linen">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -377,7 +377,7 @@ export default function Home() {
                 a: 'Llega con ropa cómoda, mente abierta y disposición para relajarte. No es necesario hacer nada especial.'
               }
             ].map((item, i) => (
-              <div key={i} className="bg-reiki-white p-6 rounded-2xl border border-reiki-stone hover:border-reiki-green/30 transition-all group">
+              <div key={i} className="bg-reiki-white p-6 rounded-2xl border border-reiki-stone hover:border-reiki-green/30 transition-all group card-elevated glass-effect">
                 <h3 className="font-bold text-stone-900 text-sm md:text-base mb-3 flex items-center gap-3">
                   <span className="h-6 w-6 rounded-full bg-reiki-green/10 flex items-center justify-center text-reiki-green text-xs font-black">{i + 1}</span>
                   {item.q}
@@ -390,7 +390,7 @@ export default function Home() {
       </section>
 
       {/* ================= SECCIÓN 6: SOBRE EL MAESTRO ================= */}
-      <section id="el-maestro" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone">
+      <section id="el-maestro" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone gradient-reiki-light texture-dots">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="relative group">
             <div className="aspect-square w-full bg-reiki-stone rounded-[40px] flex items-center justify-center overflow-hidden border border-reiki-stone relative shadow-2xl">
@@ -434,7 +434,7 @@ export default function Home() {
       </section>
 
       {/* ================= SECCIÓN 7: CONTACTO ================= */}
-      <section id="contacto" className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone">
+      <section id="contacto" className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone gradient-reiki-warm texture-linen">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-16">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -471,7 +471,7 @@ export default function Home() {
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <a key={i} href={item.link} target={item.link.startsWith('http') ? '_blank' : '_self'} className="bg-reiki-white p-8 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all group text-center">
+                <a key={i} href={item.link} target={item.link.startsWith('http') ? '_blank' : '_self'} className="bg-reiki-white p-8 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all group text-center card-elevated glass-effect">
                   <div className="h-14 w-14 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-4 mx-auto group-hover:bg-reiki-green/20 transition-colors">
                     <Icon size={28} />
                   </div>

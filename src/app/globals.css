@@ -158,3 +158,86 @@
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out;
 }
+
+/* Glassmorphism effect */
+.glass-effect {
+  background: rgba(253, 252, 248, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 225, 218, 0.5);
+}
+
+/* Subtle texture backgrounds */
+.texture-linen {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" /></filter><rect width="100" height="100" fill="%23FDFCF8" filter="url(%23noise)" opacity="0.03"/></svg>');
+}
+
+.texture-dots {
+  background-image: radial-gradient(circle, rgba(45, 90, 39, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Aura glow effects */
+.aura-green {
+  position: relative;
+}
+
+.aura-green::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(45, 90, 39, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.aura-violet {
+  position: relative;
+}
+
+.aura-violet::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(107, 78, 113, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Gold accent border */
+.border-gold-accent {
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+/* Elevated card with shadow */
+.card-elevated {
+  box-shadow: 0 10px 30px rgba(45, 90, 39, 0.08), 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevated:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(45, 90, 39, 0.12), 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient backgrounds for sections */
+.gradient-reiki-light {
+  background: linear-gradient(135deg, rgba(45, 90, 39, 0.02) 0%, rgba(107, 78, 113, 0.02) 100%);
+}
+
+.gradient-reiki-warm {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, rgba(45, 90, 39, 0.02) 100%);
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Text gradient */
+.text-gradient-reiki {
+  background: linear-gradient(135deg, #2D5A27 0%, #6B4E71 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
