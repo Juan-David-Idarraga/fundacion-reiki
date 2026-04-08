@@ -248,7 +248,7 @@ export default function Home() {
             
             <div className="lg:col-span-1 space-y-4 flex flex-col justify-between">
               <div className="aspect-video w-full bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl flex items-center justify-center overflow-hidden shadow-lg border-2 border-slate-600/40 relative">
-  <img src="/foto-clase.png" alt="Clase de Reiki" className="absolute inset-0 w-full h-full object-cover" />
+  <img src="/foto-clase.png" alt="Clase de Reiki" className="absolute inset-0 w-full h-full object-contain" />
 </div>
               <div className="space-y-3">
                 <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-4 rounded-lg shadow-md border-2 border-amber-500/25 flex items-center gap-3">
@@ -309,7 +309,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="relative group">
               <div className="aspect-square w-full bg-gradient-to-br from-amber-900/30 to-slate-900/50 rounded-2xl flex items-center justify-center overflow-hidden shadow-xl shadow-amber-900/40 border-2 border-amber-600/40 relative group/foto">
-  <img src="/foto-daniel.jpeg" alt="Daniel Riquelme Maestro Reiki" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/foto:scale-105" />
+  <img src="/foto-daniel.jpeg" alt="Daniel Riquelme Maestro Reiki" className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover/foto:scale-105" />
   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-60"></div>
 </div>
             </div>
