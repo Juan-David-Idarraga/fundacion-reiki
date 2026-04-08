@@ -31,10 +31,10 @@ export function ClaseAlumnoCard({ clase, onPlay }: ClaseAlumnoCardProps) {
   return (
     <div 
       onClick={() => onPlay(clase)}
-      className="group bg-white rounded-2xl border border-stone-200 overflow-hidden flex flex-col h-full shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 cursor-pointer"
+      className="group rounded-2xl overflow-hidden flex flex-col h-full transition-all duration-300 cursor-pointer card-elevated hover:border-[rgba(74,140,66,0.4)]"
     >
       {/* Miniatura con Overlay de Play */}
-      <div className="relative aspect-video bg-stone-900 overflow-hidden">
+      <div className="relative aspect-video overflow-hidden" style={{ backgroundColor: '#1E2019' }}>
         {thumbnailUrl ? (
           <img 
             src={thumbnailUrl} 
@@ -51,46 +51,50 @@ export function ClaseAlumnoCard({ clase, onPlay }: ClaseAlumnoCardProps) {
           </div>
         )}
         
-        {/* Overlay Gradiente */}
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
         
         {/* Botón Play Central */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 bg-amber-500 text-stone-900 rounded-full flex items-center justify-center shadow-xl transform scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-xl transform scale-90 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300"
+            style={{ backgroundColor: '#4A8C42', color: '#E8E4DC' }}>
             <PlayCircle size={24} fill="currentColor" />
           </div>
         </div>
 
         {/* Duración Tag */}
         {clase.duracion && (
-          <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-md text-white text-[9px] font-black px-2 py-1 rounded-lg flex items-center gap-1 border border-white/10">
-            <Clock size={10} className="text-amber-400" /> {clase.duracion}
+          <div className="absolute bottom-3 right-3 text-[9px] font-black px-2 py-1 rounded-lg flex items-center gap-1"
+            style={{ backgroundColor: 'rgba(20,21,16,0.85)', color: '#E8E4DC', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <Clock size={10} style={{ color: '#C9A227' }} /> {clase.duracion}
           </div>
         )}
       </div>
 
       {/* Contenido */}
-      <div className="p-4 flex-1 flex flex-col">
+      <div className="p-4 flex-1 flex flex-col" style={{ backgroundColor: '#272A23' }}>
         <div className="flex items-center gap-1.5 mb-2">
-          <div className="h-1 w-1 rounded-full bg-amber-500 animate-pulse"></div>
-          <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Lección Disponible</span>
+          <div className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#4A8C42' }}></div>
+          <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: '#9A9589' }}>Lección Disponible</span>
         </div>
 
-        <h3 className="text-base font-bold text-stone-900 mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-2">
+        <h3 className="text-sm font-bold mb-2 leading-tight line-clamp-2 transition-colors group-hover:text-[#7BC274]"
+          style={{ color: '#E8E4DC' }}>
           {clase.titulo}
         </h3>
         
-        <p className="text-stone-500 text-xs leading-relaxed line-clamp-2 mb-4 flex-1 font-medium">
+        <p className="text-xs leading-relaxed line-clamp-2 mb-4 flex-1 font-medium" style={{ color: '#9A9589' }}>
           {clase.descripcion || "En esta sesión profundizamos en los conceptos de sanación y equilibrio energético."}
         </p>
 
         {/* Footer de la tarjeta */}
-        <div className="pt-3 border-t border-stone-100 flex justify-between items-center">
-          <div className="flex items-center gap-1.5 text-[9px] font-bold text-stone-400 uppercase tracking-widest">
-            <Calendar size={12} className="text-stone-300" />
+        <div className="pt-3 flex justify-between items-center" style={{ borderTop: '1px solid #363830' }}>
+          <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest" style={{ color: '#5A5750' }}>
+            <Calendar size={11} />
             {clase.fecha || 'Reciente'}
           </div>
-          <div className="flex items-center gap-1 text-amber-600 font-black text-[9px] uppercase tracking-widest group-hover:translate-x-0.5 transition-transform">
+          <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest group-hover:translate-x-0.5 transition-transform"
+            style={{ color: '#4A8C42' }}>
             Ver Clase <ChevronRight size={12} />
           </div>
         </div>
