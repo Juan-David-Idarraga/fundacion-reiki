@@ -27,9 +27,7 @@ export async function loginAction(formData: FormData) {
     .single();
 
   // 3. El cruce de caminos: Lo mandamos a su lugar correspondiente
-  // Permitir acceso a admin si: tiene rol 'admin' O es el email del administrador maestro
-  const esAdminMaestro = email === 'danielriquelme@gmail.com';
-  if (perfil?.rol === 'admin' || esAdminMaestro) {
+  if (perfil?.rol === 'admin') {
     redirect('/admin');
   } else {
     redirect('/intranet');
