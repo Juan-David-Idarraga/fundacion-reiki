@@ -5,7 +5,8 @@ import React, { useState, useEffect } from "react";
 import { 
   Sparkles, ArrowRight, CheckCircle2, Calendar, 
   Clock, MessageCircle, Play, User, ShieldCheck,
-  Heart, Zap, Sun, Star
+  Heart, Zap, Sun, Star, BookOpen, Brain, HelpCircle,
+  MapPin, Phone
 } from 'lucide-react';
 
 export default function Home() {
@@ -25,6 +26,14 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems = [
+    { label: 'Introducción', href: '#introduccion' },
+    { label: 'Terapias', href: '#terapias' },
+    { label: 'Formaciones', href: '#formaciones' },
+    { label: 'El Maestro', href: '#el-maestro' },
+    { label: 'Contacto', href: '#contacto' }
+  ];
 
   return (
     <div className="min-h-screen bg-reiki-white font-sans text-stone-800 selection:bg-reiki-green selection:text-reiki-white scroll-smooth overflow-x-hidden">
@@ -51,13 +60,13 @@ export default function Home() {
           </Link>
 
           <div className="hidden lg:flex gap-8 text-[10px] font-black uppercase tracking-widest text-stone-500">
-            {['Introducción', 'Terapias', 'Formaciones', 'El Maestro'].map((item, index) => (
+            {navItems.map((item, index) => (
               <Link 
                 key={index}
-                href={`#${item.toLowerCase().replace(' ', '-').replace('ó', 'o')}`} 
+                href={item.href}
                 className="relative py-1 transition-all hover:text-reiki-green group"
               >
-                {item}
+                {item.label}
                 <span className="absolute bottom-0 left-0 w-full h-[2px] bg-reiki-green origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
               </Link>
             ))}
@@ -86,14 +95,14 @@ export default function Home() {
 
         {isMobileMenuOpen && (
           <div className="flex flex-col gap-4 pt-6 pb-8 lg:hidden border-t border-reiki-stone mt-4 animate-fade-in-up">
-            {['Introducción', 'Terapias', 'Formaciones', 'El Maestro'].map((item, index) => (
+            {navItems.map((item, index) => (
               <Link 
                 key={index}
-                href={`#${item.toLowerCase().replace(' ', '-').replace('ó', 'o')}`} 
+                href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)} 
                 className="text-stone-600 text-xs font-bold uppercase tracking-widest hover:text-reiki-green transition-all"
               >
-                {item}
+                {item.label}
               </Link>
             ))}
             <div className="h-px bg-reiki-stone my-2"></div>
@@ -142,7 +151,78 @@ export default function Home() {
         </div>
       </main>
 
-      {/* ================= SECCIÓN 2: TERAPIAS ================= */}
+      {/* ================= SECCIÓN 2: ¿QUÉ ES EL REIKI? ================= */}
+      <section id="introduccion" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone">
+        <div className="max-w-6xl mx-auto space-y-16">
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sparkles size={14} className="text-reiki-violet" />
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-violet">Conocimiento Ancestral</h3>
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">¿Qué es el Reiki?</h2>
+            <p className="text-stone-400 max-w-3xl mx-auto text-sm md:text-base font-medium">Una práctica milenaria de sanación energética que armoniza cuerpo, mente y espíritu.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Heart,
+                title: 'Sanación Física',
+                desc: 'Alivia dolores crónicos, reduce la inflamación y acelera la recuperación de lesiones a través de la energía vital.'
+              },
+              {
+                icon: Brain,
+                title: 'Equilibrio Mental',
+                desc: 'Calma la mente, reduce el estrés y la ansiedad, mejorando la claridad mental y la concentración.'
+              },
+              {
+                icon: Sparkles,
+                title: 'Elevación Espiritual',
+                desc: 'Conecta con tu esencia, abre los chakras y facilita el crecimiento personal y la transformación.'
+              }
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="bg-white p-10 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all duration-500 hover:shadow-lg group">
+                  <div className="h-16 w-16 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-6 group-hover:bg-reiki-green/20 transition-colors">
+                    <Icon size={32} />
+                  </div>
+                  <h3 className="font-serif text-2xl font-bold text-stone-900 italic mb-3">{item.title}</h3>
+                  <p className="text-stone-500 text-sm leading-relaxed font-medium">{item.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="bg-gradient-to-r from-reiki-green/5 to-reiki-violet/5 p-12 rounded-3xl border border-reiki-stone">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <h3 className="font-serif text-3xl font-bold text-stone-900 italic">Principios Fundamentales</h3>
+                <div className="space-y-4">
+                  {[
+                    'Energía Universal: El Reiki es la energía vital que fluye a través de todo lo existente.',
+                    'Canalización: El terapeuta actúa como canal, no como fuente de la energía.',
+                    'Armonización: Restaura el equilibrio natural del cuerpo y la mente.',
+                    'Transformación: Facilita cambios profundos a nivel físico, emocional y espiritual.'
+                  ].map((principle, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="h-2 w-2 rounded-full bg-reiki-gold mt-2 shrink-0"></div>
+                      <p className="text-stone-600 text-sm font-medium">{principle}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-reiki-green/10 rounded-3xl p-8 text-center">
+                <div className="text-6xl mb-4">☮️</div>
+                <p className="text-stone-600 font-medium italic text-lg mb-4">"La energía fluye donde va la intención"</p>
+                <p className="text-stone-500 text-xs font-bold uppercase tracking-widest">Principio Reiki Usui</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECCIÓN 3: TERAPIAS ================= */}
       <section id="terapias" className="py-24 px-6 lg:px-10 bg-white relative border-y border-reiki-stone">
         <div className="max-w-6xl mx-auto space-y-16 relative z-10">
           <div className="text-center space-y-4">
@@ -194,7 +274,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SECCIÓN 3: FORMACIÓN ================= */}
+      {/* ================= SECCIÓN 4: FORMACIÓN ================= */}
       <section id="formaciones" className="py-24 px-6 lg:px-10 bg-reiki-white">
         <div className="max-w-6xl mx-auto space-y-16">
           <div className="text-center space-y-4">
@@ -209,8 +289,8 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white rounded-[40px] p-8 lg:p-12 border border-reiki-stone shadow-sm">
             
             <div className="lg:col-span-4 space-y-6">
-              <div className="aspect-video w-full bg-reiki-stone rounded-3xl flex items-center justify-center overflow-hidden relative border border-reiki-stone">
-                <img src="/foto-clase.png" alt="Clase de Reiki" className="absolute inset-0 w-full h-full object-contain p-4" />
+              <div className="w-full h-64 bg-reiki-stone rounded-3xl flex items-center justify-center overflow-hidden relative border border-reiki-stone">
+                <img src="/foto-clase.png" alt="Clase de Reiki" className="w-full h-full object-contain p-6" />
               </div>
               <div className="grid grid-cols-1 gap-4">
                 <div className="bg-reiki-white p-5 rounded-2xl border border-reiki-stone flex items-center gap-4">
@@ -267,8 +347,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SECCIÓN 4: SOBRE EL MAESTRO ================= */}
-      <section id="el-maestro" className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone">
+      {/* ================= SECCIÓN 5: PREGUNTAS FRECUENTES ================= */}
+      <section className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone">
+        <div className="max-w-4xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <HelpCircle size={14} className="text-reiki-gold" />
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-gold">Dudas Comunes</h3>
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">Preguntas Frecuentes</h2>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                q: '¿Necesito experiencia previa para aprender Reiki?',
+                a: 'No. El Reiki está diseñado para cualquier persona, sin importar su edad o trasfondo. Solo necesitas apertura y disposición para aprender.'
+              },
+              {
+                q: '¿Cuánto tiempo tarda en ver resultados?',
+                a: 'Algunos sienten cambios inmediatamente, mientras que otros notan transformaciones gradualmente. Cada persona es única en su proceso de sanación.'
+              },
+              {
+                q: '¿El Reiki reemplaza la medicina convencional?',
+                a: 'No. El Reiki es un complemento excelente a tratamientos médicos. Siempre consulta con profesionales de la salud.'
+              },
+              {
+                q: '¿Qué debo hacer para prepararme para una sesión?',
+                a: 'Llega con ropa cómoda, mente abierta y disposición para relajarte. No es necesario hacer nada especial.'
+              }
+            ].map((item, i) => (
+              <div key={i} className="bg-reiki-white p-6 rounded-2xl border border-reiki-stone hover:border-reiki-green/30 transition-all group">
+                <h3 className="font-bold text-stone-900 text-sm md:text-base mb-3 flex items-center gap-3">
+                  <span className="h-6 w-6 rounded-full bg-reiki-green/10 flex items-center justify-center text-reiki-green text-xs font-black">{i + 1}</span>
+                  {item.q}
+                </h3>
+                <p className="text-stone-500 text-sm font-medium ml-9">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECCIÓN 6: SOBRE EL MAESTRO ================= */}
+      <section id="el-maestro" className="py-24 px-6 lg:px-10 bg-reiki-white border-t border-reiki-stone">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="relative group">
             <div className="aspect-square w-full bg-reiki-stone rounded-[40px] flex items-center justify-center overflow-hidden border border-reiki-stone relative shadow-2xl">
@@ -307,6 +429,58 @@ export default function Home() {
             <Link href={`https://wa.me/${waNumber}?text=${msgGeneral}`} target="_blank" className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-stone-900 border-b-2 border-reiki-gold pb-1 hover:text-reiki-green hover:border-reiki-green transition-all">
               Conectar con el Maestro <MessageCircle size={16} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECCIÓN 7: CONTACTO ================= */}
+      <section id="contacto" className="py-24 px-6 lg:px-10 bg-white border-t border-reiki-stone">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center space-y-4 mb-16">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <MessageCircle size={14} className="text-reiki-green" />
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-reiki-green">Ponte en Contacto</h3>
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 italic">Conecta con Nosotros</h2>
+            <p className="text-stone-400 max-w-2xl mx-auto text-sm md:text-base font-medium">¿Preguntas? Estamos aquí para ayudarte en tu camino de sanación.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: MessageCircle,
+                title: 'WhatsApp',
+                desc: 'Respuesta rápida',
+                value: '+56 9 5173 5495',
+                link: `https://wa.me/56951735495`
+              },
+              {
+                icon: Calendar,
+                title: 'Sesiones',
+                desc: 'Jueves 19:30 hrs',
+                value: 'Rancagua, Chile',
+                link: '#formaciones'
+              },
+              {
+                icon: Heart,
+                title: 'Energía',
+                desc: 'Disponible 24/7',
+                value: 'Sanación sin límites',
+                link: '#'
+              }
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <a key={i} href={item.link} target={item.link.startsWith('http') ? '_blank' : '_self'} className="bg-reiki-white p-8 rounded-3xl border border-reiki-stone hover:border-reiki-green/30 transition-all group text-center">
+                  <div className="h-14 w-14 rounded-2xl bg-reiki-green/10 flex items-center justify-center text-reiki-green mb-4 mx-auto group-hover:bg-reiki-green/20 transition-colors">
+                    <Icon size={28} />
+                  </div>
+                  <h3 className="font-bold text-stone-900 mb-1">{item.title}</h3>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-3">{item.desc}</p>
+                  <p className="text-stone-600 font-bold text-sm">{item.value}</p>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
