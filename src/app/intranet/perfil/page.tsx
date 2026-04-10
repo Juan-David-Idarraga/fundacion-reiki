@@ -2,12 +2,12 @@ import React from 'react'
 import { createClient } from '@/supabase/server'
 import { redirect } from 'next/navigation'
 import { logoutAction } from '@/app/admin/actions'
+import LogoutButton from './LogoutButton'
 import {
   User as UserIcon,
   Mail,
   Calendar,
   ShieldCheck,
-  LogOut,
   Sparkles,
   Clock,
   MessageCircle,
@@ -244,33 +244,7 @@ export default async function PerfilAlumnoPage() {
               Para dudas sobre tu acceso, contacta a la administración.
             </p>
           </div>
-          <form action={logoutAction}>
-            <button
-              type="submit"
-              className="group flex items-center gap-2 rounded-xl px-6 py-2.5 text-[9px] font-black tracking-[0.2em] uppercase transition-all active:scale-[0.98]"
-              style={{
-                backgroundColor: 'rgba(192,57,43,0.08)',
-                color: '#9A9589',
-                border: '1px solid rgba(192,57,43,0.15)',
-              }}
-              onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLButtonElement).style.color = '#E07060'
-                ;(e.currentTarget as HTMLButtonElement).style.borderColor =
-                  'rgba(192,57,43,0.35)'
-              }}
-              onMouseLeave={(e) => {
-                ;(e.currentTarget as HTMLButtonElement).style.color = '#9A9589'
-                ;(e.currentTarget as HTMLButtonElement).style.borderColor =
-                  'rgba(192,57,43,0.15)'
-              }}
-            >
-              <LogOut
-                size={14}
-                className="transition-transform group-hover:-translate-x-0.5"
-              />
-              Cerrar Sesión
-            </button>
-          </form>
+          <LogoutButton logoutAction={logoutAction} />
         </div>
       </div>
     </div>
