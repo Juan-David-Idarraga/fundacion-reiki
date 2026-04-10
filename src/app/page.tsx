@@ -17,6 +17,7 @@ import {
   Star,
   BookOpen,
   Brain,
+  Instagram,
   HelpCircle,
 } from 'lucide-react'
 
@@ -106,7 +107,7 @@ export default function Home() {
           >
             <div className="shrink-0 overflow-hidden rounded-xl shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
               <Image
-                src="/banner-reiki.png"
+                src="/foto-clase.png"
                 alt="Logo Fundación Reiki Usui"
                 width={44}
                 height={44}
@@ -258,7 +259,7 @@ export default function Home() {
             fill
             priority
             className="object-cover object-center"
-            style={{ opacity: 0.18 }}
+            style={{ opacity: 3000 }}
           />
           {/* Overlay gradiente para mantener legibilidad del texto */}
           <div
@@ -338,30 +339,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        {/* ── BANNER DE LA FUNDACIÓN ── */}
-        <section
-          className="reveal w-full overflow-hidden"
-          style={{ borderTop: '1px solid #2A2C24' }}
-        >
-          <div className="relative w-full">
-            <Image
-              src="/banner-reiki.png"
-              alt="Fundación Reiki Usui Shiki Ryoho"
-              width={1920}
-              height={420}
-              className="w-full object-cover object-center"
-              style={{ maxHeight: '420px', opacity: 0.85 }}
-              priority
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  'linear-gradient(to bottom, rgba(26,28,24,0.3) 0%, rgba(26,28,24,0) 30%, rgba(26,28,24,0) 70%, rgba(26,28,24,0.95) 100%)',
-              }}
-            />
-          </div>
-        </section>
+        
       </main>
 
       {/* ── ¿QUÉ ES EL REIKI? ── */}
@@ -613,7 +591,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FORMACIÓN ── */}
+     {/* ── FORMACIÓN ── */}
       <section
         id="formaciones"
         className="texture-dots gradient-reiki-dark border-t px-6 py-24 lg:px-10"
@@ -640,37 +618,40 @@ export default function Home() {
               className="mx-auto max-w-2xl text-sm font-medium md:text-base"
               style={{ color: '#9A9589' }}
             >
-              Aprende los principios del Reiki Usui con iniciación energética
-              incluida.
+              Aprende los principios del Reiki Usui, desarrolla tus capacidades de sanación energética y accede a herramientas complementarias como la radiestesia.
             </p>
           </div>
 
           <div className="reveal card-elevated-gold rounded-[40px] p-8 lg:p-12">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
               <div className="space-y-6 lg:col-span-4">
+                
+                {/* ── CONTENEDOR DE IMAGEN CORREGIDO ── */}
                 <div
-                  className="relative flex h-64 w-full items-center justify-center overflow-hidden rounded-3xl border"
+                  className="group relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-3xl border"
                   style={{ backgroundColor: '#242720', borderColor: '#363830' }}
                 >
                   <img
-                    src="/foto-clase.png"
+                    src="/foto-.png" 
                     alt="Clase de Reiki"
-                    className="h-full w-full object-contain p-6"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
+                {/* ──────────────────────────────────── */}
+
                 <div className="grid grid-cols-1 gap-4">
                   {[
                     {
                       icon: Calendar,
-                      label: 'Duración',
-                      value: '2 Meses de Formación',
+                      label: 'Duración e Inicio',
+                      value: '2 Meses',
                       color: '#4A8C42',
                       bg: 'rgba(74,140,66,0.1)',
                     },
                     {
                       icon: Clock,
                       label: 'Horario',
-                      value: 'Jueves 19:30 hrs',
+                      value: 'Jueves de 19:30 a 21:30 hrs',
                       color: '#8B6B91',
                       bg: 'rgba(139,107,145,0.1)',
                     },
@@ -682,7 +663,7 @@ export default function Home() {
                         className="card-elevated flex items-center gap-4 rounded-2xl p-5"
                       >
                         <div
-                          className="icon-bounce flex h-10 w-10 items-center justify-center rounded-xl"
+                          className="icon-bounce flex h-10 w-10 items-center justify-center rounded-xl shrink-0"
                           style={{
                             backgroundColor: item.bg,
                             color: item.color,
@@ -726,25 +707,28 @@ export default function Home() {
                     className="mb-2 font-serif text-4xl font-bold italic"
                     style={{ color: '#E8E4DC' }}
                   >
-                    Curso Reiki Integral
+                    Formación Completa Nivel 1 y 2
                   </h3>
                   <p
                     className="text-[10px] font-black tracking-[0.3em] uppercase"
                     style={{ color: '#4A8C42' }}
                   >
-                    Nivel 1 + Nivel 2
+                    Reiki Usui + Péndulo & Radiestesia
                   </p>
                 </div>
+                
                 <div className="text-gradient-gold font-serif text-6xl font-bold">
                   $80.000
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {[
-                    'Material completo y Diploma',
-                    'Iniciación Energética',
-                    'Horas Teórico-Prácticas',
-                    'Acceso a Intranet de Alumnos',
+                    'Material completo y Certificado Digital',
+                    'Iniciación Energética y Horas Prácticas',
+                    'Péndulo y Radiestesia (Primer Nivel)',
+                    'Tratamiento a terceros y Limpieza Energética',
+                    'Acceso a Intranet (clases grabadas y material)',
+                    'Grupo de apoyo y seguimiento personalizado',
                   ].map((item, i) => (
                     <div
                       key={i}
@@ -849,7 +833,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── EL MAESTRO ── */}
+    {/* ── EL MAESTRO ── */}
       <section
         id="el-maestro"
         className="texture-dots gradient-reiki-dark border-t px-6 py-24 lg:px-10"
@@ -890,29 +874,36 @@ export default function Home() {
               >
                 Daniel Riquelme
               </h2>
-              <p
-                className="border-l-4 pl-4 text-[10px] font-black tracking-[0.3em] uppercase"
+              
+              {/* ENLACE VERIFICADO A LA FUNDACIÓN */}
+              <a
+                href="https://www.fundacionchilenadereiki.cl/maestro-a-verificado-a/daniel-riquelme"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-1 border-l-4 pl-4 text-[10px] font-black tracking-[0.3em] uppercase transition-all hover:opacity-75 hover:underline decoration-1 underline-offset-4"
                 style={{ color: '#4A8C42', borderColor: '#4A8C42' }}
+                title="Verificar certificación en la Fundación Chilena de Reiki"
               >
                 Maestro Certificado Reiki Usui
-              </p>
+                <span className="text-xs transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                  ↗
+                </span>
+              </a>
             </div>
 
             <p
               className="text-base leading-relaxed font-medium"
               style={{ color: '#9A9589' }}
             >
-              Con más de 15 años de experiencia en sanación energética, Daniel
-              ha dedicado su vida a ayudar a otros a reconectar con su esencia y
-              encontrar equilibrio profundo a través del linaje tradicional
-              Usui.
+              Con formación avanzada en la Fundación Chilena de Reiki (Nivel 4) y Maestría en Reiki Kundalini. Daniel ofrece un espacio seguro, ético y profesional para liberar bloqueos, equilibrar tu energía y guiarte en el reencuentro con tu verdadera esencia.
             </p>
 
             <div className="space-y-4">
               {[
-                'Iniciado en Reiki Usui Shiki Ryoho',
-                'Especialista en Sanación Energética',
-                'Facilitador de Transformación Personal',
+                'Maestro Reiki Usui y Kundalini Certificado',
+                'Atención presencial (Rancagua/Coltauco) y Online',
+                'Terapias individuales y limpiezas energéticas',
+                'Clases y talleres de formación en Reiki',
               ].map((item, i) => (
                 <div
                   key={i}
@@ -940,7 +931,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CONTACTO ── */}
+     {/* ── CONTACTO ── */}
       <section
         id="contacto"
         className="gradient-reiki-warm-dark texture-dots border-t px-6 py-24 lg:px-10"
@@ -980,22 +971,28 @@ export default function Home() {
                 value: '+56 9 5173 5495',
                 link: 'https://wa.me/56951735495',
                 delay: 'reveal-delay-1',
+                color: '#4A8C42',
+                bgIcon: 'rgba(74,140,66,0.12)',
               },
               {
                 icon: Calendar,
                 title: 'Sesiones',
-                desc: 'Jueves 19:30 hrs',
+                desc: 'Presencial / Online',
                 value: 'Rancagua, Chile',
                 link: '#formaciones',
                 delay: 'reveal-delay-2',
+                color: '#8B6B91',
+                bgIcon: 'rgba(139,107,145,0.12)',
               },
               {
-                icon: Heart,
-                title: 'Energía',
-                desc: 'Disponible 24/7',
-                value: 'Sanación sin límites',
-                link: '#',
+                icon: Instagram, // Asegúrate de importar Instagram de 'lucide-react'
+                title: 'Instagram',
+                desc: 'Nuestra Comunidad',
+                value: '@reiki_bienestar_integral',
+                link: 'https://www.instagram.com/reiki_bienestar_integral',
                 delay: 'reveal-delay-3',
+                color: '#C9A227', // Color dorado para diferenciarlo
+                bgIcon: 'rgba(201,162,39,0.12)',
               },
             ].map((item, i) => {
               const Icon = item.icon
@@ -1004,18 +1001,19 @@ export default function Home() {
                   key={i}
                   href={item.link}
                   target={item.link.startsWith('http') ? '_blank' : '_self'}
+                  rel={item.link.startsWith('http') ? 'noopener noreferrer' : ''}
                   className={`reveal reveal-scale ${item.delay} card-elevated group rounded-3xl p-8 text-center transition-all`}
                 >
                   <div
-                    className="icon-bounce mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-colors"
+                    className="icon-bounce mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-colors duration-300"
                     style={{
-                      backgroundColor: 'rgba(74,140,66,0.12)',
-                      color: '#4A8C42',
+                      backgroundColor: item.bgIcon,
+                      color: item.color,
                     }}
                   >
                     <Icon size={28} />
                   </div>
-                  <h3 className="mb-1 font-bold" style={{ color: '#E8E4DC' }}>
+                  <h3 className="mb-1 font-bold transition-colors duration-300 group-hover:text-white" style={{ color: '#E8E4DC' }}>
                     {item.title}
                   </h3>
                   <p
@@ -1024,7 +1022,7 @@ export default function Home() {
                   >
                     {item.desc}
                   </p>
-                  <p className="text-sm font-bold" style={{ color: '#B8B4AC' }}>
+                  <p className="text-sm font-bold transition-colors duration-300 group-hover:text-white" style={{ color: '#B8B4AC' }}>
                     {item.value}
                   </p>
                 </a>
@@ -1033,7 +1031,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── FOOTER ── */}
       <footer
         className="border-t px-6 py-16 lg:px-10"
