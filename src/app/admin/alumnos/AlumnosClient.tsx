@@ -1,180 +1,254 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { 
-  UserMinus, UserCheck, CalendarPlus, CalendarMinus, Trash2, 
-  Mail, ShieldAlert, Clock, Search, Lock, Plus, Minus 
-} from 'lucide-react';
-import { formatDateLatam, getExpirationStatus } from '@/utils/date-format';
+import React from 'react'
+import {
+  UserMinus,
+  UserCheck,
+  CalendarPlus,
+  CalendarMinus,
+  Trash2,
+  Mail,
+  ShieldAlert,
+  Clock,
+  Search,
+  Lock,
+  Plus,
+  Minus,
+} from 'lucide-react'
+import { formatDateLatam, getExpirationStatus } from '@/utils/date-format'
 // Importamos la acción de registro junto a las demás
-import { 
-  actualizarEstadoAlumnoAction, 
-  extenderAccesoAction, 
+import {
+  actualizarEstadoAlumnoAction,
+  extenderAccesoAction,
   eliminarAlumnoAction,
-  registrarAlumnoAction 
-} from "../actions";
+  registrarAlumnoAction,
+} from '../actions'
 
 export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
   return (
-    <div className="flex-1 overflow-hidden flex flex-col xl:flex-row">
-      
+    <div className="flex flex-1 flex-col overflow-hidden xl:flex-row">
       {/* ================= LISTADO DE ALUMNOS ================= */}
       <div className="flex-1 overflow-y-auto p-6 lg:p-10">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-xl font-bold text-stone-900 font-serif uppercase tracking-tight">Comunidad de Estudiantes</h2>
+        <div className="mb-8 flex items-center justify-between">
+          <h2 className="font-serif text-xl font-bold tracking-tight text-[#E8E4DC] uppercase">
+            Comunidad de Estudiantes
+          </h2>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={16} />
-            <input 
-              placeholder="Buscar alumno..." 
-              className="pl-10 pr-4 py-2 bg-white border border-stone-200 rounded-full text-xs outline-none focus:border-amber-500 w-64 shadow-sm" 
+            <Search
+              className="absolute top-1/2 left-3 -translate-y-1/2 text-[#5A5750]"
+              size={16}
+            />
+            <input
+              placeholder="Buscar alumno..."
+              className="w-64 rounded-full border border-[rgba(74,140,66,0.12)] bg-white py-2 pr-4 pl-10 text-xs shadow-sm outline-none focus:border-amber-500"
             />
           </div>
         </div>
 
         <div className="grid gap-4">
           {alumnos.map((alumno) => (
-            <div key={alumno.id} className={`bg-white p-6 rounded-[24px] border transition-all shadow-sm flex flex-col md:flex-row justify-between items-center gap-6 ${alumno.estado === 'suspendido' ? 'border-red-100 opacity-75' : 'border-stone-200 hover:border-amber-200'}`}>
-              
-              <div className="flex items-center gap-4 flex-1">
-                <div className={`h-12 w-12 rounded-2xl flex items-center justify-center font-bold text-lg ${alumno.estado === 'suspendido' ? 'bg-red-50 text-red-600' : 'bg-stone-100 text-stone-600'}`}>
-                  {alumno.nombre ? alumno.nombre.substring(0, 2).toUpperCase() : '??'}
+            <div
+              key={alumno.id}
+              className={`flex flex-col items-center justify-between gap-6 rounded-[24px] border bg-white p-6 shadow-sm transition-all md:flex-row ${alumno.estado === 'suspendido' ? 'border-red-100 opacity-75' : 'border-[rgba(74,140,66,0.12)] hover:border-[rgba(201,162,39,0.25)]'}`}
+            >
+              <div className="flex flex-1 items-center gap-4">
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold ${alumno.estado === 'suspendido' ? 'bg-red-50 text-red-600' : 'bg-stone-100 text-[#9A9589]'}`}
+                >
+                  {alumno.nombre
+                    ? alumno.nombre.substring(0, 2).toUpperCase()
+                    : '??'}
                 </div>
                 <div>
-                  <h3 className="font-bold text-stone-900 flex items-center gap-2">
+                  <h3 className="flex items-center gap-2 font-bold text-[#E8E4DC]">
                     {alumno.nombre}
-                    {alumno.estado === 'suspendido' && <span className="bg-red-500 text-white text-[8px] px-1.5 py-0.5 rounded-full uppercase">Acceso Cortado</span>}
+                    {alumno.estado === 'suspendido' && (
+                      <span className="rounded-full bg-red-500 px-1.5 py-0.5 text-[8px] text-white uppercase">
+                        Acceso Cortado
+                      </span>
+                    )}
                   </h3>
-                  <div className="flex items-center gap-4 mt-1">
-                    <p className="text-xs text-stone-400 flex items-center gap-1"><Mail size={12}/> {alumno.email}</p>
+                  <div className="mt-1 flex items-center gap-4">
+                    <p className="flex items-center gap-1 text-xs text-[#5A5750]">
+                      <Mail size={12} /> {alumno.email}
+                    </p>
                     {(() => {
-                      const status = getExpirationStatus(alumno.vencimiento);
+                      const status = getExpirationStatus(alumno.vencimiento)
                       return (
-                        <p className={`text-xs font-bold flex items-center gap-1 ${status.color}`}>
-                          <Clock size={12}/> {status.message}
+                        <p
+                          className={`flex items-center gap-1 text-xs font-bold ${status.color}`}
+                        >
+                          <Clock size={12} /> {status.message}
                         </p>
-                      );
+                      )
                     })()}
                   </div>
                 </div>
               </div>
 
               {/* BOTONES DE ADMINISTRACIÓN */}
-              <div className="flex items-center gap-3 shrink-0">
-                
+              <div className="flex shrink-0 items-center gap-3">
                 {/* GESTIÓN DE DÍAS (SUMAR/RESTAR) */}
-                <div className="flex items-center bg-stone-50 border border-stone-200 rounded-2xl p-1 gap-1">
-                  <form 
-                    action={extenderAccesoAction} 
-                    onSubmit={(e) => { if(!confirm('¿Estás seguro de RESTAR 30 días de acceso a este alumno?')) e.preventDefault(); }}
+                <div className="flex items-center gap-1 rounded-2xl border border-[rgba(74,140,66,0.12)] bg-stone-50 p-1">
+                  <form
+                    action={extenderAccesoAction}
+                    onSubmit={(e) => {
+                      if (
+                        !confirm(
+                          '¿Estás seguro de RESTAR 30 días de acceso a este alumno?',
+                        )
+                      )
+                        e.preventDefault()
+                    }}
                   >
                     <input type="hidden" name="id" value={alumno.id} />
                     <input type="hidden" name="dias" value="-30" />
-                    <button 
+                    <button
                       type="submit"
-                      title="Restar 30 días" 
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                      title="Restar 30 días"
+                      className="rounded-xl p-2 text-red-600 transition-all hover:bg-red-50"
                     >
-                      <CalendarMinus size={18}/>
+                      <CalendarMinus size={18} />
                     </button>
                   </form>
 
-                  <div className="h-4 w-px bg-stone-200 mx-1"></div>
+                  <div className="mx-1 h-4 w-px bg-stone-200"></div>
 
-                  <form 
-                    action={extenderAccesoAction} 
-                    onSubmit={(e) => { if(!confirm('¿Estás seguro de SUMAR 30 días de acceso a este alumno?')) e.preventDefault(); }}
+                  <form
+                    action={extenderAccesoAction}
+                    onSubmit={(e) => {
+                      if (
+                        !confirm(
+                          '¿Estás seguro de SUMAR 30 días de acceso a este alumno?',
+                        )
+                      )
+                        e.preventDefault()
+                    }}
                   >
                     <input type="hidden" name="id" value={alumno.id} />
                     <input type="hidden" name="dias" value="30" />
-                    <button 
+                    <button
                       type="submit"
-                      title="Sumar 30 días" 
-                      className="p-2 text-green-600 hover:bg-green-50 rounded-xl transition-all"
+                      title="Sumar 30 días"
+                      className="rounded-xl p-2 text-green-600 transition-all hover:bg-green-50"
                     >
-                      <CalendarPlus size={18}/>
+                      <CalendarPlus size={18} />
                     </button>
                   </form>
                 </div>
 
-                <div className="h-8 w-px bg-stone-200 mx-1 hidden md:block"></div>
+                <div className="mx-1 hidden h-8 w-px bg-stone-200 md:block"></div>
 
                 <form action={actualizarEstadoAlumnoAction}>
                   <input type="hidden" name="id" value={alumno.id} />
-                  <input type="hidden" name="estado" value={alumno.estado === 'activo' ? 'suspendido' : 'activo'} />
-                  <button className={`p-2 rounded-xl border transition-all ${alumno.estado === 'activo' ? 'bg-white border-stone-200 text-stone-400 hover:text-red-600' : 'bg-red-600 text-white border-red-600 hover:bg-red-700'}`}>
-                    {alumno.estado === 'activo' ? <UserMinus size={18}/> : <UserCheck size={18}/>}
+                  <input
+                    type="hidden"
+                    name="estado"
+                    value={alumno.estado === 'activo' ? 'suspendido' : 'activo'}
+                  />
+                  <button
+                    className={`rounded-xl border p-2 transition-all ${alumno.estado === 'activo' ? 'border-[rgba(74,140,66,0.12)] bg-white text-[#5A5750] hover:text-red-600' : 'border-red-600 bg-red-600 text-white hover:bg-red-700'}`}
+                  >
+                    {alumno.estado === 'activo' ? (
+                      <UserMinus size={18} />
+                    ) : (
+                      <UserCheck size={18} />
+                    )}
                   </button>
                 </form>
 
-                <form action={eliminarAlumnoAction} onSubmit={(e) => { if(!confirm('¿Eliminar alumno? Se borrará su acceso de seguridad también.')) e.preventDefault(); }}>
+                <form
+                  action={eliminarAlumnoAction}
+                  onSubmit={(e) => {
+                    if (
+                      !confirm(
+                        '¿Eliminar alumno? Se borrará su acceso de seguridad también.',
+                      )
+                    )
+                      e.preventDefault()
+                  }}
+                >
                   <input type="hidden" name="id" value={alumno.id} />
-                  <button className="p-2 text-stone-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all">
-                    <Trash2 size={18}/>
+                  <button className="rounded-xl p-2 text-stone-300 transition-all hover:bg-red-50 hover:text-red-600">
+                    <Trash2 size={18} />
                   </button>
                 </form>
               </div>
-
             </div>
           ))}
         </div>
       </div>
 
       {/* ================= ASIDE: REGISTRO RÁPIDO ================= */}
-      <aside className="w-full xl:w-[350px] bg-white border-l border-stone-200 p-8 space-y-8 shrink-0">
-        <div className="bg-stone-50 p-6 rounded-3xl border border-stone-100">
-          <h2 className="font-bold flex items-center gap-2 text-stone-900 mb-4"><ShieldAlert size={18} className="text-amber-600"/> Registrar Alumno</h2>
-          <p className="text-[10px] text-stone-500 leading-relaxed mb-6 italic">
-            Al dar de alta, el sistema crea la cuenta de acceso y asigna los primeros 30 días automáticamente.
+      <aside className="w-full shrink-0 space-y-8 border-l border-[rgba(74,140,66,0.12)] bg-white p-8 xl:w-[350px]">
+        <div className="rounded-3xl border border-[rgba(74,140,66,0.08)] bg-stone-50 p-6">
+          <h2 className="mb-4 flex items-center gap-2 font-bold text-[#E8E4DC]">
+            <ShieldAlert size={18} className="text-amber-600" /> Registrar
+            Alumno
+          </h2>
+          <p className="mb-6 text-[10px] leading-relaxed text-[#9A9589] italic">
+            Al dar de alta, el sistema crea la cuenta de acceso y asigna los
+            primeros 30 días automáticamente.
           </p>
-          
+
           {/* FORMULARIO CONECTADO */}
           <form action={registrarAlumnoAction} className="space-y-4">
             <div>
-              <label className="text-[10px] font-black text-stone-400 uppercase tracking-widest ml-1">Nombre Completo</label>
-              <input 
-                name="nombre" 
-                required 
-                placeholder="Ej. Juan Pérez" 
-                className="w-full p-3 bg-white border border-stone-200 rounded-xl text-xs outline-none focus:border-amber-500" 
+              <label className="ml-1 text-[10px] font-black tracking-widest text-[#5A5750] uppercase">
+                Nombre Completo
+              </label>
+              <input
+                name="nombre"
+                required
+                placeholder="Ej. Juan Pérez"
+                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-white p-3 text-xs outline-none focus:border-amber-500"
               />
             </div>
             <div>
-              <label className="text-[10px] font-black text-stone-400 uppercase tracking-widest ml-1">Correo Electrónico</label>
-              <input 
-                name="email" 
-                type="email" 
-                required 
-                placeholder="alumno@correo.com" 
-                className="w-full p-3 bg-white border border-stone-200 rounded-xl text-xs outline-none focus:border-amber-500" 
+              <label className="ml-1 text-[10px] font-black tracking-widest text-[#5A5750] uppercase">
+                Correo Electrónico
+              </label>
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="alumno@correo.com"
+                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-white p-3 text-xs outline-none focus:border-amber-500"
               />
             </div>
             <div>
-              <label className="text-[10px] font-black text-stone-400 uppercase tracking-widest ml-1">Contraseña Inicial</label>
+              <label className="ml-1 text-[10px] font-black tracking-widest text-[#5A5750] uppercase">
+                Contraseña Inicial
+              </label>
               <div className="relative">
-                <input 
-                  name="password" 
-                  type="password" 
-                  required 
-                  placeholder="Mínimo 6 caracteres" 
-                  className="w-full p-3 pl-10 bg-white border border-stone-200 rounded-xl text-xs outline-none focus:border-amber-500" 
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  placeholder="Mínimo 6 caracteres"
+                  className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-white p-3 pl-10 text-xs outline-none focus:border-amber-500"
                 />
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-300" size={14} />
+                <Lock
+                  className="absolute top-1/2 left-3 -translate-y-1/2 text-stone-300"
+                  size={14}
+                />
               </div>
             </div>
-            
-            <button className="w-full py-4 bg-stone-900 text-white rounded-2xl text-xs font-bold hover:bg-stone-800 shadow-xl transition-all active:scale-95">
+
+            <button className="w-full rounded-2xl bg-stone-900 py-4 text-xs font-bold text-white shadow-xl transition-all hover:bg-stone-800 active:scale-95">
               Dar de Alta e Iniciar Acceso
             </button>
           </form>
         </div>
 
-        <div className="p-4 bg-blue-50 rounded-2xl border border-blue-100 flex gap-3">
-          <Clock className="text-blue-500 shrink-0" size={16} />
-          <p className="text-[10px] text-blue-700 leading-relaxed">
-            <strong>Maestro Daniel:</strong> Una vez creado, dale el correo y la clave al alumno para que entre a su Intranet.
+        <div className="flex gap-3 rounded-2xl border border-blue-100 bg-blue-50 p-4">
+          <Clock className="shrink-0 text-blue-500" size={16} />
+          <p className="text-[10px] leading-relaxed text-blue-700">
+            <strong>Maestro Daniel:</strong> Una vez creado, dale el correo y la
+            clave al alumno para que entre a su Intranet.
           </p>
         </div>
       </aside>
     </div>
-  );
+  )
 }

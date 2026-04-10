@@ -1,139 +1,255 @@
-import React from 'react';
-import Link from 'next/link';
-import { createClient } from "@/supabase/server";
-import { 
-  Video, Calendar, Clock, ExternalLink, 
-  Sparkles, ShieldCheck, Play, MessageCircle 
-} from 'lucide-react';
+import React from 'react'
+import Link from 'next/link'
+import { createClient } from '@/supabase/server'
+import {
+  Video,
+  Calendar,
+  Clock,
+  ExternalLink,
+  Sparkles,
+  ShieldCheck,
+  Play,
+  MessageCircle,
+} from 'lucide-react'
 
 export default async function SesionesAlumnoPage() {
-  const supabase = await createClient();
+  const supabase = await createClient()
 
   const { data: config } = await supabase
     .from('configuracion')
     .select('zoom_link, whatsapp_link')
     .eq('id', 1)
-    .single();
+    .single()
 
-  const zoomLink = config?.zoom_link || "#";
-  const whatsappLink = config?.whatsapp_link || "#";
+  const zoomLink = config?.zoom_link || '#'
+  const whatsappLink = config?.whatsapp_link || '#'
 
   return (
-    <div className="min-h-screen bg-[#F9F6F0] font-sans overflow-y-auto custom-scrollbar">
-      
+    <div
+      className="custom-scrollbar min-h-screen overflow-y-auto font-sans"
+      style={{ backgroundColor: '#1A1C18', color: '#E8E4DC' }}
+    >
       {/* Header */}
-      <header className="max-w-5xl mx-auto px-6 pt-8 mb-8">
-        <div className="flex items-center gap-2 mb-2">
-          <Sparkles size={14} className="text-amber-500" />
-          <p className="text-amber-600 text-[9px] font-black uppercase tracking-[0.3em]">Encuentros en Vivo</p>
+      <header className="mx-auto mb-8 max-w-5xl px-6 pt-8">
+        <div className="mb-2 flex items-center gap-2">
+          <Sparkles size={14} style={{ color: '#C9A227' }} />
+          <p
+            className="text-[9px] font-black tracking-[0.3em] uppercase"
+            style={{ color: '#4A8C42' }}
+          >
+            Encuentros en Vivo
+          </p>
         </div>
-        <h2 className="font-serif text-3xl lg:text-4xl font-bold text-stone-900 italic tracking-tight leading-none">
+        <h2
+          className="font-serif text-3xl leading-none font-bold tracking-tight italic lg:text-4xl"
+          style={{ color: '#E8E4DC' }}
+        >
           Mis Sesiones
         </h2>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 space-y-6 pb-12">
-        
+      <main className="mx-auto max-w-5xl space-y-6 px-6 pb-12">
         {/* Tarjeta principal de la sesión */}
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-md overflow-hidden flex flex-col md:flex-row">
-          
+        <div className="card-elevated flex flex-col overflow-hidden rounded-2xl md:flex-row">
           {/* Lado izquierdo: Información */}
-          <div className="p-6 lg:p-8 w-full md:w-3/5 flex flex-col justify-between relative">
-            <div className="absolute top-0 left-0 p-6 opacity-[0.02] pointer-events-none">
+          <div className="relative flex w-full flex-col justify-between p-6 md:w-3/5 lg:p-8">
+            <div
+              className="pointer-events-none absolute top-0 left-0 p-6 opacity-[0.03]"
+              style={{ color: '#4A8C42' }}
+            >
               <Sparkles size={100} />
             </div>
 
             <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-5">
-                <span className="bg-stone-900 text-amber-500 text-[8px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Oficial</span>
-                <span className="text-stone-400 text-[9px] font-black uppercase tracking-widest">Formación Reiki Usui</span>
+              <div className="mb-5 flex items-center gap-2">
+                <span className="badge-reiki badge-reiki-gold">Oficial</span>
+                <span
+                  className="text-[9px] font-black tracking-widest uppercase"
+                  style={{ color: '#9A9589' }}
+                >
+                  Formación Reiki Usui
+                </span>
               </div>
-              
-              <h3 className="font-serif text-2xl lg:text-3xl font-bold text-stone-900 italic mb-3 leading-tight tracking-tight">
+
+              <h3
+                className="mb-3 font-serif text-2xl leading-tight font-bold tracking-tight italic lg:text-3xl"
+                style={{ color: '#E8E4DC' }}
+              >
                 Clase Grupal de Jueves
               </h3>
-              
-              <p className="text-stone-500 text-xs leading-relaxed mb-6 max-w-md italic">
-                "Un espacio sagrado para profundizar en la técnica, realizar meditaciones guiadas y resolver dudas en tiempo real con Daniel."
+
+              <p
+                className="mb-6 max-w-md text-xs leading-relaxed italic"
+                style={{ color: '#9A9589' }}
+              >
+                &ldquo;Un espacio sagrado para profundizar en la técnica,
+                realizar meditaciones guiadas y resolver dudas en tiempo real
+                con Daniel.&rdquo;
               </p>
 
-              <div className="grid grid-cols-2 gap-6 mb-6 border-t border-stone-100 pt-5">
+              <div
+                className="mb-6 grid grid-cols-2 gap-6 pt-5"
+                style={{ borderTop: '1px solid rgba(74,140,66,0.12)' }}
+              >
                 <div className="space-y-1.5">
-                  <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Día de encuentro</p>
-                  <div className="flex items-center gap-2 text-stone-800">
-                    <div className="p-1.5 bg-amber-50 rounded-lg text-amber-600"><Calendar size={14} /></div>
-                    <span className="text-sm font-bold">Cada Jueves</span>
+                  <p
+                    className="text-[9px] font-black tracking-widest uppercase"
+                    style={{ color: '#9A9589' }}
+                  >
+                    Día de encuentro
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="rounded-lg p-1.5"
+                      style={{
+                        backgroundColor: 'rgba(201,162,39,0.1)',
+                        color: '#C9A227',
+                      }}
+                    >
+                      <Calendar size={14} />
+                    </div>
+                    <span
+                      className="text-sm font-bold"
+                      style={{ color: '#E8E4DC' }}
+                    >
+                      Cada Jueves
+                    </span>
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Horario (Chile)</p>
-                  <div className="flex items-center gap-2 text-stone-800">
-                    <div className="p-1.5 bg-amber-50 rounded-lg text-amber-600"><Clock size={14} /></div>
-                    <span className="text-sm font-bold">19:30 HRS</span>
+                  <p
+                    className="text-[9px] font-black tracking-widest uppercase"
+                    style={{ color: '#9A9589' }}
+                  >
+                    Horario (Chile)
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="rounded-lg p-1.5"
+                      style={{
+                        backgroundColor: 'rgba(201,162,39,0.1)',
+                        color: '#C9A227',
+                      }}
+                    >
+                      <Clock size={14} />
+                    </div>
+                    <span
+                      className="text-sm font-bold"
+                      style={{ color: '#E8E4DC' }}
+                    >
+                      19:30 HRS
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Botón de Zoom */}
-            <Link 
-              href={zoomLink} 
+            <Link
+              href={zoomLink}
               target="_blank"
-              className="group relative bg-stone-900 text-white py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:bg-stone-800 transition-all shadow-lg shadow-stone-900/10 active:scale-[0.98] overflow-hidden"
+              className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-2xl py-4 text-[10px] font-black tracking-[0.3em] uppercase transition-all active:scale-[0.98]"
+              style={{
+                backgroundColor: '#272A23',
+                border: '1px solid rgba(201,162,39,0.2)',
+                color: '#C9A227',
+              }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <Play size={18} className="fill-amber-500 text-amber-500" />
-              <span className="relative z-10 text-amber-500">Ingresar a Sala Zoom</span>
-              <ExternalLink size={14} className="opacity-50 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <div
+                className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100"
+                style={{
+                  background:
+                    'linear-gradient(to right, rgba(201,162,39,0.08), transparent)',
+                }}
+              />
+              <Play size={18} style={{ fill: '#C9A227', color: '#C9A227' }} />
+              <span className="relative z-10">Ingresar a Sala Zoom</span>
+              <ExternalLink
+                size={14}
+                className="opacity-50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </Link>
           </div>
 
           {/* Lado derecho: Imagen */}
-          <div className="w-full md:w-2/5 bg-stone-950 relative overflow-hidden min-h-[200px] md:min-h-0">
-            <img 
-              src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1000" 
-              className="absolute inset-0 w-full h-full object-cover opacity-70"
+          <div
+            className="relative min-h-[200px] w-full overflow-hidden md:min-h-0 md:w-2/5"
+            style={{ backgroundColor: '#141510' }}
+          >
+            <img
+              src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1000"
+              className="absolute inset-0 h-full w-full object-cover opacity-50"
               alt="Meditación Reiki"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-stone-950/40"></div>
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to left, transparent, rgba(26,28,24,0.5))',
+              }}
+            />
             <div className="absolute inset-0 flex items-center justify-center">
-               <div className="w-16 h-16 border border-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
-                  <Video size={28} className="text-white/20" />
-               </div>
+              <div
+                className="flex h-16 w-16 items-center justify-center rounded-full backdrop-blur-sm"
+                style={{ border: '1px solid rgba(74,140,66,0.2)' }}
+              >
+                <Video size={28} style={{ color: 'rgba(74,140,66,0.4)' }} />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Protocolo y Soporte */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
-          
+        <div className="card-elevated flex flex-col items-center justify-between gap-4 rounded-2xl p-5 md:flex-row">
           <div className="flex flex-wrap items-center gap-6">
-            <div className="flex items-center gap-2 text-stone-400">
-              <ShieldCheck size={14} />
-              <span className="text-[9px] font-black uppercase tracking-widest">Protocolo</span>
+            <div
+              className="flex items-center gap-2"
+              style={{ color: '#9A9589' }}
+            >
+              <ShieldCheck size={14} style={{ color: '#4A8C42' }} />
+              <span className="text-[9px] font-black tracking-widest uppercase">
+                Protocolo
+              </span>
             </div>
             <div className="flex flex-wrap gap-4">
-              {["Lugar tranquilo", "Manual a mano", "Cámara activa"].map((text) => (
-                <div key={text} className="flex items-center gap-1.5">
-                  <div className="h-1 w-1 bg-amber-500 rounded-full shadow-[0_0_6px_rgba(245,158,11,0.5)]"></div>
-                  <p className="text-[9px] text-stone-500 font-bold italic uppercase tracking-tighter">{text}</p>
-                </div>
-              ))}
+              {['Lugar tranquilo', 'Manual a mano', 'Cámara activa'].map(
+                (text) => (
+                  <div key={text} className="flex items-center gap-1.5">
+                    <div
+                      className="h-1 w-1 rounded-full"
+                      style={{
+                        backgroundColor: '#4A8C42',
+                        boxShadow: '0 0 6px rgba(74,140,66,0.5)',
+                      }}
+                    />
+                    <p
+                      className="text-[9px] font-bold tracking-tighter uppercase italic"
+                      style={{ color: '#9A9589' }}
+                    >
+                      {text}
+                    </p>
+                  </div>
+                ),
+              )}
             </div>
           </div>
 
-          {whatsappLink && whatsappLink !== "#" && (
-            <Link 
+          {whatsappLink && whatsappLink !== '#' && (
+            <Link
               href={whatsappLink}
-              target="_blank" 
-              className="flex items-center gap-2 bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-xl font-black text-[9px] uppercase tracking-widest hover:bg-[#25D366]/20 transition-colors active:scale-95 shrink-0"
+              target="_blank"
+              className="flex shrink-0 items-center gap-2 rounded-xl px-4 py-2 text-[9px] font-black tracking-widest uppercase transition-colors active:scale-95"
+              style={{
+                backgroundColor: 'rgba(37,211,102,0.08)',
+                color: '#25D366',
+                border: '1px solid rgba(37,211,102,0.15)',
+              }}
             >
               <MessageCircle size={14} /> Contactar Soporte
             </Link>
           )}
         </div>
-
       </main>
     </div>
-  );
+  )
 }

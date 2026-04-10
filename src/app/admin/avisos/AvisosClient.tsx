@@ -1,63 +1,81 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import { 
-  Bell, Calendar, PlusCircle, Search, 
-  Info, CheckCircle, MessageSquare
-} from 'lucide-react';
-import { AvisoCard } from '@/components/admin/aviso-card';
-import { isDateExpired } from '@/utils/date-format';
+import React, { useState } from 'react'
+import {
+  Bell,
+  Calendar,
+  PlusCircle,
+  Search,
+  Info,
+  CheckCircle,
+  MessageSquare,
+} from 'lucide-react'
+import { AvisoCard } from '@/components/admin/aviso-card'
+import { isDateExpired } from '@/utils/date-format'
 
 interface AvisosClientProps {
-  avisos: any[];
-  crearAvisoAction: (formData: FormData) => Promise<void>;
-  borrarAvisoAction: (formData: FormData) => Promise<void>;
+  avisos: any[]
+  crearAvisoAction: (formData: FormData) => Promise<void>
+  borrarAvisoAction: (formData: FormData) => Promise<void>
 }
 
-export default function AvisosClient({ avisos, crearAvisoAction, borrarAvisoAction }: AvisosClientProps) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState<'todos' | 'activos' | 'expirados'>('todos');
+export default function AvisosClient({
+  avisos,
+  crearAvisoAction,
+  borrarAvisoAction,
+}: AvisosClientProps) {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filter, setFilter] = useState<'todos' | 'activos' | 'expirados'>(
+    'todos',
+  )
 
-  const filteredAvisos = avisos.filter(aviso => {
-    const matchesSearch = aviso.titulo.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         aviso.mensaje.toLowerCase().includes(searchTerm.toLowerCase());
-    const isExpirado = isDateExpired(aviso.fecha_expiracion);
-    if (filter === 'activos') return matchesSearch && !isExpirado;
-    if (filter === 'expirados') return matchesSearch && isExpirado;
-    return matchesSearch;
-  });
+  const filteredAvisos = avisos.filter((aviso) => {
+    const matchesSearch =
+      aviso.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      aviso.mensaje.toLowerCase().includes(searchTerm.toLowerCase())
+    const isExpirado = isDateExpired(aviso.fecha_expiracion)
+    if (filter === 'activos') return matchesSearch && !isExpirado
+    if (filter === 'expirados') return matchesSearch && isExpirado
+    return matchesSearch
+  })
 
   return (
-    <div className="p-6 max-w-7xl mx-auto font-sans text-stone-800 pb-16 min-h-screen">
-      
+    <div className="mx-auto min-h-screen max-w-7xl p-6 pb-16 font-sans text-[#E8E4DC]">
       {/* Header compacto */}
-      <header className="mb-8 border-b border-stone-200 pb-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <header className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-[rgba(74,140,66,0.12)] pb-5 md:flex-row md:items-center">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
             <Bell size={18} />
           </div>
           <div>
-            <h2 className="font-serif text-2xl font-bold text-stone-900 italic">Tablón de Comunicados</h2>
-            <p className="text-stone-400 text-[9px] font-black uppercase tracking-[0.2em]">Crea y administra los avisos para tus alumnos.</p>
+            <h2 className="font-serif text-2xl font-bold text-[#E8E4DC] italic">
+              Tablón de Comunicados
+            </h2>
+            <p className="text-[9px] font-black tracking-[0.2em] text-[#5A5750] uppercase">
+              Crea y administra los avisos para tus alumnos.
+            </p>
           </div>
         </div>
-        
-        <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-stone-200 shadow-sm">
+
+        <div className="flex items-center gap-2 rounded-xl border border-[rgba(74,140,66,0.12)] bg-white p-1 shadow-sm">
           <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-stone-400" size={12} />
-            <input 
-              type="text" 
-              placeholder="Buscar aviso..." 
+            <Search
+              className="absolute top-1/2 left-2.5 -translate-y-1/2 text-[#5A5750]"
+              size={12}
+            />
+            <input
+              type="text"
+              placeholder="Buscar aviso..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-100 rounded-lg text-xs outline-none focus:border-amber-500 w-44 md:w-56 transition-all"
+              className="w-44 rounded-lg border border-[rgba(74,140,66,0.08)] bg-stone-50 py-1.5 pr-3 pl-8 text-xs transition-all outline-none focus:border-amber-500 md:w-56"
             />
           </div>
           <div className="h-5 w-px bg-stone-200"></div>
-          <select 
+          <select
             value={filter}
             onChange={(e) => setFilter(e.target.value as any)}
-            className="bg-stone-50 border border-stone-100 rounded-lg text-[9px] font-black uppercase tracking-widest px-2 py-1.5 outline-none focus:border-amber-500 cursor-pointer"
+            className="cursor-pointer rounded-lg border border-[rgba(74,140,66,0.08)] bg-stone-50 px-2 py-1.5 text-[9px] font-black tracking-widest uppercase outline-none focus:border-amber-500"
           >
             <option value="todos">Todos</option>
             <option value="activos">Activos</option>
@@ -66,66 +84,79 @@ export default function AvisosClient({ avisos, crearAvisoAction, borrarAvisoActi
         </div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
         {/* COLUMNA IZQUIERDA: FORMULARIO (4 de 12) */}
-        <div className="lg:col-span-4 bg-white p-5 rounded-2xl border border-stone-200 shadow-md sticky top-6">
-          <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-stone-100">
-            <div className="p-2 bg-amber-50 rounded-xl text-amber-600">
+        <div className="sticky top-6 rounded-2xl border border-[rgba(74,140,66,0.12)] bg-white p-5 shadow-md lg:col-span-4">
+          <div className="mb-5 flex items-center gap-2.5 border-b border-[rgba(74,140,66,0.08)] pb-3">
+            <div className="rounded-xl bg-amber-50 p-2 text-amber-600">
               <PlusCircle size={18} />
             </div>
             <div>
-              <h3 className="font-serif text-lg font-bold text-stone-900 italic">Publicar Nuevo Aviso</h3>
-              <p className="text-stone-400 text-[9px] font-bold uppercase tracking-widest">Llega a todos tus alumnos</p>
+              <h3 className="font-serif text-lg font-bold text-[#E8E4DC] italic">
+                Publicar Nuevo Aviso
+              </h3>
+              <p className="text-[9px] font-bold tracking-widest text-[#5A5750] uppercase">
+                Llega a todos tus alumnos
+              </p>
             </div>
           </div>
 
           <form action={crearAvisoAction} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="block text-[9px] font-black uppercase tracking-widest text-stone-500 ml-1">Título del Aviso</label>
-              <input 
-                type="text" 
+              <label className="ml-1 block text-[9px] font-black tracking-widest text-[#9A9589] uppercase">
+                Título del Aviso
+              </label>
+              <input
+                type="text"
                 name="titulo"
                 required
                 placeholder="Ej: Suspensión de clase..."
-                className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium"
+                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-stone-50 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-[9px] font-black uppercase tracking-widest text-stone-500 ml-1">Mensaje del Comunicado</label>
-              <textarea 
+              <label className="ml-1 block text-[9px] font-black tracking-widest text-[#9A9589] uppercase">
+                Mensaje del Comunicado
+              </label>
+              <textarea
                 name="mensaje"
                 required
                 rows={4}
                 placeholder="Escribe el detalle del comunicado aquí..."
-                className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-none font-medium custom-scrollbar"
+                className="custom-scrollbar w-full resize-none rounded-xl border border-[rgba(74,140,66,0.12)] bg-stone-50 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
               ></textarea>
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-[9px] font-black uppercase tracking-widest text-stone-500 ml-1">Visible Hasta (Vencimiento)</label>
-              <div className="relative group">
-                <input 
-                  type="date" 
+              <label className="ml-1 block text-[9px] font-black tracking-widest text-[#9A9589] uppercase">
+                Visible Hasta (Vencimiento)
+              </label>
+              <div className="group relative">
+                <input
+                  type="date"
                   name="fecha_expiracion"
                   required
-                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all font-medium appearance-none cursor-pointer"
+                  className="w-full cursor-pointer appearance-none rounded-xl border border-[rgba(74,140,66,0.12)] bg-stone-50 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
                 />
-                <Calendar size={14} className="absolute right-4 top-3.5 text-stone-400 pointer-events-none group-hover:text-amber-500 transition-colors" />
+                <Calendar
+                  size={14}
+                  className="pointer-events-none absolute top-3.5 right-4 text-[#5A5750] transition-colors group-hover:text-amber-500"
+                />
               </div>
             </div>
 
-            <div className="bg-amber-50 p-3 rounded-xl border border-amber-100 flex gap-2 items-start">
-              <Info size={14} className="text-amber-600 shrink-0 mt-0.5" />
-              <p className="text-[9px] text-amber-800 font-bold uppercase leading-relaxed">
-                El aviso aparecerá en el Dashboard de los alumnos hasta la fecha seleccionada.
+            <div className="flex items-start gap-2 rounded-xl border border-amber-100 bg-amber-50 p-3">
+              <Info size={14} className="mt-0.5 shrink-0 text-amber-600" />
+              <p className="text-[9px] leading-relaxed font-bold text-amber-800 uppercase">
+                El aviso aparecerá en el Dashboard de los alumnos hasta la fecha
+                seleccionada.
               </p>
             </div>
 
-            <button 
+            <button
               type="submit"
-              className="w-full bg-stone-900 text-amber-500 font-black text-[10px] uppercase tracking-[0.2em] py-3.5 rounded-xl hover:bg-stone-800 transition-all shadow-lg shadow-stone-900/10 active:scale-[0.98] flex items-center justify-center gap-2"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-stone-900 py-3.5 text-[10px] font-black tracking-[0.2em] text-amber-500 uppercase shadow-lg shadow-stone-900/10 transition-all hover:bg-stone-800 active:scale-[0.98]"
             >
               <CheckCircle size={14} />
               Publicar Aviso Ahora
@@ -135,46 +166,52 @@ export default function AvisosClient({ avisos, crearAvisoAction, borrarAvisoActi
 
         {/* COLUMNA DERECHA: HISTORIAL DE AVISOS (8 de 12) */}
         <div className="lg:col-span-8">
-          <div className="flex items-center justify-between mb-5 px-1">
+          <div className="mb-5 flex items-center justify-between px-1">
             <div className="flex items-center gap-2">
-              <div className="h-7 w-7 rounded-lg bg-stone-900 flex items-center justify-center text-amber-500">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-stone-900 text-amber-500">
                 <MessageSquare size={14} />
               </div>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400">Historial de Comunicados</h3>
+              <h3 className="text-[10px] font-black tracking-[0.2em] text-[#5A5750] uppercase">
+                Historial de Comunicados
+              </h3>
             </div>
-            <span className="bg-stone-200 text-stone-600 text-[8px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest">
-              {filteredAvisos.length} {filteredAvisos.length === 1 ? 'Aviso' : 'Avisos'}
+            <span className="rounded-full bg-stone-200 px-2 py-0.5 text-[8px] font-black tracking-widest text-[#9A9589] uppercase">
+              {filteredAvisos.length}{' '}
+              {filteredAvisos.length === 1 ? 'Aviso' : 'Avisos'}
             </span>
           </div>
-          
+
           <div className="space-y-3">
             {filteredAvisos.length > 0 ? (
               filteredAvisos.map((aviso) => (
-                <AvisoCard 
-                  key={aviso.id} 
-                  aviso={aviso} 
+                <AvisoCard
+                  key={aviso.id}
+                  aviso={aviso}
                   onDelete={async (id) => {
-                    const formData = new FormData();
-                    formData.append('id', id);
-                    await borrarAvisoAction(formData);
+                    const formData = new FormData()
+                    formData.append('id', id)
+                    await borrarAvisoAction(formData)
                   }}
                 />
               ))
             ) : (
-              <div className="bg-white rounded-2xl border border-stone-200 border-dashed p-12 flex flex-col items-center justify-center text-center text-stone-400">
-                <div className="p-4 bg-stone-50 rounded-full mb-4 opacity-20">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[rgba(74,140,66,0.12)] bg-white p-12 text-center text-[#5A5750]">
+                <div className="mb-4 rounded-full bg-stone-50 p-4 opacity-20">
                   <Bell size={36} />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-stone-900 italic mb-1">No hay avisos que mostrar</h3>
-                <p className="text-[9px] font-bold uppercase tracking-widest max-w-[250px] leading-relaxed">
-                  {searchTerm ? 'No encontramos avisos que coincidan con tu búsqueda.' : 'Tu tablón está vacío. Comienza publicando un comunicado.'}
+                <h3 className="mb-1 font-serif text-lg font-bold text-[#E8E4DC] italic">
+                  No hay avisos que mostrar
+                </h3>
+                <p className="max-w-[250px] text-[9px] leading-relaxed font-bold tracking-widest uppercase">
+                  {searchTerm
+                    ? 'No encontramos avisos que coincidan con tu búsqueda.'
+                    : 'Tu tablón está vacío. Comienza publicando un comunicado.'}
                 </p>
               </div>
             )}
           </div>
         </div>
-
       </div>
     </div>
-  );
+  )
 }

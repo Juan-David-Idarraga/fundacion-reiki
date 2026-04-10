@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { FileText, Trash2, Download, File, ExternalLink } from 'lucide-react';
+import React from 'react'
+import { FileText, Trash2, Download, File, ExternalLink } from 'lucide-react'
 
 interface MaterialCardProps {
   material: {
-    id: string;
-    nombre: string;
-    url_archivo: string;
-    created_at?: string;
-  };
-  onDelete: (id: string, url: string) => void;
+    id: string
+    nombre: string
+    url_archivo: string
+    created_at?: string
+  }
+  onDelete: (id: string, url: string) => void
 }
 
 export function MaterialCard({ material, onDelete }: MaterialCardProps) {
@@ -18,29 +18,51 @@ export function MaterialCard({ material, onDelete }: MaterialCardProps) {
   const getPublicUrl = (path: string) => {
     // Esta lógica dependerá de cómo esté configurado el bucket en Supabase
     // Por ahora usamos un placeholder o la URL directa si ya viene completa
-    return path.startsWith('http') ? path : `#`; 
-  };
+    return path.startsWith('http') ? path : `#`
+  }
 
   return (
-    <div className="group bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-md hover:border-amber-200 transition-all p-4 flex items-center gap-4">
+    <div
+      className="group flex items-center gap-4 rounded-2xl p-4 transition-all duration-300"
+      style={{
+        backgroundColor: '#272A23',
+        border: '1px solid rgba(139,107,145,0.12)',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+      }}
+    >
       {/* Icono de Archivo */}
-      <div className="h-12 w-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300 shadow-sm">
+      <div
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-all duration-300"
+        style={{ backgroundColor: 'rgba(139,107,145,0.1)', color: '#8B6B91' }}
+      >
         <FileText size={24} />
       </div>
 
       {/* Información */}
-      <div className="flex-1 min-w-0">
-        <h4 className="font-bold text-stone-900 text-sm truncate group-hover:text-amber-700 transition-colors">
+      <div className="min-w-0 flex-1">
+        <h4
+          className="truncate text-sm font-bold transition-colors"
+          style={{ color: '#E8E4DC' }}
+        >
           {material.nombre}
         </h4>
-        <div className="flex items-center gap-3 mt-1">
-          <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">
+        <div className="mt-1 flex items-center gap-3">
+          <span
+            className="text-[10px] font-bold tracking-widest uppercase"
+            style={{ color: '#5A5750' }}
+          >
             Documento PDF
           </span>
           {material.created_at && (
             <>
-              <div className="w-1 h-1 rounded-full bg-stone-200"></div>
-              <span className="text-[10px] font-medium text-stone-400">
+              <div
+                className="h-1 w-1 rounded-full"
+                style={{ backgroundColor: '#363830' }}
+              ></div>
+              <span
+                className="text-[10px] font-medium"
+                style={{ color: '#5A5750' }}
+              >
                 {new Date(material.created_at).toLocaleDateString('es-CL')}
               </span>
             </>
@@ -49,19 +71,20 @@ export function MaterialCard({ material, onDelete }: MaterialCardProps) {
       </div>
 
       {/* Acciones */}
-      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
-        <button 
+      <div className="flex items-center gap-1 opacity-0 transition-all group-hover:opacity-100">
+        <button
           onClick={() => {
-            if(confirm('¿Estás seguro de eliminar este material?')) {
-              onDelete(material.id, material.url_archivo);
+            if (confirm('¿Estás seguro de eliminar este material?')) {
+              onDelete(material.id, material.url_archivo)
             }
           }}
-          className="p-2 text-stone-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+          className="rounded-xl p-2 transition-all"
+          style={{ color: '#5A5750' }}
           title="Eliminar material"
         >
           <Trash2 size={18} />
         </button>
       </div>
     </div>
-  );
+  )
 }
