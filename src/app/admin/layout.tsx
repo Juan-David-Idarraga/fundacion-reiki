@@ -5,6 +5,7 @@ import { createClient } from '@/supabase/server'
 import { logoutAction } from './actions'
 import { ReikiLogo } from '@/components/reiki-logo'
 import { MobileNav } from '@/components/mobile-nav'
+import { LogoutButtonAdmin } from '@/components/logout-button-admin'
 import {
   Activity,
   Users,
@@ -42,7 +43,7 @@ export default async function AdminLayout({
   const avatarInitials = 'DR'
   const nombreAdmin = 'Daniel Riquelme'
 
-  // Links para desktop sidebar y mobile nav
+  // Links para sidebar desktop (con íconos React — válido en Server Component)
   const gestionLinks = [
     {
       href: '/admin',
@@ -85,7 +86,46 @@ export default async function AdminLayout({
       iconColor: '#8B6B91',
     },
   ]
-  const allNavLinks = [...gestionLinks, ...contenidoLinks, ...sistemaLinks]
+
+  // Links para MobileNav (solo objetos planos serializables — iconId en lugar de componente)
+  const mobileNavLinks = [
+    {
+      href: '/admin',
+      iconId: 'Activity',
+      label: 'Vista General',
+      iconColor: '#C9A227',
+    },
+    {
+      href: '/admin/alumnos',
+      iconId: 'Users',
+      label: 'Alumnos',
+      iconColor: '#C9A227',
+    },
+    {
+      href: '/admin/clases',
+      iconId: 'Video',
+      label: 'Unidades Grabadas',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/admin/materiales',
+      iconId: 'BookOpen',
+      label: 'Biblioteca PDF',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/admin/avisos',
+      iconId: 'Bell',
+      label: 'Tablón de Avisos',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/admin/configuracion',
+      iconId: 'Settings',
+      label: 'Configuración',
+      iconColor: '#8B6B91',
+    },
+  ]
 
   return (
     <div
@@ -238,16 +278,21 @@ export default async function AdminLayout({
         >
           {/* Izquierda: hamburguesa (móvil) + título */}
           <div className="flex items-center gap-3">
+            {/*
+              MobileNav recibe solo props serializables (strings).
+              Los íconos se resuelven internamente con ICON_MAP.
+              El logout se inyecta como ReactNode (logoutSlot).
+            */}
             <MobileNav
-              links={allNavLinks}
+              links={mobileNavLinks}
               userName={nombreAdmin}
               userRole="Administrador"
               avatarInitials={avatarInitials}
               avatarGradient="linear-gradient(135deg, #C9A227, #8B6B91)"
               roleColor="#C9A227"
-              logoutAction={logoutAction}
               title="Admin Panel"
               titleColor="#C9A227"
+              logoutSlot={<LogoutButtonAdmin />}
             />
             <div className="flex items-center gap-2">
               <Shield size={14} style={{ color: '#C9A227' }} />

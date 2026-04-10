@@ -5,6 +5,7 @@ import { createClient } from '@/supabase/server'
 import { logoutAction } from './actions'
 import { ReikiLogo } from '@/components/reiki-logo'
 import { MobileNav } from '@/components/mobile-nav'
+import { LogoutButtonIntranet } from '@/components/logout-button-intranet'
 import {
   BookOpen,
   Calendar,
@@ -36,7 +37,8 @@ export default async function IntranetLayout({
   const nombreAlumno = perfil?.nombre || user.email?.split('@')[0] || 'Alumno'
   const avatarInitials = nombreAlumno.substring(0, 2).toUpperCase()
 
-  const navLinks = [
+  // Links para el sidebar desktop (con íconos React — válido en Server Component)
+  const desktopNavLinks = [
     {
       href: '/intranet',
       icon: BookOpen,
@@ -64,6 +66,40 @@ export default async function IntranetLayout({
     {
       href: '/intranet/perfil',
       icon: User,
+      label: 'Mi Perfil',
+      iconColor: '#C9A227',
+    },
+  ]
+
+  // Links para el MobileNav (solo objetos planos serializables — iconId en lugar de componente)
+  const mobileNavLinks = [
+    {
+      href: '/intranet',
+      iconId: 'BookOpen',
+      label: 'Mi Formación',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/intranet/clases',
+      iconId: 'MonitorPlay',
+      label: 'Clases Grabadas',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/intranet/materiales',
+      iconId: 'FolderOpen',
+      label: 'Materiales PDF',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/intranet/sesiones',
+      iconId: 'Calendar',
+      label: 'Mis Sesiones',
+      iconColor: '#8B6B91',
+    },
+    {
+      href: '/intranet/perfil',
+      iconId: 'User',
       label: 'Mi Perfil',
       iconColor: '#C9A227',
     },
@@ -99,7 +135,7 @@ export default async function IntranetLayout({
           >
             Navegación
           </p>
-          {navLinks.map(({ href, icon: Icon, label, iconColor }) => (
+          {desktopNavLinks.map(({ href, icon: Icon, label, iconColor }) => (
             <Link
               key={href}
               href={href}
@@ -176,17 +212,22 @@ export default async function IntranetLayout({
         >
           {/* Izquierda: hamburguesa (móvil) + título */}
           <div className="flex items-center gap-3">
-            {/* Botón hamburguesa — solo visible en móvil, renderizado en cliente */}
+            {/*
+              MobileNav recibe solo props serializables (strings).
+              Los íconos se resuelven internamente con ICON_MAP.
+              El logout se inyecta como ReactNode (logoutSlot) para evitar
+              pasar Server Actions como props.
+            */}
             <MobileNav
-              links={navLinks}
+              links={mobileNavLinks}
               userName={nombreAlumno}
               userRole="Alumno Activo"
               avatarInitials={avatarInitials}
               avatarGradient="linear-gradient(135deg, #4A8C42, #8B6B91)"
               roleColor="#4A8C42"
-              logoutAction={logoutAction}
               title="Portal Alumno"
               titleColor="#4A8C42"
+              logoutSlot={<LogoutButtonIntranet />}
             />
             <div className="flex items-center gap-2">
               <Sparkles size={14} style={{ color: '#C9A227' }} />

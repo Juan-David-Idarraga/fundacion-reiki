@@ -1,27 +1,69 @@
 'use client'
 
+/**
+ * MobileNav — Componente de navegación móvil (drawer lateral)
+ *
+ * IMPORTANTE: Este es un Client Component. Next.js App Router prohíbe pasar
+ * componentes React (como íconos de Lucide) desde Server Components a Client
+ * Components como props, porque no son objetos planos serializables.
+ *
+ * Solución: los íconos se resuelven INTERNAMENTE mediante un mapa de strings
+ * (iconId → componente). Los layouts solo pasan strings en sus navLinks.
+ */
+
 import React, { useState, useEffect, startTransition } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, LogOut } from 'lucide-react'
+import {
+  Menu,
+  X,
+  LogOut,
+  BookOpen,
+  Calendar,
+  User,
+  FolderOpen,
+  MonitorPlay,
+  Activity,
+  Users,
+  Video,
+  Bell,
+  Settings,
+  type LucideIcon,
+} from 'lucide-react'
 
-export interface NavLink {
+// ── Mapa de íconos disponibles (solo strings se pasan como props) ──────────
+const ICON_MAP: Record<string, LucideIcon> = {
+  BookOpen,
+  Calendar,
+  User,
+  FolderOpen,
+  MonitorPlay,
+  Activity,
+  Users,
+  Video,
+  Bell,
+  Settings,
+}
+
+// ── Tipos serializables (sin componentes React) ───────────────────────────
+export interface NavLinkPlain {
   href: string
   label: string
-  icon: React.ElementType
+  iconId: string // clave del ICON_MAP
   iconColor?: string
 }
 
 interface MobileNavProps {
-  links: NavLink[]
+  links: NavLinkPlain[]
   userName: string
   userRole: string
   avatarInitials: string
   avatarGradient: string
   roleColor: string
-  logoutAction: () => Promise<void>
   title?: string
   titleColor?: string
+  /** Slot para el botón de logout (evita pasar Server Actions como props) */
+  logoutSlot?: React.ReactNode
 }
 
 export function MobileNav({
@@ -31,22 +73,19 @@ export function MobileNav({
   avatarInitials,
   avatarGradient,
   roleColor,
-  logoutAction,
   title = 'Fundación Reiki',
   titleColor = '#4A8C42',
+  logoutSlot,
 }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
-  // Cierra el menú al cambiar de ruta
+  // Cierra el drawer al navegar
   useEffect(() => {
-    startTransition(() => {
-      setIsOpen(false)
-    })
+    startTransition(() => setIsOpen(false))
   }, [pathname])
 
-  // Bloquea el scroll del body cuando el menú está abierto (efecto de sistema externo — DOM)
-
+  // Bloquea scroll del body mientras el drawer está abierto
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => {
@@ -56,7 +95,7 @@ export function MobileNav({
 
   return (
     <>
-      {/* ── BOTÓN HAMBURGUESA (visible solo en móvil) ── */}
+      {/* ── BOTÓN HAMBURGUESA (solo visible en < lg) ── */}
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Abrir menú de navegación"
@@ -117,7 +156,7 @@ export function MobileNav({
           </button>
         </div>
 
-        {/* Título del panel */}
+        {/* Subtítulo del panel */}
         <div className="px-5 pt-4 pb-2">
           <p
             className="text-[9px] font-black tracking-[0.25em] uppercase"
@@ -129,7 +168,8 @@ export function MobileNav({
 
         {/* Links de navegación */}
         <nav className="flex-1 overflow-y-auto px-3 pb-4">
-          {links.map(({ href, label, icon: Icon, iconColor }) => {
+          {links.map(({ href, label, iconId, iconColor }) => {
+            const Icon = ICON_MAP[iconId]
             const isActive = pathname === href
             return (
               <Link
@@ -141,11 +181,13 @@ export function MobileNav({
                   backgroundColor: isActive ? '#272A23' : 'transparent',
                 }}
               >
-                <Icon
-                  size={16}
-                  className="shrink-0"
-                  style={{ color: iconColor || '#4A8C42' }}
-                />
+                {Icon && (
+                  <Icon
+                    size={16}
+                    className="shrink-0"
+                    style={{ color: iconColor || '#4A8C42' }}
+                  />
+                )}
                 {label}
               </Link>
             )
@@ -182,15 +224,8 @@ export function MobileNav({
               </p>
             </div>
           </div>
-          <form action={logoutAction}>
-            <button
-              type="submit"
-              className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-[10px] font-black tracking-widest uppercase transition-all hover:text-[#E07060]"
-              style={{ color: '#5A5750' }}
-            >
-              <LogOut size={14} /> Cerrar Sesión
-            </button>
-          </form>
+          {/* logoutSlot: se inyecta desde el layout (LogoutButtonIntranet o LogoutButtonAdmin) */}
+          {logoutSlot}
         </div>
       </div>
     </>
