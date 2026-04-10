@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/supabase/server'
 import { logoutAction } from './actions'
 import { ReikiLogo } from '@/components/reiki-logo'
+import { MobileNav } from '@/components/mobile-nav'
 import {
   Activity,
   Users,
@@ -25,37 +26,73 @@ export default async function AdminLayout({
     data: { user },
   } = await supabase.auth.getUser()
 
-  // 1. Si no hay usuario logueado, patada al login
-  if (!user) {
-    redirect('/login')
-  }
+  if (!user) redirect('/login')
 
-  // 2. EL GUARDIA DE SEGURIDAD EXTREMA
-  // Vamos a la base de datos y exigimos ver la credencial de este usuario
   const { data: perfil } = await supabase
     .from('perfiles')
     .select('rol')
     .eq('id', user.id)
     .single()
 
-  // Si su rol NO es 'admin' Y no es el administrador maestro, lo devolvemos a la zona de alumnos
   const esAdminMaestro = user.email === 'danielriquelme@gmail.com'
   if (!esAdminMaestro && (!perfil || perfil.rol !== 'admin')) {
     redirect('/intranet')
   }
 
-  // --- SI PASA DE AQUÍ, ES PORQUE ES EL ADMINISTRADOR OFICIAL ---
-
-  // Datos del administrador (Puedes hacerlos dinámicos después si quieres)
   const avatarInitials = 'DR'
   const nombreAdmin = 'Daniel Riquelme'
+
+  // Links para desktop sidebar y mobile nav
+  const gestionLinks = [
+    {
+      href: '/admin',
+      icon: Activity,
+      label: 'Vista General',
+      iconColor: '#C9A227',
+    },
+    {
+      href: '/admin/alumnos',
+      icon: Users,
+      label: 'Alumnos',
+      iconColor: '#C9A227',
+    },
+  ]
+  const contenidoLinks = [
+    {
+      href: '/admin/clases',
+      icon: Video,
+      label: 'Unidades Grabadas',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/admin/materiales',
+      icon: BookOpen,
+      label: 'Biblioteca PDF',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/admin/avisos',
+      icon: Bell,
+      label: 'Tablón de Avisos',
+      iconColor: '#4A8C42',
+    },
+  ]
+  const sistemaLinks = [
+    {
+      href: '/admin/configuracion',
+      icon: Settings,
+      label: 'Configuración',
+      iconColor: '#8B6B91',
+    },
+  ]
+  const allNavLinks = [...gestionLinks, ...contenidoLinks, ...sistemaLinks]
 
   return (
     <div
       className="flex h-screen overflow-hidden font-sans text-sm"
       style={{ backgroundColor: '#1A1C18', color: '#E8E4DC' }}
     >
-      {/* SIDEBAR UNIFICADO DE ADMINISTRADOR */}
+      {/* ── SIDEBAR DESKTOP (lg+) ── */}
       <aside
         className="z-50 hidden w-64 shrink-0 flex-col lg:flex"
         style={{ backgroundColor: '#141510', borderRight: '1px solid #2A2C24' }}
@@ -80,10 +117,7 @@ export default async function AdminLayout({
           >
             Gestión Principal
           </p>
-          {[
-            { href: '/admin', icon: Activity, label: 'Vista General' },
-            { href: '/admin/alumnos', icon: Users, label: 'Alumnos' },
-          ].map(({ href, icon: Icon, label }) => (
+          {gestionLinks.map(({ href, icon: Icon, label, iconColor }) => (
             <Link
               key={href}
               href={href}
@@ -93,7 +127,7 @@ export default async function AdminLayout({
               <Icon
                 size={16}
                 className="shrink-0"
-                style={{ color: '#C9A227' }}
+                style={{ color: iconColor }}
               />
               {label}
             </Link>
@@ -105,15 +139,7 @@ export default async function AdminLayout({
           >
             Contenido
           </p>
-          {[
-            { href: '/admin/clases', icon: Video, label: 'Unidades Grabadas' },
-            {
-              href: '/admin/materiales',
-              icon: BookOpen,
-              label: 'Biblioteca PDF',
-            },
-            { href: '/admin/avisos', icon: Bell, label: 'Tablón de Avisos' },
-          ].map(({ href, icon: Icon, label }) => (
+          {contenidoLinks.map(({ href, icon: Icon, label, iconColor }) => (
             <Link
               key={href}
               href={href}
@@ -123,7 +149,7 @@ export default async function AdminLayout({
               <Icon
                 size={16}
                 className="shrink-0"
-                style={{ color: '#4A8C42' }}
+                style={{ color: iconColor }}
               />
               {label}
             </Link>
@@ -135,18 +161,21 @@ export default async function AdminLayout({
           >
             Sistema
           </p>
-          <Link
-            href="/admin/configuracion"
-            className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[11px] font-bold tracking-wider uppercase transition-all hover:text-[#E8E4DC]"
-            style={{ color: '#9A9589' }}
-          >
-            <Settings
-              size={16}
-              className="shrink-0"
-              style={{ color: '#8B6B91' }}
-            />
-            Configuración
-          </Link>
+          {sistemaLinks.map(({ href, icon: Icon, label, iconColor }) => (
+            <Link
+              key={href}
+              href={href}
+              className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[11px] font-bold tracking-wider uppercase transition-all hover:text-[#E8E4DC]"
+              style={{ color: '#9A9589' }}
+            >
+              <Icon
+                size={16}
+                className="shrink-0"
+                style={{ color: iconColor }}
+              />
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div
@@ -193,28 +222,45 @@ export default async function AdminLayout({
         </div>
       </aside>
 
-      {/* ÁREA DE CONTENIDO */}
+      {/* ── ÁREA DE CONTENIDO ── */}
       <main
         className="relative flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden"
         style={{ backgroundColor: '#1A1C18' }}
       >
+        {/* Header con hamburguesa en móvil */}
         <header
-          className="z-10 flex h-16 shrink-0 items-center justify-between px-8"
+          className="z-10 flex h-16 shrink-0 items-center justify-between px-5 lg:px-8"
           style={{
             backgroundColor: '#1E2019',
             borderBottom: '1px solid #2A2C24',
             boxShadow: '0 1px 8px rgba(0,0,0,0.3)',
           }}
         >
-          <div className="flex items-center gap-2">
-            <Shield size={14} style={{ color: '#C9A227' }} />
-            <h1
-              className="font-serif text-lg font-bold tracking-tight italic"
-              style={{ color: '#E8E4DC' }}
-            >
-              Panel de Administración
-            </h1>
+          {/* Izquierda: hamburguesa (móvil) + título */}
+          <div className="flex items-center gap-3">
+            <MobileNav
+              links={allNavLinks}
+              userName={nombreAdmin}
+              userRole="Administrador"
+              avatarInitials={avatarInitials}
+              avatarGradient="linear-gradient(135deg, #C9A227, #8B6B91)"
+              roleColor="#C9A227"
+              logoutAction={logoutAction}
+              title="Admin Panel"
+              titleColor="#C9A227"
+            />
+            <div className="flex items-center gap-2">
+              <Shield size={14} style={{ color: '#C9A227' }} />
+              <h1
+                className="font-serif text-base font-bold tracking-tight italic lg:text-lg"
+                style={{ color: '#E8E4DC' }}
+              >
+                Panel de Administración
+              </h1>
+            </div>
           </div>
+
+          {/* Derecha: nombre + avatar */}
           <div
             className="flex items-center gap-3 rounded-xl p-1.5 px-3"
             style={{ backgroundColor: '#272A23', border: '1px solid #363830' }}
@@ -245,7 +291,6 @@ export default async function AdminLayout({
           </div>
         </header>
 
-        {/* Aquí se inyectan las páginas limpias */}
         <div className="custom-scrollbar flex-1 overflow-y-auto">
           {children}
         </div>

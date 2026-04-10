@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, startTransition } from 'react'
 import {
   Sparkles,
   ArrowRight,
@@ -42,8 +42,16 @@ function useScrollReveal() {
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  // Fix de hidratación: new Date() solo se ejecuta en el cliente tras el montaje
+  const [currentYear, setCurrentYear] = useState<number | null>(null)
 
   useScrollReveal()
+
+  useEffect(() => {
+    startTransition(() => {
+      setCurrentYear(new Date().getFullYear())
+    })
+  }, [])
 
   const waNumber = '56951735495'
   const msgGeneral = encodeURI(
@@ -242,15 +250,33 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <main className="texture-grid relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16 text-center">
+        {/* Imagen de fondo con overlay oscuro */}
         <div className="pointer-events-none absolute inset-0 z-0">
+          <Image
+            src="/banner-reiki.png"
+            alt=""
+            fill
+            priority
+            className="object-cover object-center"
+            style={{ opacity: 0.18 }}
+          />
+          {/* Overlay gradiente para mantener legibilidad del texto */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, rgba(26,28,24,0.75) 0%, rgba(26,28,24,0.55) 40%, rgba(26,28,24,0.75) 80%, rgba(26,28,24,0.97) 100%)',
+            }}
+          />
+          {/* Auras de luz de la marca */}
           <div
             className="absolute top-1/4 left-1/4 h-[500px] w-[500px] rounded-full opacity-20 blur-[140px]"
             style={{ backgroundColor: '#4A8C42' }}
-          ></div>
+          />
           <div
             className="absolute right-1/4 bottom-1/4 h-[400px] w-[400px] rounded-full opacity-15 blur-[140px]"
             style={{ backgroundColor: '#8B6B91', animationDelay: '2s' }}
-          ></div>
+          />
         </div>
 
         <div className="relative z-10 max-w-5xl space-y-8">
@@ -1032,7 +1058,7 @@ export default function Home() {
             className="text-[10px] font-bold tracking-widest uppercase"
             style={{ color: '#5A5750' }}
           >
-            © {new Date().getFullYear()} — Sanación y Luz para el Mundo
+            © {currentYear ?? '…'} — Sanación y Luz para el Mundo
           </p>
           <div className="flex gap-6">
             <Link

@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/supabase/server'
 import { logoutAction } from './actions'
 import { ReikiLogo } from '@/components/reiki-logo'
+import { MobileNav } from '@/components/mobile-nav'
 import {
   BookOpen,
   Calendar,
@@ -32,15 +33,40 @@ export default async function IntranetLayout({
     .eq('id', user.id)
     .single()
 
-  const nombreAlumno = perfil?.nombre || user.email?.split('@')[0]
-  const avatarInitials = nombreAlumno?.substring(0, 2).toUpperCase()
+  const nombreAlumno = perfil?.nombre || user.email?.split('@')[0] || 'Alumno'
+  const avatarInitials = nombreAlumno.substring(0, 2).toUpperCase()
 
   const navLinks = [
-    { href: '/intranet', icon: BookOpen, label: 'Mi Formación' },
-    { href: '/intranet/clases', icon: MonitorPlay, label: 'Clases Grabadas' },
-    { href: '/intranet/materiales', icon: FolderOpen, label: 'Materiales PDF' },
-    { href: '/intranet/sesiones', icon: Calendar, label: 'Mis Sesiones' },
-    { href: '/intranet/perfil', icon: User, label: 'Mi Perfil' },
+    {
+      href: '/intranet',
+      icon: BookOpen,
+      label: 'Mi Formación',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/intranet/clases',
+      icon: MonitorPlay,
+      label: 'Clases Grabadas',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/intranet/materiales',
+      icon: FolderOpen,
+      label: 'Materiales PDF',
+      iconColor: '#4A8C42',
+    },
+    {
+      href: '/intranet/sesiones',
+      icon: Calendar,
+      label: 'Mis Sesiones',
+      iconColor: '#8B6B91',
+    },
+    {
+      href: '/intranet/perfil',
+      icon: User,
+      label: 'Mi Perfil',
+      iconColor: '#C9A227',
+    },
   ]
 
   return (
@@ -48,7 +74,7 @@ export default async function IntranetLayout({
       className="flex h-screen overflow-hidden font-sans text-sm"
       style={{ backgroundColor: '#1A1C18', color: '#E8E4DC' }}
     >
-      {/* ── SIDEBAR ── */}
+      {/* ── SIDEBAR DESKTOP (lg+) ── */}
       <aside
         className="z-50 hidden w-64 shrink-0 flex-col lg:flex"
         style={{ backgroundColor: '#141510', borderRight: '1px solid #2A2C24' }}
@@ -73,7 +99,7 @@ export default async function IntranetLayout({
           >
             Navegación
           </p>
-          {navLinks.map(({ href, icon: Icon, label }) => (
+          {navLinks.map(({ href, icon: Icon, label, iconColor }) => (
             <Link
               key={href}
               href={href}
@@ -83,7 +109,7 @@ export default async function IntranetLayout({
               <Icon
                 size={16}
                 className="shrink-0"
-                style={{ color: '#4A8C42' }}
+                style={{ color: iconColor }}
               />
               {label}
             </Link>
@@ -139,23 +165,41 @@ export default async function IntranetLayout({
         className="flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden"
         style={{ backgroundColor: '#1A1C18' }}
       >
+        {/* Header con botón hamburguesa en móvil */}
         <header
-          className="z-10 flex h-16 shrink-0 items-center justify-between px-8"
+          className="z-10 flex h-16 shrink-0 items-center justify-between px-5 lg:px-8"
           style={{
             backgroundColor: '#1E2019',
             borderBottom: '1px solid #2A2C24',
             boxShadow: '0 1px 8px rgba(0,0,0,0.3)',
           }}
         >
-          <div className="flex items-center gap-2">
-            <Sparkles size={14} style={{ color: '#C9A227' }} />
-            <h1
-              className="font-serif text-lg font-bold italic"
-              style={{ color: '#E8E4DC' }}
-            >
-              Fundación Reiki
-            </h1>
+          {/* Izquierda: hamburguesa (móvil) + título */}
+          <div className="flex items-center gap-3">
+            {/* Botón hamburguesa — solo visible en móvil, renderizado en cliente */}
+            <MobileNav
+              links={navLinks}
+              userName={nombreAlumno}
+              userRole="Alumno Activo"
+              avatarInitials={avatarInitials}
+              avatarGradient="linear-gradient(135deg, #4A8C42, #8B6B91)"
+              roleColor="#4A8C42"
+              logoutAction={logoutAction}
+              title="Portal Alumno"
+              titleColor="#4A8C42"
+            />
+            <div className="flex items-center gap-2">
+              <Sparkles size={14} style={{ color: '#C9A227' }} />
+              <h1
+                className="font-serif text-base font-bold italic lg:text-lg"
+                style={{ color: '#E8E4DC' }}
+              >
+                Fundación Reiki
+              </h1>
+            </div>
           </div>
+
+          {/* Derecha: nombre + avatar */}
           <div className="flex items-center gap-3">
             <div className="hidden text-right sm:block">
               <p
