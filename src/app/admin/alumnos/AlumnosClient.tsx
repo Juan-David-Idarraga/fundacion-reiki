@@ -40,7 +40,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
             />
             <input
               placeholder="Buscar alumno..."
-              className="w-64 rounded-full border border-[rgba(74,140,66,0.12)] bg-white py-2 pr-4 pl-10 text-xs shadow-sm outline-none focus:border-amber-500"
+              className="w-64 rounded-full border border-[rgba(74,140,66,0.12)] bg-zinc-950 py-2 pr-4 pl-10 text-xs shadow-sm outline-none focus:border-amber-500"
             />
           </div>
         </div>
@@ -49,11 +49,11 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
           {alumnos.map((alumno) => (
             <div
               key={alumno.id}
-              className={`flex flex-col items-center justify-between gap-6 rounded-[24px] border bg-white p-6 shadow-sm transition-all md:flex-row ${alumno.estado === 'suspendido' ? 'border-red-100 opacity-75' : 'border-[rgba(74,140,66,0.12)] hover:border-[rgba(201,162,39,0.25)]'}`}
+              className={`flex flex-col items-center justify-between gap-6 rounded-[24px] border bg-zinc-900 p-6 shadow-sm transition-all md:flex-row ${alumno.estado === 'suspendido' ? 'border-red-100 opacity-75' : 'border-[rgba(74,140,66,0.12)] hover:border-[rgba(201,162,39,0.25)]'}`}
             >
               <div className="flex flex-1 items-center gap-4">
                 <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold ${alumno.estado === 'suspendido' ? 'bg-red-50 text-red-600' : 'bg-stone-100 text-[#9A9589]'}`}
+                  className={`flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold ${alumno.estado === 'suspendido' ? 'bg-red-50 text-red-600' : 'bg-zinc-950 text-[#9A9589]'}`}
                 >
                   {alumno.nombre
                     ? alumno.nombre.substring(0, 2).toUpperCase()
@@ -89,7 +89,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
               {/* BOTONES DE ADMINISTRACIÓN */}
               <div className="flex shrink-0 items-center gap-3">
                 {/* GESTIÓN DE DÍAS (SUMAR/RESTAR) */}
-                <div className="flex items-center gap-1 rounded-2xl border border-[rgba(74,140,66,0.12)] bg-stone-50 p-1">
+                <div className="flex items-center gap-1 rounded-2xl border border-[rgba(74,140,66,0.12)] bg-zinc-950 p-1">
                   <form
                     action={extenderAccesoAction}
                     onSubmit={(e) => {
@@ -112,7 +112,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
                     </button>
                   </form>
 
-                  <div className="mx-1 h-4 w-px bg-stone-200"></div>
+                  <div className="mx-1 h-4 w-px bg-[#2A2C24]"></div>
 
                   <form
                     action={extenderAccesoAction}
@@ -137,7 +137,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
                   </form>
                 </div>
 
-                <div className="mx-1 hidden h-8 w-px bg-stone-200 md:block"></div>
+                <div className="mx-1 hidden h-8 w-px bg-[#2A2C24] md:block"></div>
 
                 <form action={actualizarEstadoAlumnoAction}>
                   <input type="hidden" name="id" value={alumno.id} />
@@ -147,7 +147,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
                     value={alumno.estado === 'activo' ? 'suspendido' : 'activo'}
                   />
                   <button
-                    className={`rounded-xl border p-2 transition-all ${alumno.estado === 'activo' ? 'border-[rgba(74,140,66,0.12)] bg-white text-[#5A5750] hover:text-red-600' : 'border-red-600 bg-red-600 text-white hover:bg-red-700'}`}
+                    className={`rounded-xl border p-2 transition-all ${alumno.estado === 'activo' ? 'border-[rgba(74,140,66,0.12)] bg-zinc-900 text-[#9A9589] hover:text-red-600' : 'border-red-600 bg-red-600 text-white hover:bg-red-700'}`}
                   >
                     {alumno.estado === 'activo' ? (
                       <UserMinus size={18} />
@@ -180,8 +180,8 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
       </div>
 
       {/* ================= ASIDE: REGISTRO RÁPIDO ================= */}
-      <aside className="w-full shrink-0 space-y-8 border-l border-[rgba(74,140,66,0.12)] bg-white p-8 xl:w-[350px]">
-        <div className="rounded-3xl border border-[rgba(74,140,66,0.08)] bg-stone-50 p-6">
+      <aside className="w-full shrink-0 space-y-8 border-l border-[rgba(74,140,66,0.12)] bg-zinc-900 p-8 xl:w-[350px]">
+        <div className="rounded-3xl border border-[rgba(74,140,66,0.08)] bg-zinc-950 p-6">
           <h2 className="mb-4 flex items-center gap-2 font-bold text-[#E8E4DC]">
             <ShieldAlert size={18} className="text-amber-600" /> Registrar
             Alumno
@@ -201,7 +201,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
                 name="nombre"
                 required
                 placeholder="Ej. Juan Pérez"
-                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-white p-3 text-xs outline-none focus:border-amber-500"
+                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-zinc-950 p-3 text-xs outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -213,7 +213,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
                 type="email"
                 required
                 placeholder="alumno@correo.com"
-                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-white p-3 text-xs outline-none focus:border-amber-500"
+                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-zinc-950 p-3 text-xs outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -241,9 +241,9 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
           </form>
         </div>
 
-        <div className="flex gap-3 rounded-2xl border border-blue-100 bg-blue-50 p-4">
-          <Clock className="shrink-0 text-blue-500" size={16} />
-          <p className="text-[10px] leading-relaxed text-blue-700">
+        <div className="flex gap-3 rounded-2xl border-[rgba(201,162,39,0.2)] bg-[rgba(201,162,39,0.08)] p-4">
+          <Clock className="shrink-0 text-[#C9A227]" size={16} />
+          <p className="text-[10px] leading-relaxed text-[#C9A227]">
             <strong>Maestro Daniel:</strong> Una vez creado, dale el correo y la
             clave al alumno para que entre a su Intranet.
           </p>

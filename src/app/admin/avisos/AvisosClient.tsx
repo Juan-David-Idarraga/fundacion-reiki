@@ -57,7 +57,7 @@ export default function AvisosClient({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 rounded-xl border border-[rgba(74,140,66,0.12)] bg-white p-1 shadow-sm">
+        <div className="flex items-center gap-2 rounded-xl border border-[rgba(74,140,66,0.12)] bg-zinc-900 p-1 shadow-sm">
           <div className="relative">
             <Search
               className="absolute top-1/2 left-2.5 -translate-y-1/2 text-[#5A5750]"
@@ -68,14 +68,14 @@ export default function AvisosClient({
               placeholder="Buscar aviso..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-44 rounded-lg border border-[rgba(74,140,66,0.08)] bg-stone-50 py-1.5 pr-3 pl-8 text-xs transition-all outline-none focus:border-amber-500 md:w-56"
+              className="w-44 rounded-lg border border-[rgba(74,140,66,0.08)] bg-zinc-950 py-1.5 pr-3 pl-8 text-xs transition-all outline-none focus:border-amber-500 md:w-56"
             />
           </div>
-          <div className="h-5 w-px bg-stone-200"></div>
+          <div className="h-5 w-px bg-[#2A2C24]"></div>
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value as any)}
-            className="cursor-pointer rounded-lg border border-[rgba(74,140,66,0.08)] bg-stone-50 px-2 py-1.5 text-[9px] font-black tracking-widest uppercase outline-none focus:border-amber-500"
+            className="cursor-pointer rounded-lg border border-[rgba(74,140,66,0.08)] bg-zinc-950 px-2 py-1.5 text-[9px] font-black tracking-widest uppercase outline-none focus:border-amber-500"
           >
             <option value="todos">Todos</option>
             <option value="activos">Activos</option>
@@ -86,7 +86,7 @@ export default function AvisosClient({
 
       <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
         {/* COLUMNA IZQUIERDA: FORMULARIO (4 de 12) */}
-        <div className="sticky top-6 rounded-2xl border border-[rgba(74,140,66,0.12)] bg-white p-5 shadow-md lg:col-span-4">
+        <div className="sticky top-6 rounded-2xl border border-[rgba(74,140,66,0.12)] bg-zinc-900 p-5 shadow-md lg:col-span-4">
           <div className="mb-5 flex items-center gap-2.5 border-b border-[rgba(74,140,66,0.08)] pb-3">
             <div className="rounded-xl bg-amber-50 p-2 text-amber-600">
               <PlusCircle size={18} />
@@ -111,7 +111,7 @@ export default function AvisosClient({
                 name="titulo"
                 required
                 placeholder="Ej: Suspensión de clase..."
-                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-stone-50 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
+                className="w-full rounded-xl border border-[rgba(74,140,66,0.12)] bg-zinc-950 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
               />
             </div>
 
@@ -124,7 +124,7 @@ export default function AvisosClient({
                 required
                 rows={4}
                 placeholder="Escribe el detalle del comunicado aquí..."
-                className="custom-scrollbar w-full resize-none rounded-xl border border-[rgba(74,140,66,0.12)] bg-stone-50 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
+                className="custom-scrollbar w-full resize-none rounded-xl border border-[rgba(74,140,66,0.12)] bg-zinc-950 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
               ></textarea>
             </div>
 
@@ -137,7 +137,7 @@ export default function AvisosClient({
                   type="date"
                   name="fecha_expiracion"
                   required
-                  className="w-full cursor-pointer appearance-none rounded-xl border border-[rgba(74,140,66,0.12)] bg-stone-50 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
+                  className="w-full cursor-pointer appearance-none rounded-xl border border-[rgba(74,140,66,0.12)] bg-zinc-950 px-4 py-3 text-xs font-medium transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none"
                 />
                 <Calendar
                   size={14}
@@ -146,9 +146,9 @@ export default function AvisosClient({
               </div>
             </div>
 
-            <div className="flex items-start gap-2 rounded-xl border border-amber-100 bg-amber-50 p-3">
+            <div className="flex items-start gap-2 rounded-xl border border-[rgba(201,162,39,0.2)] bg-[rgba(201,162,39,0.08)] p-3">
               <Info size={14} className="mt-0.5 shrink-0 text-amber-600" />
-              <p className="text-[9px] leading-relaxed font-bold text-amber-800 uppercase">
+              <p className="text-[9px] leading-relaxed font-bold text-[#C9A227] uppercase">
                 El aviso aparecerá en el Dashboard de los alumnos hasta la fecha
                 seleccionada.
               </p>
@@ -175,7 +175,7 @@ export default function AvisosClient({
                 Historial de Comunicados
               </h3>
             </div>
-            <span className="rounded-full bg-stone-200 px-2 py-0.5 text-[8px] font-black tracking-widest text-[#9A9589] uppercase">
+            <span className="rounded-full bg-[#2A2C24] px-2 py-0.5 text-[8px] font-black tracking-widest text-[#9A9589] uppercase">
               {filteredAvisos.length}{' '}
               {filteredAvisos.length === 1 ? 'Aviso' : 'Avisos'}
             </span>
@@ -195,8 +195,8 @@ export default function AvisosClient({
                 />
               ))
             ) : (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[rgba(74,140,66,0.12)] bg-white p-12 text-center text-[#5A5750]">
-                <div className="mb-4 rounded-full bg-stone-50 p-4 opacity-20">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[rgba(74,140,66,0.12)] bg-zinc-900 p-12 text-center text-[#9A9589]">
+                <div className="mb-4 rounded-full bg-zinc-950 p-4 opacity-20">
                   <Bell size={36} />
                 </div>
                 <h3 className="mb-1 font-serif text-lg font-bold text-[#E8E4DC] italic">
