@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/supabase/server'
@@ -337,7 +337,29 @@ export default async function AdminLayout({
         </header>
 
         <div className="custom-scrollbar flex-1 overflow-y-auto">
-          {children}
+          <Suspense
+            fallback={
+              <div className="flex flex-1 items-center justify-center p-12">
+                <div className="flex flex-col items-center gap-4">
+                  <div
+                    className="h-10 w-10 animate-spin rounded-full border-2 border-transparent"
+                    style={{
+                      borderTopColor: '#C9A227',
+                      borderRightColor: '#C9A227',
+                    }}
+                  />
+                  <p
+                    className="text-[11px] font-black tracking-widest uppercase"
+                    style={{ color: '#5A5750' }}
+                  >
+                    Cargando...
+                  </p>
+                </div>
+              </div>
+            }
+          >
+            {children}
+          </Suspense>
         </div>
       </main>
     </div>
