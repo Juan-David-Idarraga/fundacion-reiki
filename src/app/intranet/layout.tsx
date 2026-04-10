@@ -14,6 +14,7 @@ import {
   FolderOpen,
   MonitorPlay,
   Sparkles,
+  Lock, // Importar el ícono de candado
 } from 'lucide-react'
 
 export default async function IntranetLayout({
@@ -30,12 +31,19 @@ export default async function IntranetLayout({
 
   const { data: perfil } = await supabase
     .from('perfiles')
-    .select('nombre, email')
+    .select('nombre, email, vencimiento') // Incluir vencimiento
     .eq('id', user.id)
     .single()
 
   const nombreAlumno = perfil?.nombre || user.email?.split('@')[0] || 'Alumno'
   const avatarInitials = nombreAlumno.substring(0, 2).toUpperCase()
+
+  // Lógica para el paywall
+  const fechaVencimiento = perfil?.vencimiento
+    ? new Date(perfil.vencimiento)
+    : null
+  const hoy = new Date()
+  const suscripcionExpirada = fechaVencimiento ? fechaVencimiento < hoy : true // Si no hay fecha, se considera expirada
 
   // Links para el sidebar desktop (con íconos React — válido en Server Component)
   const desktopNavLinks = [
@@ -257,7 +265,7 @@ export default async function IntranetLayout({
               </p>
             </div>
             <div
-              className="flex h-9 w-9 items-center justify-center rounded-xl text-xs font-bold shadow-md"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-xs font-bold shadow-md"
               style={{
                 background: 'linear-gradient(135deg, #4A8C42, #8B6B91)',
                 color: '#E8E4DC',
@@ -290,7 +298,38 @@ export default async function IntranetLayout({
               </div>
             }
           >
-            {children}
+            {suscripcionExpirada ? (
+              <div className="flex flex-1 flex-col items-center justify-center p-12 text-center">
+                <Lock size={64} className="mb-6" style={{ color: '#E07060' }} />
+                <h2
+                  className="mb-3 font-serif text-3xl font-bold italic"
+                  style={{ color: '#E8E4DC' }}
+                >
+                  Tiempo de Estudio Finalizado
+                </h2>
+                <p className="mb-8 text-base" style={{ color: '#9A9589' }}>
+                  Tu suscripción ha expirado. Para continuar accediendo a todo
+                  el contenido, por favor, contacta al Maestro para renovar tu
+                  acceso.
+                </p>
+                <a
+                  href="https://wa.me/56951735495" // Reemplaza con el número de WhatsApp real
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 rounded-full px-8 py-3 text-sm font-bold tracking-wider uppercase transition-all active:scale-[0.98]"
+                  style={{
+                    background: 'linear-gradient(135deg, #4A8C42, #25D366)',
+                    color: '#1A1C18',
+                    boxShadow: '0 4px 15px rgba(74,140,66,0.4)',
+                  }}
+                >
+                  <img src="/whatsapp.svg" alt="WhatsApp" className="h-5 w-5" />
+                  Renovar Acceso por WhatsApp
+                </a>
+              </div>
+            ) : (
+              children
+            )}
           </Suspense>
         </div>
       </main>
