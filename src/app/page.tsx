@@ -800,7 +800,7 @@ export default function Home() {
               style={{ backgroundColor: '#242720', borderColor: '#363830' }}
             >
               <img
-                src="/foto-clase.png"
+                src="/foto-daniel.jpeg"
                 alt="Daniel Riquelme Maestro Reiki"
                 className="absolute inset-0 h-full w-full object-contain p-6 transition-transform duration-700 group-hover:scale-105"
               />
