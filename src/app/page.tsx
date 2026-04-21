@@ -120,16 +120,16 @@ export default function Home() {
                 className="block font-serif text-lg font-bold tracking-tight"
                 style={{ color: '#E8E4DC' }}
               >
-                Fundación{' '}
+                Maestro verificado{' '}
                 <span style={{ color: '#4A8C42' }} className="italic">
-                  Reiki
+                  
                 </span>
               </span>
               <span
                 className="text-[9px] font-black tracking-[0.2em] uppercase"
-                style={{ color: '#8B6B91' }}
+                style={{ color: '#4A8C42' }}
               >
-                Usui Shiki Ryoho
+                Por la fundación chilena de Reiki
               </span>
             </div>
           </Link>
@@ -249,97 +249,64 @@ export default function Home() {
         )}
       </nav>
 
-      {/* ── HERO ── */}
-      <main className="texture-grid relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16 text-center">
-        {/* Imagen de fondo con overlay oscuro */}
+     {/* ── HERO ── */}
+      <main className="relative flex min-h-[100svh] flex-col items-center justify-between overflow-hidden px-6 pt-32 pb-16 text-center">
+        
+        {/* IMAGEN DE FONDO Y GRADIENTES PROTECTORES */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
-            src="/banner-reiki.png"
-            alt=""
+            src="/banner.png" 
+            alt="Fondo dorado Formación Reiki"
             fill
             priority
             className="object-cover object-center"
-            style={{ opacity: 3000 }}
           />
-          {/* Overlay gradiente para mantener legibilidad del texto */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(to bottom, rgba(26,28,24,0.75) 0%, rgba(26,28,24,0.55) 40%, rgba(26,28,24,0.75) 80%, rgba(26,28,24,0.97) 100%)',
-            }}
-          />
-          {/* Auras de luz de la marca */}
-          <div
-            className="absolute top-1/4 left-1/4 h-[500px] w-[500px] rounded-full opacity-20 blur-[140px]"
-            style={{ backgroundColor: '#4A8C42' }}
-          />
-          <div
-            className="absolute right-1/4 bottom-1/4 h-[400px] w-[400px] rounded-full opacity-15 blur-[140px]"
-            style={{ backgroundColor: '#8B6B91', animationDelay: '2s' }}
-          />
+          {/* Viñeta superior oscura para resaltar el texto y el menú */}
+          <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/80 via-black/30 to-transparent" />
+          
+          {/* Viñeta inferior oscura para resaltar el texto de abajo */}
+          <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/90 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-5xl space-y-8">
-          <div className="reveal mb-4 flex items-center justify-center gap-2">
-            <Sparkles size={16} style={{ color: '#C9A227' }} />
-            <span
-              className="text-[10px] font-black tracking-[0.4em] uppercase"
-              style={{ color: '#4A8C42' }}
-            >
-              Sanación Energética Integral
-            </span>
-          </div>
-
-          <h1
-            className="reveal reveal-delay-1 font-serif text-5xl leading-[1.05] font-bold tracking-tight italic md:text-7xl lg:text-8xl"
-            style={{ color: '#E8E4DC' }}
-          >
-            Renueva tu Energía
-            <br />
-            <span style={{ color: '#4A8C42' }}>con Reiki Consciente</span>
-          </h1>
-
-          <p
-            className="reveal reveal-delay-2 mx-auto max-w-2xl text-base leading-relaxed font-medium md:text-xl"
-            style={{ color: '#9A9589' }}
-          >
-            Un puente sagrado para entregar amor, armonía y sanación.
-            Reconéctate con tu esencia y abre la puerta hacia una vida plena y
-            transformadora.
-          </p>
-
-          <div className="reveal reveal-delay-3 flex flex-col items-center justify-center gap-4 pt-8 sm:flex-row">
-            <Link
-              href={`https://wa.me/${waNumber}?text=${msgGeneral}`}
-              target="_blank"
-              className="btn-ripple group flex w-full items-center justify-center gap-3 rounded-2xl px-10 py-5 text-xs font-black tracking-widest uppercase shadow-2xl transition-all hover:-translate-y-1 sm:w-auto"
-              style={{
-                backgroundColor: '#4A8C42',
-                color: '#E8E4DC',
-                boxShadow: '0 8px 32px rgba(74,140,66,0.35)',
+        {/* CONTENEDOR DE TEXTOS */}
+        <div className="relative z-10 flex w-full max-w-5xl flex-1 flex-col items-center justify-between">
+          
+          {/* TEXTOS SUPERIORES - Empujados hacia arriba lejos del símbolo */}
+          <div className="space-y-2 mt-4 md:mt-8">
+            <h1 
+              className="reveal font-serif text-3xl font-bold tracking-wide md:text-5xl lg:text-6xl text-white"
+              style={{ 
+                textShadow: '0px 4px 10px rgba(0,0,0,0.9), 0px 0px 30px rgba(0,0,0,0.8)' 
               }}
             >
-              Escríbeme sin compromiso
-              <ArrowRight
-                size={16}
-                className="transition-transform group-hover:translate-x-1"
-              />
-            </Link>
-            <Link
-              href="#terapias"
-              className="group flex items-center justify-center gap-3 rounded-2xl border-2 px-10 py-5 text-xs font-black tracking-widest uppercase shadow-sm transition-all hover:-translate-y-1"
-              style={{
-                borderColor: '#363830',
-                color: '#9A9589',
-                backgroundColor: '#242720',
+              Centro de Reiki & bienestar integral
+            </h1>
+            <h2 
+              className="reveal reveal-delay-1 font-serif text-4xl font-extrabold tracking-wide md:text-5xl lg:text-6xl text-[#FFD700]"
+              style={{ 
+                textShadow: '0px 4px 10px rgba(0,0,0,0.9), 0px 0px 30px rgba(0,0,0,0.8), 0px 0px 10px rgba(255,215,0,0.3)' 
               }}
             >
-              Conocer Servicios
-            </Link>
+              Área de formación
+            </h2>
           </div>
+
+          {/* ESPACIO CENTRAL VACÍO - Deja lucir el Caduceo luminoso */}
+          <div className="flex-1 w-full min-h-[40vh] md:min-h-[50vh]"></div>
+
+          {/* TEXTO INFERIOR */}
+          <div className="pb-4 lg:pb-8">
+            <p 
+              className="reveal reveal-delay-2 font-serif text-2xl font-bold tracking-wide md:text-4xl lg:text-5xl text-white"
+              style={{ 
+                textShadow: '0px 4px 15px rgba(0,0,0,1), 0px 0px 40px rgba(0,0,0,0.8)' 
+              }}
+            >
+              Reiki Usui <span className="mx-3 font-light text-emerald-500 drop-shadow-md">|</span> Cursos certificados
+            </p>
+          </div>
+
         </div>
-        
       </main>
 
       {/* ── ¿QUÉ ES EL REIKI? ── */}
