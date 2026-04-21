@@ -87,9 +87,16 @@ export function MobileNav({
 
   // Bloquea scroll del body mientras el drawer está abierto
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      document.body.classList.add('overlay-active')
+    } else {
+      document.body.style.overflow = ''
+      document.body.classList.remove('overlay-active')
+    }
     return () => {
       document.body.style.overflow = ''
+      document.body.classList.remove('overlay-active')
     }
   }, [isOpen])
 
@@ -101,9 +108,10 @@ export function MobileNav({
         aria-label="Abrir menú de navegación"
         className="flex h-9 w-9 items-center justify-center rounded-xl transition-all active:scale-95 lg:hidden"
         style={{
-          backgroundColor: '#272A23',
-          color: '#E8E4DC',
-          border: '1px solid #363830',
+          backgroundColor: 'var(--color-surface-card)',
+          color: 'var(--color-reiki-white)',
+          border: '1px solid var(--color-border)',
+          zIndex: 'var(--z-index-persistent-bars)',
         }}
       >
         <Menu size={18} />
@@ -112,10 +120,11 @@ export function MobileNav({
       {/* ── OVERLAY OSCURO ── */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 lg:hidden"
+          className="fixed inset-0 lg:hidden"
           style={{
             backgroundColor: 'rgba(0,0,0,0.7)',
             backdropFilter: 'blur(4px)',
+            zIndex: 'var(--z-index-overlay)',
           }}
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
@@ -124,12 +133,13 @@ export function MobileNav({
 
       {/* ── DRAWER LATERAL ── */}
       <div
-        className="fixed inset-y-0 left-0 z-50 flex w-72 flex-col transition-transform duration-300 ease-in-out lg:hidden"
+        className="fixed inset-y-0 left-0 flex w-72 flex-col transition-transform duration-300 ease-in-out lg:hidden"
         style={{
-          backgroundColor: '#141510',
-          borderRight: '1px solid #2A2C24',
+          backgroundColor: 'var(--color-sidebar)',
+          borderRight: '1px solid var(--color-sidebar-border)',
           transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
           boxShadow: isOpen ? '4px 0 32px rgba(0,0,0,0.5)' : 'none',
+          zIndex: 'var(--z-index-sidebar)',
         }}
         role="dialog"
         aria-modal="true"
@@ -188,7 +198,7 @@ export function MobileNav({
                     style={{ color: iconColor || '#4A8C42' }}
                   />
                 )}
-                {label}
+                <span className="truncate">{label}</span>
               </Link>
             )
           })}

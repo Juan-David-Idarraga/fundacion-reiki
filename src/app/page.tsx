@@ -107,7 +107,7 @@ export default function Home() {
                 alt="Logo Fundación Reiki Usui"
                 width={44}
                 height={44}
-                className="h-11 w-11 object-cover"
+                className="h-11 w-11 object-contain"
                 priority
               />
             </div>

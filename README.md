@@ -1,139 +1,59 @@
-![image](https://github.com/michaeltroya/supa-next-starter/assets/38507347/2ea40874-98de-49ec-ab6a-74c816e6ca22)
+# Fundación Reiki Intranet
 
-<h1 align="center">⚡ SupaNext Starter Kit ⚡</h1>
+## Proyecto de Gestión Integral para la Fundación Reiki
 
-<p align="center">
- The Last Next.js and Supabase Starter You Will Ever Need
-</p>
+Este proyecto representa una solución web robusta y escalable, diseñada para optimizar la gestión interna de la Fundación Reiki. Desarrollada por **Technology of Jota** y liderada por **Juan Idarraga**, esta plataforma centraliza funcionalidades críticas para la administración de alumnos, avisos, clases y materiales, garantizando una experiencia de usuario segura y eficiente.
 
-<div align="center">
+## Visión General del Proyecto
 
-<img alt="GitHub License" src="https://img.shields.io/github/license/michaeltroya/supa-next-starter">
+La `Fundación Reiki Intranet` es una aplicación web moderna construida con **Next.js (App Router)**, ofreciendo renderizado del lado del servidor (SSR) y componentes interactivos para una experiencia de usuario fluida. La integración con **Supabase** proporciona una base de datos potente y servicios de autenticación seguros, mientras que **Tailwind CSS** asegura un diseño responsivo y estéticamente coherente con la identidad visual de la fundación.
 
-  <a href="https://twitter.com/intent/follow?screen_name=michaeltroya_">
-   <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/michaeltroya_">
-  </a>
-</div>
+## Características Clave
 
-<div align="center">
-  <sub>Created by <a href="https://twitter.com/michaeltroya_">Michael Troya</a>
-</div>
+*   **Gestión de Usuarios y Roles**: Sistema de autenticación y autorización basado en Supabase, con roles definidos (`admin`, `alumno`) para controlar el acceso a diferentes secciones de la plataforma.
+*   **Administración de Contenidos**: Módulos dedicados para la creación y gestión de avisos, clases y materiales educativos, facilitando la comunicación y el acceso a recursos.
+*   **Control de Suscripciones (Paywall)**: Implementación de un sistema de paywall dinámico que restringe el acceso a contenido premium para usuarios con suscripciones expiradas, con una interfaz clara para la renovación.
+*   **Seguridad Reforzada**: Middleware global de seguridad para protección contra ataques comunes (FOUC) y blindaje de Server Actions con verificación de permisos de administrador, asegurando la integridad de los datos.
+*   **Diseño Responsivo y UX Mejorada**: Interfaz de usuario optimizada para diversos dispositivos (escritorio, tablet, móvil) con retroalimentación visual (spinners de carga) para una experiencia intuitiva y sin interrupciones.
+*   **Tecnologías Modernas**: Aprovecha las últimas características de Next.js, TypeScript para un código robusto y mantenible, y Tailwind CSS para un desarrollo ágil y personalizable.
 
-<br/>
+## Stack Tecnológico
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#documentation"><strong>Documentation</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-</p>
-<br/>
+| Categoría | Tecnología | Descripción |
+| :--- | :--- | :--- |
+| **Framework Frontend** | Next.js (App Router) | React framework para aplicaciones web de alto rendimiento, con SSR y optimizaciones de enrutamiento. |
+| **Base de Datos & Auth** | Supabase | Plataforma de código abierto para bases de datos PostgreSQL y servicios de autenticación, en tiempo real. |
+| **Estilos CSS** | Tailwind CSS | Framework CSS utility-first para un diseño rápido y altamente personalizable. |
+| **Lenguaje de Programación** | TypeScript | Superset de JavaScript que añade tipado estático para mejorar la calidad y mantenibilidad del código. |
+| **Entorno de Ejecución** | Node.js | Entorno de ejecución para JavaScript en el servidor. |
+| **Despliegue** | Vercel | Plataforma de despliegue continuo para aplicaciones Next.js, optimizada para rendimiento. |
 
-## Features
+## Instalación y Configuración (Para Desarrollo Local)
 
-- ⚡️ Next.js 16 (App Router)
-- 💚 Supabase w/ supabase-ssr - Works across the entire [Next.js](https://nextjs.org) stack (App Router, Pages Router, Client, Server, Middleware, It just works!)
-- ⚛️ React 19
-- ⛑ TypeScript
-- 📦 [pnpm](https://pnpm.io/) - Fast, disk space efficient package manager
-- 🎨 [Tailwind](https://tailwindcss.com/)
-- 🔌 [shadcn/ui](https://ui.shadcn.com/) - Beautifully designed components that you can copy and paste into your apps.
-- 🧪 Vitest + React Testing Library - Unit tests for all of your code.
-- 🎛️ [MSW](https://mswjs.io/)v2 - Intercept requests inside your tests (set up for testing only)
-- 🪝[TanStackQuery](https://tanstack.com/query/v5)v5 - The best way to fetch data on the client
-- 📏 ESLint 9 — To find and fix problems in your code
-- 💖 Prettier — Code Formatter for consistent style
-- 🐶 Husky — For running scripts before committing
-- 🚫 lint-staged — Run ESLint and Prettier against staged Git files
-- 👷 Github Actions — Run Type Checks, Tests, and Linters on Pull Requests
-- 🗂 Path Mapping — Import components or images using the `@` prefix
-- ⚪⚫ Dark mode - Toggle theme modes with [next-themes](https://github.com/pacocoursey/next-themes)
-- ✨ Next Top Loader - Render a pleasent top loader on navigation with [nextjs-toploader](https://github.com/TheSGJ/nextjs-toploader)
-- 🔋 Lots Extras - Next Bundle Analyzer, Vercel Analytics, Vercel Geist Font
+Para ejecutar este proyecto localmente, sigue los siguientes pasos:
 
-## Clone and run locally
+1.  **Clonar el Repositorio**:
+    ```bash
+    git clone https://github.com/Juan-David-Idarraga/fundacion-reiki.git
+    cd fundacion-reiki
+    ```
+2.  **Instalar Dependencias**:
+    ```bash
+    pnpm install
+    ```
+3.  **Configurar Supabase**: Crea un proyecto en Supabase y configura las variables de entorno (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) en un archivo `.env.local`.
+4.  **Ejecutar la Aplicación**:
+    ```bash
+    pnpm dev
+    ```
+    La aplicación estará disponible en `http://localhost:3000`.
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+## Autor y Empresa
 
-2. Create a Next.js app using the Supabase Starter template npx command
+Este proyecto ha sido desarrollado por:
 
-   ```bash
-   pnpm create next-app -e https://github.com/michaeltroya/supa-next-starter
-   # or
-   npx create-next-app -e https://github.com/michaeltroya/supa-next-starter
-   ```
+**Juan Idarraga**
+*   **Empresa**: Technology of Jota
+*   **Portafolio**: https://www.linkedin.com/in/juan-david-idarraga-11088b387/
 
-3. Use `cd` to change into the app's directory
-
-   ```bash
-   cd name-of-new-app
-   ```
-
-4. Rename `.env.local.example` to `.env.local` and update the following:
-
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
-
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
-
-5. You can now run the Next.js local development server:
-
-   ```bash
-   pnpm run dev
-   ```
-
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
-
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-## Showcase
-
-Websites started using this template:
-
-- [Add yours](https://github.com/michaeltroya/supa-next-starter/edit/main/README.md)
-
-# Documentation
-
-### Requirements
-
-- Node.js >= 18.17.0
-- pnpm 10
-
-### Scripts
-
-- `pnpm dev` — Starts the application in development mode at `http://localhost:3000`.
-- `pnpm build` — Creates an optimized production build of your application.
-- `pnpm start` — Starts the application in production mode.
-- `pnpm type-check` — Validate code using TypeScript compiler.
-- `pnpm lint` — Runs ESLint for all files in the `src` directory.
-- `pnpm format-check` — Runs Prettier and checks if any files have formatting issues.
-- `pnpm format` — Runs Prettier and formats files.
-- `pnpm test` — Runs all the vitest tests in the project.
-- `pnpm test:ci` — Runs all the vitest tests in the project, Vitest will assume it is running in a CI environment.
-- `pnpm test:ui` — Runs Vitest with the UI interface.
-- `pnpm analyze` — Builds the project and opens the bundle analyzer.
-
-### Paths
-
-TypeScript is pre-configured with custom path mappings. To import components or files, use the `@` prefix.
-
-```tsx
-import { Button } from '@/components/ui/Button'
-
-// To import images or other files from the public folder
-import avatar from '@/public/avatar.png'
-```
-
-### Switch to Yarn/npm
-
-This starter uses pnpm by default, but this choice is yours. If you'd like to switch to Yarn/npm, delete the `pnpm-lock.yaml` file, install the dependencies with Yarn/npm, change the CI workflow, and Husky Git hooks to use Yarn/npm commands.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
-
-## Feedback and issues
-
-Please file feedback and issues [here](https://github.com/michaeltroya/supa-next-starter/issues).
+---

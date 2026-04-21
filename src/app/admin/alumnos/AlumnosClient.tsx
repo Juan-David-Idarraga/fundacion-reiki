@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   UserMinus,
   UserCheck,
@@ -23,6 +23,8 @@ import {
   eliminarAlumnoAction,
   registrarAlumnoAction,
 } from '../actions'
+import { useFormStatus } from 'react-dom'
+import LoadingSpinner from '@/components/ui/loading-spinner'
 
 export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
   return (
@@ -235,9 +237,7 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
               </div>
             </div>
 
-            <button className="w-full rounded-2xl bg-stone-900 py-4 text-xs font-bold text-white shadow-xl transition-all hover:bg-stone-800 active:scale-95">
-              Dar de Alta e Iniciar Acceso
-            </button>
+            <RegisterAlumnoButton />
           </form>
         </div>
 
@@ -250,5 +250,26 @@ export default function AlumnosClient({ alumnos }: { alumnos: any[] }) {
         </div>
       </aside>
     </div>
+  )
+}
+
+function RegisterAlumnoButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="w-full rounded-2xl bg-stone-900 py-4 text-xs font-bold text-white shadow-xl transition-all hover:bg-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-95"
+    >
+      {pending ? (
+        <>
+          <LoadingSpinner size="sm" color="#E8E4DC" />
+          <span>Registrando...</span>
+        </>
+      ) : (
+        'Dar de Alta e Iniciar Acceso'
+      )}
+    </button>
   )
 }

@@ -1,14 +1,17 @@
+'use client'
+
 import React from 'react'
+import { useFormStatus } from 'react-dom'
 import Link from 'next/link'
 import { Mail, Lock, ArrowLeft, Sparkles, ShieldCheck } from 'lucide-react'
 import { loginAction } from './actions'
+import LoadingSpinner from '@/components/ui/loading-spinner'
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>
-}) {
-  const params = await Promise.resolve(searchParams)
+import { useSearchParams } from 'next/navigation'
+
+export default function LoginPage() {
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error')
 
   return (
     // Estructura maestra: flex-col en móviles, flex-row en PC
@@ -167,7 +170,7 @@ export default async function LoginPage({
           </div>
 
           <form action={loginAction} className="flex flex-col gap-5">
-            {params.error && (
+            {error && (
               <div
                 className="flex items-center justify-center gap-2 rounded-xl p-3 text-center text-xs font-bold"
                 style={{
@@ -176,7 +179,7 @@ export default async function LoginPage({
                   color: '#E07060',
                 }}
               >
-                <Lock size={14} /> {params.error}
+                <Lock size={14} /> {error}
               </div>
             )}
 
@@ -238,17 +241,7 @@ export default async function LoginPage({
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="btn-ripple mt-2 flex w-full shrink-0 items-center justify-center gap-2 rounded-xl py-4 text-[10px] font-black tracking-[0.2em] uppercase transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-              style={{
-                backgroundColor: '#4A8C42',
-                color: '#E8E4DC',
-                boxShadow: '0 4px 20px rgba(74,140,66,0.35)',
-              }}
-            >
-              Ingresar a la Intranet
-            </button>
+            <LoginButton />
           </form>
 
           <div className="mt-8 shrink-0 text-center">
@@ -271,5 +264,31 @@ export default async function LoginPage({
         </div>
       </div>
     </div>
+  )
+}
+
+function LoginButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="btn-ripple mt-2 flex w-full shrink-0 items-center justify-center gap-2 rounded-xl py-4 text-[10px] font-black tracking-[0.2em] uppercase transition-all hover:-translate-y-0.5 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+      style={{
+        backgroundColor: '#4A8C42',
+        color: '#E8E4DC',
+        boxShadow: '0 4px 20px rgba(74,140,66,0.35)',
+      }}
+    >
+      {pending ? (
+        <>
+          <LoadingSpinner size="sm" color="#E8E4DC" />
+          <span>Ingresando...</span>
+        </>
+      ) : (
+        'Ingresar a la Intranet'
+      )}
+    </button>
   )
 }

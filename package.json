@@ -1,17 +1,18 @@
 {
-  "name": "supa-next-starter",
-  "description": "A production ready Next.js/Supabase starter. ",
+  "name": "fundacion-reiki-intranet",
+  "description": "Plataforma integral de gestión para la Fundación Reiki, desarrollada por Technology of Jota.",
   "version": "1.0.0",
   "private": true,
-  "author": "Michael Troya <hi@michaeltroya.ca> (@michaeltroya)",
-  "license": "MIT",
+  "author": "Juan Idarraga <Technology of Jota>",
+  "license": "UNLICENSED",
   "keywords": [
     "nextjs",
-    "starter",
+    "reiki",
+    "management-system",
     "supabase",
     "tailwindcss",
-    "shadcn",
-    "typescript"
+    "typescript",
+    "technology-of-jota"
   ],
   "scripts": {
     "dev": "next dev",
