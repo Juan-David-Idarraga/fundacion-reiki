@@ -89,25 +89,20 @@ export default function Home() {
     >
       {/* ── NAV ── */}
       <nav
-        className={`fixed top-0 z-50 flex w-full flex-col px-6 py-3 transition-all duration-500 lg:px-10 ${
+        className={`fixed top-0 z-50 flex w-full flex-col px-4 py-4 transition-all duration-500 md:px-6 lg:px-8 ${
           isScrolled || isMobileMenuOpen
-            ? 'border-b shadow-lg backdrop-blur-xl'
-            : 'bg-transparent'
+            ? 'border-b border-stone-800 bg-stone-950/90 shadow-lg backdrop-blur-xl'
+            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent'
         }`}
-        style={
-          isScrolled || isMobileMenuOpen
-            ? { backgroundColor: 'rgba(26,28,24,0.92)', borderColor: '#2A2C24' }
-            : {}
-        }
       >
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4">
           <Link
             href="/"
-            className="group flex cursor-pointer items-center gap-3"
+            className="group flex shrink-0 cursor-pointer items-center gap-3"
           >
-            <div className="shrink-0 overflow-hidden rounded-xl shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+            <div className="shrink-0 overflow-hidden rounded-xl shadow-lg transition-all duration-500 group-hover:scale-110">
               <Image
-                src="/foto-clase.png"
+                src="/foto-clase.png" // Tu logo
                 alt="Logo Fundación Reiki Usui"
                 width={44}
                 height={44}
@@ -115,63 +110,50 @@ export default function Home() {
                 priority
               />
             </div>
-            <div>
-              <span
-                className="block font-serif text-lg font-bold tracking-tight"
-                style={{ color: '#E8E4DC' }}
-              >
-                Maestro verificado{' '}
-                <span style={{ color: '#4A8C42' }} className="italic"></span>
+            {/* Ocultamos el texto largo en pantallas medianas para dar más espacio al menú */}
+            <div className="hidden sm:block">
+              <span className="block font-serif text-lg font-bold tracking-tight whitespace-nowrap text-white drop-shadow-md">
+                Maestro verificado
               </span>
-              <span
-                className="text-[9px] font-black tracking-[0.2em] uppercase"
-                style={{ color: '#4A8C42' }}
-              >
+              <span className="hidden text-[9px] font-black tracking-[0.2em] whitespace-nowrap text-emerald-400 uppercase drop-shadow-md md:block">
                 Por la fundación chilena de Reiki
               </span>
             </div>
           </Link>
 
-          <div
-            className="hidden gap-4 text-[10px] font-black tracking-widest uppercase md:gap-6 xl:flex"
-            style={{ color: '#9A9589' }}
-          >
+          {/* MENÚ DESKTOP - Arreglo iPad: whitespace-nowrap y gap dinámico (gap-4 en iPad, gap-8 en PC) */}
+          <div className="hidden gap-2 text-[9px] font-black tracking-widest text-white/90 uppercase lg:flex xl:gap-8 xl:text-[10px]">
             {navItems.map((item, i) => (
               <Link
                 key={i}
                 href={item.href}
-                className="link-underline relative py-1 transition-all hover:text-[#E8E4DC]"
+                className="relative py-1 whitespace-nowrap drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] transition-all hover:text-emerald-400"
               >
                 {item.label}
               </Link>
             ))}
           </div>
 
-          <div className="hidden shrink-0 items-center gap-4 md:gap-6 xl:flex">
+          {/* BOTONES CTA - Arreglo iPad: padding dinámico y whitespace-nowrap */}
+          <div className="hidden shrink-0 items-center gap-2 lg:flex xl:gap-6">
             <Link
               href="/login"
-              className="text-[10px] font-black tracking-widest uppercase transition-colors hover:text-[#4A8C42]"
-              style={{ color: '#9A9589' }}
+              className="text-[10px] font-black tracking-widest whitespace-nowrap text-white/90 uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] transition-colors hover:text-emerald-400"
             >
               Acceso Alumnos
             </Link>
             <Link
               href={`https://wa.me/${waNumber}?text=${msgGeneral}`}
               target="_blank"
-              className="btn-ripple rounded-xl px-6 py-3 text-[10px] font-black tracking-widest uppercase shadow-lg transition-all hover:scale-105 active:scale-95"
-              style={{
-                backgroundColor: '#4A8C42',
-                color: '#E8E4DC',
-                boxShadow: '0 4px 16px rgba(74,140,66,0.3)',
-              }}
+              className="rounded-xl bg-emerald-600 px-3 py-2 text-[9px] font-black tracking-widest whitespace-nowrap text-white uppercase shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all hover:scale-105 hover:bg-emerald-500 active:scale-95 lg:px-4 lg:py-2.5 lg:text-[10px] xl:px-6 xl:py-3"
             >
               Agendar Cita
             </Link>
           </div>
 
+          {/* BOTÓN MÓVIL */}
           <button
-            className="p-2 xl:hidden"
-            style={{ color: '#E8E4DC' }}
+            className="p-2 text-white drop-shadow-md lg:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -210,7 +192,7 @@ export default function Home() {
 
         {isMobileMenuOpen && (
           <div
-            className="animate-fade-in-up mt-4 flex flex-col gap-4 border-t pt-6 pb-8 xl:hidden"
+            className="animate-fade-in-up mt-4 flex flex-col gap-4 border-t pt-6 pb-8 lg:hidden"
             style={{ borderColor: '#2A2C24' }}
           >
             {navItems.map((item, i) => (
