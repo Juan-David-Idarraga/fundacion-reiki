@@ -173,10 +173,10 @@
     overflow: hidden;
   }
 
-  body.overlay-active .main-content-area {
+  /* body.overlay-active .main-content-area {
     visibility: hidden;
     pointer-events: none;
-  }
+  } */
 }
 
 /* =====================================================

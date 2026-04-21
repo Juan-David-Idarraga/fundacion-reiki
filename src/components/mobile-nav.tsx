@@ -117,19 +117,17 @@ export function MobileNav({
         <Menu size={18} />
       </button>
 
-      {/* ── OVERLAY OSCURO ── */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 lg:hidden"
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(4px)',
-            zIndex: 'calc(var(--z-index-modal) - 1)',
-          }}
-          onClick={() => setIsOpen(false)}
-          aria-hidden="true"
-        />
-      )}
+      {/* ── OVERLAY OSCURO (Backdrop) ── */}
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden ${
+          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+        style={{
+          zIndex: 40,
+        }}
+        onClick={() => setIsOpen(false)}
+        aria-hidden="true"
+      />
 
       {/* ── DRAWER LATERAL ── */}
       <div
@@ -138,8 +136,8 @@ export function MobileNav({
           backgroundColor: 'var(--color-sidebar)',
           borderRight: '1px solid var(--color-sidebar-border)',
           transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
-          boxShadow: isOpen ? '4px 0 32px rgba(0,0,0,0.5)' : 'none',
-          zIndex: 'var(--z-index-modal)',
+          boxShadow: isOpen ? '10px 0 40px rgba(0,0,0,0.7)' : 'none',
+          zIndex: 50,
         }}
         role="dialog"
         aria-modal="true"
