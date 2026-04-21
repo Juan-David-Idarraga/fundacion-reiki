@@ -114,6 +114,20 @@ export default function LoginPage() {
         className="relative flex min-h-screen w-full items-center justify-center p-6 sm:p-10 lg:min-h-0 lg:w-1/2 xl:p-16"
         style={{ backgroundColor: '#1A1C18' }}
       >
+        {/* BOTÓN DE VOLVER (Móvil y Desktop) */}
+        <Link
+          href="/"
+          className="group/back fixed top-6 left-6 z-50 flex items-center gap-2 rounded-full px-3 py-2 transition-all hover:bg-white/5 active:scale-95 lg:absolute lg:top-10 lg:left-10"
+          style={{ color: '#9A9589' }}
+        >
+          <ArrowLeft
+            size={18}
+            className="transition-transform group-hover/back:-translate-x-1"
+          />
+          <span className="text-[10px] font-black tracking-[0.2em] uppercase">
+            Volver
+          </span>
+        </Link>
         {/* Elemento decorativo sutil */}
         <div
           className="pointer-events-none absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] sm:h-[500px] sm:w-[500px]"
