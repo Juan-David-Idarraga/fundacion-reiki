@@ -120,8 +120,12 @@ export default async function IntranetLayout({
     >
       {/* ── SIDEBAR DESKTOP (lg+) ── */}
       <aside
-        className="z-50 hidden w-64 shrink-0 flex-col lg:flex"
-        style={{ backgroundColor: '#141510', borderRight: '1px solid #2A2C24' }}
+        className="hidden w-64 shrink-0 flex-col lg:flex"
+        style={{
+          zIndex: 'var(--z-index-sidebar)',
+          backgroundColor: 'var(--color-sidebar)',
+          borderRight: '1px solid var(--color-sidebar-border)',
+        }}
       >
         <div
           className="flex h-16 shrink-0 items-center px-5"
@@ -206,15 +210,19 @@ export default async function IntranetLayout({
 
       {/* ── ÁREA PRINCIPAL ── */}
       <main
-        className="flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden"
-        style={{ backgroundColor: '#1A1C18' }}
+        className="main-content-area flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden"
+        style={{
+          zIndex: 'var(--z-index-content)',
+          backgroundColor: 'var(--color-surface-base)',
+        }}
       >
         {/* Header con botón hamburguesa en móvil */}
         <header
-          className="z-10 flex h-16 shrink-0 items-center justify-between px-5 lg:px-8"
+          className="flex h-16 shrink-0 items-center justify-between px-5 lg:px-8"
           style={{
-            backgroundColor: '#1E2019',
-            borderBottom: '1px solid #2A2C24',
+            zIndex: 'var(--z-index-persistent-bars)',
+            backgroundColor: 'var(--color-surface-raised)',
+            borderBottom: '1px solid var(--color-sidebar-border)',
             boxShadow: '0 1px 8px rgba(0,0,0,0.3)',
           }}
         >

@@ -60,6 +60,15 @@
   --color-reiki-gold:   #C9A227;
   --color-reiki-stone:  #2E2B26;
 
+  /* ── Z-INDEX REGISTRY ── */
+  --z-index-base: 0;
+  --z-index-content: 10;
+  --z-index-persistent-bars: 20; /* Headers, footers fijos */
+  --z-index-sidebar: 30;
+  --z-index-overlay: 40; /* Overlays de modales, drawers */
+  --z-index-modal: 50; /* Modales, popups */
+  --z-index-global-loading: 9999; /* Pantallas de carga globales */
+
   /* ── Superficies ── */
   --color-surface-base:    #1A1C18;
   --color-surface-raised:  #242720;
@@ -157,6 +166,16 @@
     @apply bg-background text-foreground;
     background-color: #1A1C18;
     color: #E8E4DC;
+  }
+
+  /* Clase para bloquear el scroll y ocultar el contenido de fondo */
+  body.overlay-active {
+    overflow: hidden;
+  }
+
+  body.overlay-active .main-content-area {
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 

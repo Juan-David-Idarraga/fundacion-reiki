@@ -111,11 +111,11 @@ export default function Home() {
               />
             </div>
             {/* Ocultamos el texto largo en pantallas medianas para dar más espacio al menú */}
-            <div className="hidden sm:block">
-              <span className="block font-serif text-lg font-bold tracking-tight whitespace-nowrap text-white drop-shadow-md">
+            <div className="hidden min-w-0 sm:block">
+              <span className="block truncate font-serif text-lg font-bold tracking-tight text-white drop-shadow-md">
                 Maestro verificado
               </span>
-              <span className="hidden text-[9px] font-black tracking-[0.2em] whitespace-nowrap text-emerald-400 uppercase drop-shadow-md md:block">
+              <span className="hidden truncate text-[9px] font-black tracking-[0.2em] text-emerald-400 uppercase drop-shadow-md md:block">
                 Por la fundación chilena de Reiki
               </span>
             </div>
