@@ -111,7 +111,7 @@ export function MobileNav({
           backgroundColor: 'var(--color-surface-card)',
           color: 'var(--color-reiki-white)',
           border: '1px solid var(--color-border)',
-          zIndex: 'calc(var(--z-index-overlay) + 2)',
+          zIndex: 'var(--z-index-persistent-bars)',
         }}
       >
         <Menu size={18} />
@@ -124,7 +124,7 @@ export function MobileNav({
           style={{
             backgroundColor: 'rgba(0,0,0,0.7)',
             backdropFilter: 'blur(4px)',
-            zIndex: 'var(--z-index-overlay)',
+            zIndex: 'calc(var(--z-index-modal) - 1)',
           }}
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
@@ -139,7 +139,7 @@ export function MobileNav({
           borderRight: '1px solid var(--color-sidebar-border)',
           transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
           boxShadow: isOpen ? '4px 0 32px rgba(0,0,0,0.5)' : 'none',
-          zIndex: 'calc(var(--z-index-overlay) + 1)',
+          zIndex: 'var(--z-index-modal)',
         }}
         role="dialog"
         aria-modal="true"
@@ -159,18 +159,22 @@ export function MobileNav({
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Cerrar menú"
-            className="flex h-8 w-8 items-center justify-center rounded-xl transition-all active:scale-95"
-            style={{ backgroundColor: '#272A23', color: '#9A9589' }}
+            className="flex h-9 w-9 items-center justify-center rounded-xl transition-all active:scale-95"
+            style={{ 
+              backgroundColor: '#272A23', 
+              color: '#9A9589',
+              border: '1px solid #363830'
+            }}
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
 
         {/* Subtítulo del panel */}
-        <div className="px-5 pt-4 pb-2">
+        <div className="px-5 pt-6 pb-4">
           <p
-            className="text-[9px] font-black tracking-[0.25em] uppercase"
-            style={{ color: '#5A5750' }}
+            className="text-[10px] font-black tracking-[0.3em] uppercase"
+            style={{ color: titleColor, opacity: 0.8 }}
           >
             {title}
           </p>

@@ -279,12 +279,7 @@ export default async function AdminLayout({
           }}
         >
           {/* Izquierda: hamburguesa (móvil) + título */}
-          <div className="flex items-center gap-3">
-            {/*
-              MobileNav recibe solo props serializables (strings).
-              Los íconos se resuelven internamente con ICON_MAP.
-              El logout se inyecta como ReactNode (logoutSlot).
-            */}
+          <div className="flex min-w-0 items-center gap-4">
             <MobileNav
               links={mobileNavLinks}
               userName={nombreAdmin}
@@ -292,14 +287,14 @@ export default async function AdminLayout({
               avatarInitials={avatarInitials}
               avatarGradient="linear-gradient(135deg, #C9A227, #8B6B91)"
               roleColor="#C9A227"
-              title="Admin Panel"
+              title="ADMINISTRACIÓN"
               titleColor="#C9A227"
               logoutSlot={<LogoutButtonAdmin />}
             />
-            <div className="flex items-center gap-2">
-              <Shield size={14} style={{ color: '#C9A227' }} />
+            <div className="flex min-w-0 items-center gap-2">
+              <Shield size={14} className="shrink-0" style={{ color: '#C9A227' }} />
               <h1
-                className="font-serif text-base font-bold tracking-tight italic lg:text-lg"
+                className="truncate font-serif text-sm font-bold italic sm:text-base lg:text-lg"
                 style={{ color: '#E8E4DC' }}
               >
                 Panel de Administración

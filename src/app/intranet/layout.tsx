@@ -228,13 +228,7 @@ export default async function IntranetLayout({
           }}
         >
           {/* Izquierda: hamburguesa (móvil) + título */}
-          <div className="flex items-center gap-3">
-            {/*
-              MobileNav recibe solo props serializables (strings).
-              Los íconos se resuelven internamente con ICON_MAP.
-              El logout se inyecta como ReactNode (logoutSlot) para evitar
-              pasar Server Actions como props.
-            */}
+          <div className="flex min-w-0 items-center gap-4">
             <MobileNav
               links={mobileNavLinks}
               userName={nombreAlumno}
@@ -242,14 +236,14 @@ export default async function IntranetLayout({
               avatarInitials={avatarInitials}
               avatarGradient="linear-gradient(135deg, #4A8C42, #8B6B91)"
               roleColor="#4A8C42"
-              title="Portal Alumno"
-              titleColor="#4A8C42"
+              title="FORMACIÓN REIKI USUI"
+              titleColor="#C9A227"
               logoutSlot={<LogoutButtonIntranet />}
             />
-            <div className="flex items-center gap-2">
-              <Sparkles size={14} style={{ color: '#C9A227' }} />
+            <div className="flex min-w-0 items-center gap-2">
+              <Sparkles size={14} className="shrink-0" style={{ color: '#C9A227' }} />
               <h1
-                className="font-serif text-base font-bold italic lg:text-lg"
+                className="truncate font-serif text-sm font-bold italic sm:text-base lg:text-lg"
                 style={{ color: '#E8E4DC' }}
               >
                 Fundación Reiki
