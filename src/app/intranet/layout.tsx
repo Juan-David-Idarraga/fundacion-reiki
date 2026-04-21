@@ -224,6 +224,7 @@ export default async function IntranetLayout({
             backgroundColor: 'var(--color-surface-raised)',
             borderBottom: '1px solid var(--color-sidebar-border)',
             boxShadow: '0 1px 8px rgba(0,0,0,0.3)',
+            position: 'relative',
           }}
         >
           {/* Izquierda: hamburguesa (móvil) + título */}

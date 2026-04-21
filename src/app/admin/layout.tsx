@@ -264,16 +264,18 @@ export default async function AdminLayout({
 
       {/* ── ÁREA DE CONTENIDO ── */}
       <main
-        className="relative flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden"
+        className="main-content-area relative flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden"
         style={{ backgroundColor: '#1A1C18' }}
       >
         {/* Header con hamburguesa en móvil */}
         <header
-          className="z-10 flex h-16 shrink-0 items-center justify-between px-5 lg:px-8"
+          className="flex h-16 shrink-0 items-center justify-between px-5 lg:px-8"
           style={{
+            zIndex: 'var(--z-index-persistent-bars)',
             backgroundColor: '#1E2019',
             borderBottom: '1px solid #2A2C24',
             boxShadow: '0 1px 8px rgba(0,0,0,0.3)',
+            position: 'relative',
           }}
         >
           {/* Izquierda: hamburguesa (móvil) + título */}

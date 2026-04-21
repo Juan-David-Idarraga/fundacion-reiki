@@ -111,7 +111,7 @@ export function MobileNav({
           backgroundColor: 'var(--color-surface-card)',
           color: 'var(--color-reiki-white)',
           border: '1px solid var(--color-border)',
-          zIndex: 'var(--z-index-persistent-bars)',
+          zIndex: 'calc(var(--z-index-overlay) + 2)',
         }}
       >
         <Menu size={18} />
@@ -139,7 +139,7 @@ export function MobileNav({
           borderRight: '1px solid var(--color-sidebar-border)',
           transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
           boxShadow: isOpen ? '4px 0 32px rgba(0,0,0,0.5)' : 'none',
-          zIndex: 'var(--z-index-sidebar)',
+          zIndex: 'calc(var(--z-index-overlay) + 1)',
         }}
         role="dialog"
         aria-modal="true"
