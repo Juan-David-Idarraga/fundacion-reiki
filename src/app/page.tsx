@@ -190,6 +190,45 @@ export default function Home() {
             )}
           </button>
         </div>
+
+        {/* MENÚ MÓVIL DESPLEGABLE */}
+        {isMobileMenuOpen && (
+          <div
+            className="animate-fade-in-up mt-4 flex flex-col gap-4 border-t pt-6 pb-8 lg:hidden"
+            style={{ borderColor: '#2A2C24' }}
+          >
+            {navItems.map((item, i) => (
+              <Link
+                key={i}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-xs font-bold tracking-widest uppercase transition-all hover:text-emerald-400"
+                style={{ color: '#9A9589' }}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div
+              className="my-2 h-px"
+              style={{ backgroundColor: '#2A2C24' }}
+            ></div>
+            <Link
+              href="/login"
+              className="text-xs font-black tracking-widest uppercase transition-colors hover:text-emerald-400"
+              style={{ color: '#8B6B91' }}
+            >
+              Acceso Alumnos
+            </Link>
+            <Link
+              href={`https://wa.me/${waNumber}?text=${msgGeneral}`}
+              target="_blank"
+              className="w-full rounded-xl py-4 text-center text-xs font-black tracking-widest uppercase shadow-lg transition-transform active:scale-95"
+              style={{ backgroundColor: '#059669', color: '#E8E4DC' }}
+            >
+              Agendar Cita
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* ── HERO ── */}
