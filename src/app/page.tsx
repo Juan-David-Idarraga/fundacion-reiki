@@ -121,9 +121,7 @@ export default function Home() {
                 style={{ color: '#E8E4DC' }}
               >
                 Maestro verificado{' '}
-                <span style={{ color: '#4A8C42' }} className="italic">
-                  
-                </span>
+                <span style={{ color: '#4A8C42' }} className="italic"></span>
               </span>
               <span
                 className="text-[9px] font-black tracking-[0.2em] uppercase"
@@ -135,7 +133,7 @@ export default function Home() {
           </Link>
 
           <div
-            className="hidden gap-8 text-[10px] font-black tracking-widest uppercase lg:flex"
+            className="hidden gap-4 text-[10px] font-black tracking-widest uppercase md:gap-6 xl:flex"
             style={{ color: '#9A9589' }}
           >
             {navItems.map((item, i) => (
@@ -149,7 +147,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="hidden shrink-0 items-center gap-6 lg:flex">
+          <div className="hidden shrink-0 items-center gap-4 md:gap-6 xl:flex">
             <Link
               href="/login"
               className="text-[10px] font-black tracking-widest uppercase transition-colors hover:text-[#4A8C42]"
@@ -172,7 +170,7 @@ export default function Home() {
           </div>
 
           <button
-            className="p-2 lg:hidden"
+            className="p-2 xl:hidden"
             style={{ color: '#E8E4DC' }}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
@@ -212,7 +210,7 @@ export default function Home() {
 
         {isMobileMenuOpen && (
           <div
-            className="animate-fade-in-up mt-4 flex flex-col gap-4 border-t pt-6 pb-8 lg:hidden"
+            className="animate-fade-in-up mt-4 flex flex-col gap-4 border-t pt-6 pb-8 xl:hidden"
             style={{ borderColor: '#2A2C24' }}
           >
             {navItems.map((item, i) => (
@@ -249,13 +247,12 @@ export default function Home() {
         )}
       </nav>
 
-     {/* ── HERO ── */}
+      {/* ── HERO ── */}
       <main className="relative flex min-h-[100svh] flex-col items-center justify-between overflow-hidden px-6 pt-32 pb-16 text-center">
-        
         {/* IMAGEN DE FONDO Y GRADIENTES PROTECTORES */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
-            src="/banner.png" 
+            src="/banner.png"
             alt="Fondo dorado Formación Reiki"
             fill
             priority
@@ -263,28 +260,29 @@ export default function Home() {
           />
           {/* Viñeta superior oscura para resaltar el texto y el menú */}
           <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/80 via-black/30 to-transparent" />
-          
+
           {/* Viñeta inferior oscura para resaltar el texto de abajo */}
           <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/90 to-transparent" />
         </div>
 
         {/* CONTENEDOR DE TEXTOS */}
         <div className="relative z-10 flex w-full max-w-5xl flex-1 flex-col items-center justify-between">
-          
           {/* TEXTOS SUPERIORES - Empujados hacia arriba lejos del símbolo */}
-          <div className="space-y-2 mt-4 md:mt-8">
-            <h1 
-              className="reveal font-serif text-3xl font-bold tracking-wide md:text-5xl lg:text-6xl text-white"
-              style={{ 
-                textShadow: '0px 4px 10px rgba(0,0,0,0.9), 0px 0px 30px rgba(0,0,0,0.8)' 
+          <div className="mt-4 space-y-2 md:mt-8">
+            <h1
+              className="reveal font-serif text-3xl font-bold tracking-wide text-white md:text-5xl lg:text-6xl"
+              style={{
+                textShadow:
+                  '0px 4px 10px rgba(0,0,0,0.9), 0px 0px 30px rgba(0,0,0,0.8)',
               }}
             >
               Centro de Reiki & bienestar integral
             </h1>
-            <h2 
-              className="reveal reveal-delay-1 font-serif text-4xl font-extrabold tracking-wide md:text-5xl lg:text-6xl text-[#FFD700]"
-              style={{ 
-                textShadow: '0px 4px 10px rgba(0,0,0,0.9), 0px 0px 30px rgba(0,0,0,0.8), 0px 0px 10px rgba(255,215,0,0.3)' 
+            <h2
+              className="reveal reveal-delay-1 font-serif text-4xl font-extrabold tracking-wide text-[#FFD700] md:text-5xl lg:text-6xl"
+              style={{
+                textShadow:
+                  '0px 4px 10px rgba(0,0,0,0.9), 0px 0px 30px rgba(0,0,0,0.8), 0px 0px 10px rgba(255,215,0,0.3)',
               }}
             >
               Área de formación
@@ -292,20 +290,24 @@ export default function Home() {
           </div>
 
           {/* ESPACIO CENTRAL VACÍO - Deja lucir el Caduceo luminoso */}
-          <div className="flex-1 w-full min-h-[40vh] md:min-h-[50vh]"></div>
+          <div className="min-h-[40vh] w-full flex-1 md:min-h-[50vh]"></div>
 
           {/* TEXTO INFERIOR */}
           <div className="pb-4 lg:pb-8">
-            <p 
-              className="reveal reveal-delay-2 font-serif text-2xl font-bold tracking-wide md:text-4xl lg:text-5xl text-white"
-              style={{ 
-                textShadow: '0px 4px 15px rgba(0,0,0,1), 0px 0px 40px rgba(0,0,0,0.8)' 
+            <p
+              className="reveal reveal-delay-2 font-serif text-2xl font-bold tracking-wide text-white md:text-4xl lg:text-5xl"
+              style={{
+                textShadow:
+                  '0px 4px 15px rgba(0,0,0,1), 0px 0px 40px rgba(0,0,0,0.8)',
               }}
             >
-              Reiki Usui <span className="mx-3 font-light text-emerald-500 drop-shadow-md">|</span> Cursos certificados
+              Reiki Usui{' '}
+              <span className="mx-3 font-light text-emerald-500 drop-shadow-md">
+                |
+              </span>{' '}
+              Cursos certificados
             </p>
           </div>
-
         </div>
       </main>
 
@@ -558,7 +560,7 @@ export default function Home() {
         </div>
       </section>
 
-     {/* ── FORMACIÓN ── */}
+      {/* ── FORMACIÓN ── */}
       <section
         id="formaciones"
         className="texture-dots gradient-reiki-dark border-t px-6 py-24 lg:px-10"
@@ -585,21 +587,22 @@ export default function Home() {
               className="mx-auto max-w-2xl text-sm font-medium md:text-base"
               style={{ color: '#9A9589' }}
             >
-              Aprende los principios del Reiki Usui, desarrolla tus capacidades de sanación energética y accede a herramientas complementarias como la radiestesia.
+              Aprende los principios del Reiki Usui, desarrolla tus capacidades
+              de sanación energética y accede a herramientas complementarias
+              como la radiestesia.
             </p>
           </div>
 
           <div className="reveal card-elevated-gold rounded-[40px] p-8 lg:p-12">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
               <div className="space-y-6 lg:col-span-4">
-                
                 {/* ── CONTENEDOR DE IMAGEN CORREGIDO ── */}
                 <div
                   className="group relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-3xl border"
                   style={{ backgroundColor: '#242720', borderColor: '#363830' }}
                 >
                   <img
-                    src="/foto-.png" 
+                    src="/foto-.png"
                     alt="Clase de Reiki"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -630,7 +633,7 @@ export default function Home() {
                         className="card-elevated flex items-center gap-4 rounded-2xl p-5"
                       >
                         <div
-                          className="icon-bounce flex h-10 w-10 items-center justify-center rounded-xl shrink-0"
+                          className="icon-bounce flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
                           style={{
                             backgroundColor: item.bg,
                             color: item.color,
@@ -683,7 +686,7 @@ export default function Home() {
                     Reiki Usui + Péndulo & Radiestesia
                   </p>
                 </div>
-                
+
                 <div className="text-gradient-gold font-serif text-6xl font-bold">
                   $80.000
                 </div>
@@ -800,7 +803,7 @@ export default function Home() {
         </div>
       </section>
 
-    {/* ── EL MAESTRO ── */}
+      {/* ── EL MAESTRO ── */}
       <section
         id="el-maestro"
         className="texture-dots gradient-reiki-dark border-t px-6 py-24 lg:px-10"
@@ -841,13 +844,13 @@ export default function Home() {
               >
                 Daniel Riquelme
               </h2>
-              
+
               {/* ENLACE VERIFICADO A LA FUNDACIÓN */}
               <a
                 href="https://www.fundacionchilenadereiki.cl/maestro-a-verificado-a/daniel-riquelme"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-1 border-l-4 pl-4 text-[10px] font-black tracking-[0.3em] uppercase transition-all hover:opacity-75 hover:underline decoration-1 underline-offset-4"
+                className="group inline-flex items-center gap-1 border-l-4 pl-4 text-[10px] font-black tracking-[0.3em] uppercase decoration-1 underline-offset-4 transition-all hover:underline hover:opacity-75"
                 style={{ color: '#4A8C42', borderColor: '#4A8C42' }}
                 title="Verificar certificación en la Fundación Chilena de Reiki"
               >
@@ -862,7 +865,10 @@ export default function Home() {
               className="text-base leading-relaxed font-medium"
               style={{ color: '#9A9589' }}
             >
-              Con formación avanzada en la Fundación Chilena de Reiki (Nivel 4) y Maestría en Reiki Kundalini. Daniel ofrece un espacio seguro, ético y profesional para liberar bloqueos, equilibrar tu energía y guiarte en el reencuentro con tu verdadera esencia.
+              Con formación avanzada en la Fundación Chilena de Reiki (Nivel 4)
+              y Maestría en Reiki Kundalini. Daniel ofrece un espacio seguro,
+              ético y profesional para liberar bloqueos, equilibrar tu energía y
+              guiarte en el reencuentro con tu verdadera esencia.
             </p>
 
             <div className="space-y-4">
@@ -898,7 +904,7 @@ export default function Home() {
         </div>
       </section>
 
-     {/* ── CONTACTO ── */}
+      {/* ── CONTACTO ── */}
       <section
         id="contacto"
         className="gradient-reiki-warm-dark texture-dots border-t px-6 py-24 lg:px-10"
@@ -968,7 +974,9 @@ export default function Home() {
                   key={i}
                   href={item.link}
                   target={item.link.startsWith('http') ? '_blank' : '_self'}
-                  rel={item.link.startsWith('http') ? 'noopener noreferrer' : ''}
+                  rel={
+                    item.link.startsWith('http') ? 'noopener noreferrer' : ''
+                  }
                   className={`reveal reveal-scale ${item.delay} card-elevated group rounded-3xl p-8 text-center transition-all`}
                 >
                   <div
@@ -980,7 +988,10 @@ export default function Home() {
                   >
                     <Icon size={28} />
                   </div>
-                  <h3 className="mb-1 font-bold transition-colors duration-300 group-hover:text-white" style={{ color: '#E8E4DC' }}>
+                  <h3
+                    className="mb-1 font-bold transition-colors duration-300 group-hover:text-white"
+                    style={{ color: '#E8E4DC' }}
+                  >
                     {item.title}
                   </h3>
                   <p
@@ -989,7 +1000,10 @@ export default function Home() {
                   >
                     {item.desc}
                   </p>
-                  <p className="text-sm font-bold transition-colors duration-300 group-hover:text-white" style={{ color: '#B8B4AC' }}>
+                  <p
+                    className="text-sm font-bold transition-colors duration-300 group-hover:text-white"
+                    style={{ color: '#B8B4AC' }}
+                  >
                     {item.value}
                   </p>
                 </a>
