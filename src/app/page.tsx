@@ -102,11 +102,11 @@ export default function Home() {
           >
             <div className="shrink-0 overflow-hidden rounded-xl shadow-lg transition-all duration-500 group-hover:scale-110">
               <Image
-                src="/foto-clase.png" // Tu logo
+                src="/foto-clase.png"
                 alt="Logo Fundación Reiki Usui"
                 width={44}
                 height={44}
-                className="h-11 w-11 object-cover"
+                className="h-11 w-11 object-contain"
                 priority
               />
             </div>
@@ -235,7 +235,7 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
             src="/banner.png"
-            alt="Fondo dorado Formación Reiki"
+            alt="Fondo Formación Reiki"
             fill
             priority
             className="object-cover object-center"
