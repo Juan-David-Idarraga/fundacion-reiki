@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useFormStatus } from 'react-dom'
 import {
   Bell,
   Calendar,
@@ -11,6 +12,7 @@ import {
   MessageSquare,
 } from 'lucide-react'
 import { AvisoCard } from '@/components/admin/aviso-card'
+import LoadingSpinner from '@/components/ui/loading-spinner'
 import { isDateExpired } from '@/utils/date-format'
 
 interface AvisosClientProps {
@@ -154,13 +156,7 @@ export default function AvisosClient({
               </p>
             </div>
 
-            <button
-              type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-stone-900 py-3.5 text-[10px] font-black tracking-[0.2em] text-amber-500 uppercase shadow-lg shadow-stone-900/10 transition-all hover:bg-stone-800 active:scale-[0.98]"
-            >
-              <CheckCircle size={14} />
-              Publicar Aviso Ahora
-            </button>
+            <PublishAvisoButton />
           </form>
         </div>
 
@@ -213,5 +209,29 @@ export default function AvisosClient({
         </div>
       </div>
     </div>
+  )
+}
+
+function PublishAvisoButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="flex w-full items-center justify-center gap-2 rounded-xl bg-stone-900 py-3.5 text-[10px] font-black tracking-[0.2em] text-amber-500 uppercase shadow-lg shadow-stone-900/10 transition-all hover:bg-stone-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-stone-900"
+    >
+      {pending ? (
+        <>
+          <LoadingSpinner size="sm" color="#C9A227" />
+          <span>Publicando...</span>
+        </>
+      ) : (
+        <>
+          <CheckCircle size={14} />
+          <span>Publicar Aviso Ahora</span>
+        </>
+      )}
+    </button>
   )
 }
