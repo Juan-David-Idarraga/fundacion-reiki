@@ -54,6 +54,6 @@ Este proyecto ha sido desarrollado por:
 
 **Juan Idarraga**
 *   **Empresa**: Technology of Jota
-*   **Portafolio**: [Enlace a tu portafolio o LinkedIn](https://www.linkedin.com/in/juan-david-idarraga-b1a1a1a1a/) (Reemplazar con tu enlace real)
+*   **Portafolio**: https://www.linkedin.com/in/juan-david-idarraga-11088b387/
 
 ---
