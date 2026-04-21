@@ -189,7 +189,7 @@ export function MobileNav({
                 style={{
                   color: isActive ? '#E8E4DC' : '#9A9589',
                   backgroundColor: isActive ? '#272A23' : 'transparent',
-                  WebkitTapHighlightColor: 'transparent',
+                  WebkitTapHighlightColor: 'transparent !important',
                 }}
               >
                 {Icon && (
