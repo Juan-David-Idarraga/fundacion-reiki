@@ -321,13 +321,18 @@ export default function ClasesAlumnoClient({
               style={{ backgroundColor: '#000' }}
             >
               <div className="relative h-full min-h-0 w-full">
-                <iframe
-                  className="h-full w-full"
-                  src={`${selectedClase.url_youtube}?autoplay=1`}
-                  title={selectedClase.titulo}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
+                <div
+                  className="relative w-full"
+                  style={{ paddingTop: '56.25%' }}
+                >
+                  <iframe
+                    className="absolute inset-0 h-full w-full"
+                    src={`${selectedClase.url_youtube}?autoplay=1`}
+                    title={selectedClase.titulo}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
               </div>
 
               {/* Info móvil */}

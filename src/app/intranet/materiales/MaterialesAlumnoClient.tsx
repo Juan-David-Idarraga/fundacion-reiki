@@ -45,7 +45,14 @@ export default function MaterialesAlumnoClient({
       return
     }
 
-    window.open(data.signedUrl, '_blank')
+    // Para mejorar la compatibilidad en iOS, creamos un enlace temporal y lo clicamos programáticamente.
+    const link = document.createElement('a')
+    link.href = data.signedUrl
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer' // Buenas prácticas de seguridad
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   const filteredMateriales = materiales.filter((m) =>

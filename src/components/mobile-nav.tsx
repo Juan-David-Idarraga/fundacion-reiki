@@ -185,10 +185,11 @@ export function MobileNav({
               <Link
                 key={href}
                 href={href}
-                className="flex items-center gap-3 rounded-xl px-4 py-3 text-[11px] font-bold tracking-wider uppercase transition-all"
+                className="flex items-center gap-3 rounded-xl px-4 py-3 text-[11px] font-bold tracking-wider uppercase transition-all hover:bg-[#272A23] focus-visible:ring-2 focus-visible:ring-[#4A8C42] focus-visible:outline-none active:bg-[#363830]"
                 style={{
                   color: isActive ? '#E8E4DC' : '#9A9589',
                   backgroundColor: isActive ? '#272A23' : 'transparent',
+                  WebkitTapHighlightColor: 'transparent',
                 }}
               >
                 {Icon && (
